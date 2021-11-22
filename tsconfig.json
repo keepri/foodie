@@ -29,11 +29,12 @@
 			"#firebase/*": ["firebase/*"],
 			"#controllers/*": ["controllers/*"],
 			"#contexts/*": ["contexts/*"],
-			"#interfaces/*": ["interfaces/*"],
+			"#declarations/*": ["declarations/*"],
 			"#modules/*": ["modules/*"],
 			"#pages/*": ["pages/*"],
 			"#public/*": ["public/*"],
-			"#styles/*": ["styles/*"]
+			"#styles/*": ["styles/*"],
+			"#redux/*": ["redux/*"]
 		}
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
