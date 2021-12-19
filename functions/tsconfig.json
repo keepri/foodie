@@ -1,18 +1,19 @@
 {
 	"compilerOptions": {
 		"checkJs": true,
-		"module": "commonjs",
+		"module": "esnext",
 		"noImplicitReturns": true,
 		"noUnusedLocals": true,
 		"noImplicitAny": true,
 		"outDir": "lib",
 		"sourceMap": true,
 		"strict": true,
-		"target": "es2017",
+		"target": "esnext",
 		"baseUrl": "./src",
 		"paths": {
 			"#middleware/*": ["middleware/*"]
-		}
+		},
+		"moduleResolution": "node"
 	},
 	"compileOnSave": true,
 	"include": ["src"],
