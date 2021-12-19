@@ -11,7 +11,10 @@
 		"target": "esnext",
 		"baseUrl": "./src",
 		"paths": {
-			"#middleware/*": ["middleware/*"]
+			"#middleware/*": ["middleware/*"],
+			"#request/*": ["request/*"],
+			"#trigger/*": ["trigger/*"],
+			"#callable/*": ["callable/*"]
 		},
 		"moduleResolution": "node"
 	},
