@@ -1,9 +1,5 @@
-import { HelloData } from '#pages/api/hello';
-
 export const baseUrl =
-	process.env.NODE_ENV === 'development'
-		? 'http://localhost:3000'
-		: 'http://localhost:3000';
+	process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'http://localhost:3000';
 
 export enum ApiUrls {
 	hello = '/api/hello',
@@ -15,8 +11,7 @@ export const fetcher = {
 			const res = await fetch(`${baseUrl}${url}`, config);
 
 			if (res) {
-				if (url === ApiUrls.hello)
-					return { ...res, data: await res.json<HelloData>() };
+				if (url === ApiUrls.hello) return { ...res, data: await res.json() };
 			}
 
 			return { ...res, data: null };
