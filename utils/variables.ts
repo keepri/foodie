@@ -9,5 +9,5 @@ const defaultCookieOptions: CookieSerializeOptions = {
 	httpOnly: true,
 	sameSite: isProduction ? 'strict' : 'lax',
 	path: '/',
-	// domain: process.env.BASE_DOMAIN,
+	domain: process.env.BASE_DOMAIN,
 };
