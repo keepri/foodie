@@ -36,7 +36,6 @@ export interface Address {
 	city: string;
 	street: string;
 	number: number;
-	phone: string;
 	alias?: string;
 	extra?: string;
 }
@@ -47,4 +46,11 @@ export interface OrderItems {
 	quantity: number;
 	price: number;
 	info?: string;
+}
+
+export interface ClientRegisterFields {
+	name: string;
+	email: string;
+	password: string;
+	phone: string;
 }

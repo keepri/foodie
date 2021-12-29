@@ -14,3 +14,9 @@ export enum ORDER_STATUS {
 	COMPLETED = 'completed',
 	CANCELED = 'canceled',
 }
+
+export enum ACCOUNT_TYPE {
+	CLIENT = 'client',
+	RESTAURANT = 'restaurant',
+	ADMIN = 'admin',
+}

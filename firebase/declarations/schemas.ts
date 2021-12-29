@@ -1,14 +1,16 @@
-import { ORDER_STATUS, RESTAURANT_STATUS } from './enums';
+import { ACCOUNT_TYPE, ORDER_STATUS, RESTAURANT_STATUS } from './enums';
 import { Address, RestaurantCosts, OpenHours, OrderItems, Category } from './interfaces';
 
 export interface ClientSchema {
 	name: string;
-	addresses: Address[];
+	phone: string;
+	addresses?: Address[];
 }
 
 export interface RestaurantSchema {
 	status: RESTAURANT_STATUS;
 	name: string;
+	phone: string;
 	addresses: Address[];
 	costs: RestaurantCosts;
 	rating: number;
