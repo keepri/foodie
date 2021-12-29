@@ -1,4 +1,4 @@
-import { ACCOUNT_TYPE, ORDER_STATUS, RESTAURANT_STATUS } from './enums';
+import { ORDER_STATUS, RESTAURANT_STATUS } from './enums';
 import { Address, RestaurantCosts, OpenHours, OrderItems, Category } from './interfaces';
 
 export interface ClientSchema {
@@ -14,7 +14,6 @@ export interface RestaurantSchema {
 	addresses: Address[];
 	costs: RestaurantCosts;
 	rating: number;
-	menu: string;
 	hours: OpenHours;
 }
 
