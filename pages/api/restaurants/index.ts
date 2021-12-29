@@ -10,7 +10,6 @@ import { firestore } from '#firebase/initServerApp';
 import { handleError } from '#controllers/api/handleError';
 import { objectContainsSameKeys } from '#controllers/api/validation/objectContainsSameKeys';
 import { baseRestaurant } from '#declarations/baseForms';
-import { terminate } from 'firebase/firestore';
 
 export default async (req: NextApiRequest, res: NextApiResponse<RestaurantsReturnType>) => {
 	switch (req.method) {
