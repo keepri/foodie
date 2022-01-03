@@ -1,27 +1,32 @@
+import { COOKIE_NAMES, MESSAGES } from '#firebase/declarations/enums';
 import { auth } from '#firebase/initServerApp';
+import { NextApiRequest, NextApiResponse } from 'next';
 
-interface VerifyTokenResult {
-	uid: string;
-}
+// interface VerifyTokenResult {
+// 	uid: string;
+// }
 
 export { verifyToken };
 
-const verifyToken = async (token: string) => {
-	const result: VerifyTokenResult = { uid: '' };
-	const checkRevoked = true;
-	const tokenSplit = token.split(' ');
+const verifyToken = async (req: NextApiRequest, res: NextApiResponse) => {
+	const token = req.cookies?.[COOKIE_NAMES.TOKEN];
+	if (!token) return res.status(401).json({ message: MESSAGES.UNAUTHORIZED_NO_TOKEN });
 
-	if (tokenSplit?.[0] !== 'Foodie') return result;
-	if (!tokenSplit?.[1]) return result;
+	// const result: VerifyTokenResult = { uid: '' };
 
 	try {
+		const checkRevoked = true;
+		const tokenSplit = token.split(' ');
+
+		if (tokenSplit?.[0] !== 'Foodie' || !tokenSplit?.[1])
+			return res.status(401).json({ message: MESSAGES.UNAUTHORIZED_TOKEN });
+
 		const { uid } = await auth.verifyIdToken(tokenSplit?.[1], checkRevoked);
 
-		if (uid) result.uid = uid;
+		if (uid) req.body.tokenUid = uid;
 	} catch (error) {
-		console.warn('Unsuccessful token verification!');
 		throw error;
 	}
 
-	return result;
+	// return result;
 };

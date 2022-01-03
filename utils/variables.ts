@@ -1,6 +1,7 @@
 import { CookieSerializeOptions } from 'cookie';
+import Cors from 'cors';
 
-export { isProduction, defaultCookieOptions };
+export { cors, isProduction, defaultCookieOptions };
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -11,3 +12,7 @@ const defaultCookieOptions: CookieSerializeOptions = {
 	path: '/',
 	domain: process.env.BASE_DOMAIN,
 };
+
+const cors = Cors({
+	methods: ['GET', 'HEAD'],
+});

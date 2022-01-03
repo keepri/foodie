@@ -1,19 +1,27 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
 import { REQUEST_METHODS } from '#declarations/enums/REST';
-import { baseRestaurant } from 'utils/baseForms';
 
 import { RestaurantsRequestBody, RestaurantsReturnType } from '#firebase/declarations/types';
-import { COLLECTIONS, COOKIE_NAMES, MESSAGES } from '#firebase/declarations/enums';
+import { COLLECTIONS, MESSAGES } from '#firebase/declarations/enums';
 import { RestaurantSchema } from '#firebase/declarations/schemas';
 import { firestore } from '#firebase/initServerApp';
 
 import { handleError } from '#controllers/api/handleError';
-import { objectContainsSameKeys } from '#controllers/api/validation/objectContainsSameKeys';
-import { verifyToken } from '#controllers/api/validation/verifyToken';
+import { useCors } from '#controllers/api/middleware/useCors';
+import { restaurantRouteValidation } from '#controllers/api/validation/routes/restaurantRouteValidation';
 
 export default async (req: NextApiRequest, res: NextApiResponse<RestaurantsReturnType>) => {
+	// INITIAL ROUTE VERIFICATIONS
+	try {
+		await useCors(req, res);
+		await restaurantRouteValidation(req, res);
+	} catch (error) {
+		await handleError(error, res);
+	}
+
 	switch (req.method) {
+		// GET
 		case REQUEST_METHODS.GET: {
 			try {
 				const restaurantsCol = await firestore.collection(COLLECTIONS.RESTAURANTS).get();
@@ -27,47 +35,31 @@ export default async (req: NextApiRequest, res: NextApiResponse<RestaurantsRetur
 			break;
 		}
 
-		case REQUEST_METHODS.POST: {
-			try {
-				const token = req.cookies?.[COOKIE_NAMES.TOKEN];
-				if (!token) return res.status(401).json({ message: MESSAGES.UNAUTHORIZED_NO_TOKEN });
+		// TODO restaurant api route POST request
+		// POST
+		// case REQUEST_METHODS.POST: {
+		// 	try {
+		// 		const { uid, data } = req.body as RestaurantsRequestBody;
+		// 		const restaurantCol = firestore.collection(COLLECTIONS.RESTAURANTS);
+		// 		await restaurantCol.doc(uid as string).set(data as RestaurantSchema);
 
-				const { uid, data } = req.body as RestaurantsRequestBody;
-				if (!uid || !data) return res.status(400).json({ message: MESSAGES.RESTAURANTS_MANDATORY_FIELDS_ALL });
+		// 		return res.status(200).json({ message: MESSAGES.SUCCESS });
+		// 	} catch (error) {
+		// 		await handleError(error, res);
+		// 	}
 
-				const { uid: tokenUid } = await verifyToken(token);
-				if (uid !== tokenUid) return res.status(401).json({ message: MESSAGES.UNAUTHORIZED_TOKEN });
+		// 	break;
+		// }
 
-				const { isValid, errorFields } = objectContainsSameKeys<RestaurantSchema>(data, baseRestaurant);
-				if (!isValid) return res.status(400).json({ message: MESSAGES.ERROR, errorFields });
-
-				const restaurantCol = firestore.collection(COLLECTIONS.RESTAURANTS);
-				await restaurantCol.doc(uid).set(data);
-
-				return res.status(200).json({ message: MESSAGES.SUCCESS });
-			} catch (error) {
-				await handleError(error, res);
-			}
-
-			break;
-		}
-
+		// PATCH
 		case REQUEST_METHODS.PATCH: {
 			try {
-				const token = req.cookies?.[COOKIE_NAMES.TOKEN];
-				if (!token) return res.status(401).json({ message: MESSAGES.UNAUTHORIZED_NO_TOKEN });
-
 				const { uid, data } = req.body as RestaurantsRequestBody;
-				if (!uid || !data) return res.status(400).json({ message: MESSAGES.RESTAURANTS_MANDATORY_FIELDS_ALL });
+				const restaurantDoc = firestore.collection(COLLECTIONS.RESTAURANTS).doc(uid as string);
 
-				const { uid: tokenUid } = await verifyToken(token);
-				if (uid !== tokenUid) return res.status(401).json({ message: MESSAGES.UNAUTHORIZED_TOKEN });
+				if (!(await restaurantDoc.get()).exists) return res.status(404).json({ message: MESSAGES.NOT_FOUND });
 
-				const { isValid, errorFields } = objectContainsSameKeys<RestaurantSchema>(data, baseRestaurant);
-				if (!isValid) return res.status(400).json({ message: MESSAGES.ERROR, errorFields });
-
-				const restaurantDoc = firestore.collection(COLLECTIONS.RESTAURANTS).doc(uid);
-				await restaurantDoc.update(data);
+				await restaurantDoc.update(data as Partial<RestaurantSchema>);
 				const restaurant = (await restaurantDoc.get()).data() as RestaurantSchema;
 
 				return res.status(200).json({ restaurant });
@@ -78,22 +70,15 @@ export default async (req: NextApiRequest, res: NextApiResponse<RestaurantsRetur
 			break;
 		}
 
+		// PUT
 		case REQUEST_METHODS.PUT: {
 			try {
-				const token = req.cookies?.[COOKIE_NAMES.TOKEN];
-				if (!token) return res.status(401).json({ message: MESSAGES.UNAUTHORIZED_NO_TOKEN });
-
 				const { uid, data } = req.body as RestaurantsRequestBody;
-				if (!uid || !data) return res.status(400).json({ message: MESSAGES.RESTAURANTS_MANDATORY_FIELDS_ALL });
+				const restaurantDoc = firestore.collection(COLLECTIONS.RESTAURANTS).doc(uid as string);
 
-				const { uid: tokenUid } = await verifyToken(token);
-				if (uid !== tokenUid) return res.status(401).json({ message: MESSAGES.UNAUTHORIZED_TOKEN });
+				if (!(await restaurantDoc.get()).exists) return res.status(404).json({ message: MESSAGES.NOT_FOUND });
 
-				const { isValid, errorFields } = objectContainsSameKeys<RestaurantSchema>(data, baseRestaurant);
-				if (!isValid) return res.status(400).json({ message: MESSAGES.ERROR, errorFields });
-
-				const restaurantDoc = firestore.collection(COLLECTIONS.RESTAURANTS).doc(uid);
-				await restaurantDoc.set(data);
+				await restaurantDoc.set(data as RestaurantSchema);
 				const restaurant = (await restaurantDoc.get()).data() as RestaurantSchema;
 
 				return res.status(200).json({ restaurant });
@@ -104,19 +89,15 @@ export default async (req: NextApiRequest, res: NextApiResponse<RestaurantsRetur
 			break;
 		}
 
+		// DELETE
 		case REQUEST_METHODS.DELETE: {
 			try {
-				const token = req.cookies?.[COOKIE_NAMES.TOKEN];
-				if (!token) return res.status(401).json({ message: MESSAGES.UNAUTHORIZED_NO_TOKEN });
-
 				const { uid } = req.body as RestaurantsRequestBody;
-				if (!uid) return res.status(400).json({ message: MESSAGES.RESTAURANTS_MANDATORY_FIELDS_ALL });
+				const restaurantDoc = firestore.collection(COLLECTIONS.RESTAURANTS).doc(uid as string);
 
-				const { uid: tokenUid } = await verifyToken(token);
-				if (uid !== tokenUid) return res.status(401).json({ message: MESSAGES.UNAUTHORIZED_TOKEN });
+				if (!(await restaurantDoc.get()).exists) return res.status(404).json({ message: MESSAGES.NOT_FOUND });
 
-				const restaurantCol = firestore.collection(COLLECTIONS.RESTAURANTS);
-				await restaurantCol.doc(uid).delete();
+				await restaurantDoc.delete();
 
 				return res.status(200).json({ message: MESSAGES.SUCCESS });
 			} catch (error) {
