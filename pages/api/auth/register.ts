@@ -8,6 +8,7 @@ import { ClientSchema } from '#firebase/declarations/schemas';
 import { RegisterReturnType } from '#firebase/declarations/types';
 import { handleError } from '#controllers/api/handleError';
 import { isProduction } from 'utils/variables';
+import { URLS_DEV, URLS_PROD } from '#declarations/enums/URLS';
 // import nodemailer from 'nodemailer';
 
 export default async (req: NextApiRequest, res: NextApiResponse<RegisterReturnType>) => {
@@ -15,21 +16,15 @@ export default async (req: NextApiRequest, res: NextApiResponse<RegisterReturnTy
 		case REQUEST_METHODS.POST: {
 			try {
 				const { email, password, name, phone } = req.body as ClientRegisterFields;
-
-				var actionCodeSettings = {
-					url: isProduction ? 'http://localhost:3000/sign-in' : 'http://localhost:3000/sign-in',
-				};
+				const actionCodeSettings = { url: isProduction ? URLS_PROD.LOGIN : URLS_DEV.LOGIN };
 
 				const user = await auth.createUser({ email, password });
-
 				if (!user) return res.status(500).json({ message: MESSAGES.CREATE_ACCOUNT_ERROR });
 
 				const newUserInfo: ClientSchema = { name, phone };
-
 				await firestore.collection(COLLECTIONS.USERS).doc(user.uid).set(newUserInfo);
 
 				const verificationEmail = await auth.generateEmailVerificationLink(email, actionCodeSettings);
-
 				if (!verificationEmail) return res.status(500).json({ message: MESSAGES.VERIF_EMAIL_ERROR });
 
 				return res.status(200).json({ user, verificationEmail, message: MESSAGES.CREATE_ACCOUNT_SUCCESS });
@@ -39,6 +34,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<RegisterReturnTy
 
 			break;
 		}
+
 		default:
 			return res.status(405).json({ message: `Method "${req.method}" not allowed!` });
 	}
