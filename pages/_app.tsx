@@ -1,4 +1,5 @@
 import '#firebase/initClientApp';
+import '#styles/reset.scss';
 import '#styles/globals.scss';
 
 import React from 'react';
