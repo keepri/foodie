@@ -4,7 +4,7 @@ import {
 	Category,
 	CategoryItem,
 	OpenHours,
-	OrderItems,
+	OrderItem,
 	RestaurantCosts,
 } from '#firebase/declarations/interfaces';
 import {
@@ -44,7 +44,7 @@ const baseCategory: Category = {
 	items: [baseCategoryItem],
 };
 
-const baseOrderItem: OrderItems = {
+const baseOrderItem: OrderItem = {
 	name: '',
 	description: '',
 	quantity: 0,

@@ -40,7 +40,7 @@ export interface Address {
 	extra?: string;
 }
 
-export interface OrderItems {
+export interface OrderItem {
 	name: string;
 	description: string;
 	quantity: number;

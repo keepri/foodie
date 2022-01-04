@@ -1,11 +1,10 @@
 import React from 'react';
-
 import type { NextPage } from 'next';
 
 interface Props {}
 
-const Home: NextPage<Props> = ({}) => {
+const HomePage: NextPage<Props> = ({}) => {
 	return <div></div>;
 };
 
-export default Home;
+export default HomePage;

@@ -1,5 +1,7 @@
+import { AuthState, CartState } from '#declarations/interfaces/Redux';
 import { CookieSerializeOptions } from 'cookie';
 import Cors from 'cors';
+import { baseOrder } from './baseForms';
 
 export { cors, isProduction, defaultCookieOptions };
 
@@ -16,3 +18,13 @@ const defaultCookieOptions: CookieSerializeOptions = {
 const cors = Cors({
 	methods: ['GET', 'HEAD'],
 });
+
+export const initAuthState: AuthState = {
+	loading: false,
+	isLogged: false,
+};
+
+export const initCartState: CartState = {
+	...baseOrder,
+	loading: false,
+};

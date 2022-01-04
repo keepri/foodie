@@ -1,5 +1,5 @@
 import { ORDER_STATUS, RESTAURANT_STATUS } from './enums';
-import { Address, RestaurantCosts, OpenHours, OrderItems, Category } from './interfaces';
+import { Address, RestaurantCosts, OpenHours, OrderItem, Category } from './interfaces';
 
 export interface ClientSchema {
 	name: string;
@@ -18,7 +18,7 @@ export interface RestaurantSchema {
 }
 
 export interface OrderSchema {
-	items: OrderItems[];
+	items: OrderItem[];
 	total: number;
 	client: string;
 	restaurant: string;

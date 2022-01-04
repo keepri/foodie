@@ -35,7 +35,6 @@ export default async (req: NextApiRequest, res: NextApiResponse<RestaurantsRetur
 			break;
 		}
 
-		// TODO restaurant api route POST request
 		// POST
 		// case REQUEST_METHODS.POST: {
 		// 	try {
