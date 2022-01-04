@@ -1,3 +1,4 @@
+import { URLS_DEV, URLS_PROD } from '#declarations/enums/URLS';
 import { AuthState, CartState } from '#declarations/interfaces/Redux';
 import { CookieSerializeOptions } from 'cookie';
 import Cors from 'cors';
@@ -12,7 +13,7 @@ const defaultCookieOptions: CookieSerializeOptions = {
 	httpOnly: true,
 	sameSite: isProduction ? 'strict' : 'lax',
 	path: '/',
-	domain: process.env.BASE_DOMAIN,
+	domain: isProduction ? URLS_PROD.HOME : URLS_DEV.HOME,
 };
 
 const cors = Cors({

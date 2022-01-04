@@ -26,6 +26,10 @@ export enum ACCOUNT_TYPE {
 	ADMIN = 'admin',
 }
 
+export enum COOKIE_NAMES {
+	TOKEN = 'foodie_token',
+}
+
 export enum MESSAGES {
 	// GENERIC
 	SUCCESS = 'Success!',
@@ -63,8 +67,4 @@ export enum MESSAGES {
 	// MENUS
 	MENUS_MDANDATORY_FIELDS_UID = 'Mandatory fields: "uid"!',
 	MENUS_MDANDATORY_FIELDS_DATA = 'Mandatory fields: "data"!',
-}
-
-export enum COOKIE_NAMES {
-	TOKEN = 'foodie_token',
 }

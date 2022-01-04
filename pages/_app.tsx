@@ -8,9 +8,10 @@ import type { AppProps } from 'next/app';
 import { store } from '#redux/store';
 import axios from 'axios';
 import { isProduction } from 'utils/variables';
+import { URLS_DEV, URLS_PROD } from '#declarations/enums/URLS';
 
 if (!axios.defaults.baseURL) {
-	axios.defaults.baseURL = isProduction ? 'http://localhost:3000' : 'http://localhost:3000';
+	axios.defaults.baseURL = isProduction ? URLS_PROD.HOME : URLS_DEV.HOME;
 }
 
 if (!axios.defaults.headers.post['Content-Type']) {
