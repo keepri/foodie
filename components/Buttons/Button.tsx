@@ -1,7 +1,8 @@
 import React from 'react';
-import { Url } from '#declarations/types/Various';
 
 import styles from './Button.module.scss';
+
+import { Url } from '#declarations/types/Misc';
 
 type ButtonRefType = React.ForwardedRef<HTMLButtonElement>;
 

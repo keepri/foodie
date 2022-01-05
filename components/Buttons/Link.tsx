@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import styles from './Button.module.scss';
 
-import { Url } from '#declarations/types/Various';
+import { Url } from '#declarations/types/Misc';
 
 type LinkRefType = React.ForwardedRef<HTMLAnchorElement>;
 

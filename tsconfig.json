@@ -29,7 +29,7 @@
 			"#firebase/*": ["firebase/*"],
 			"#controllers/*": ["controllers/*"],
 			"#contexts/*": ["contexts/*"],
-			"#declarations/*": ["declarations/*"],
+			"#declarations/*": ["utils/declarations/*"],
 			"#modules/*": ["modules/*"],
 			"#pages/*": ["pages/*"],
 			"#public/*": ["public/*"],
