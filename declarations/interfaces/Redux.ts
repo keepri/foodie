@@ -1,14 +1,29 @@
-import { CartActionType } from '#declarations/enums/Redux';
+import { CartActionType, AuthActionType, AppActionType } from '#declarations/enums/Redux';
 import { OrderItem } from '#firebase/declarations/interfaces';
 import { OrderSchema } from '#firebase/declarations/schemas';
-import { AuthActionType } from '#declarations/enums/Redux';
 
-// AUTH
+// --- STATE ---
+export interface AppState {
+	loading: boolean;
+}
+
 export interface AuthState {
 	loading: boolean;
 	isLogged: boolean;
 }
 
+export interface CartState extends OrderSchema {
+	loading: boolean;
+}
+
+// --- ACTIONS ---
+// APP
+export interface AppSetLoadingAction {
+	type: AppActionType.SET_LOADING;
+	payload: boolean;
+}
+
+// AUTH
 export interface AuthSetLoadingAction {
 	type: AuthActionType.SET_LOADING;
 	payload: boolean;
@@ -24,10 +39,6 @@ export interface AuthResetAction {
 }
 
 // CART
-export interface CartState extends OrderSchema {
-	loading: boolean;
-}
-
 export interface CartSetLoadingAction {
 	type: CartActionType.SET_LOADING;
 	payload: boolean;

@@ -1,5 +1,5 @@
 import { URLS_DEV, URLS_PROD } from '#declarations/enums/URLS';
-import { AuthState, CartState } from '#declarations/interfaces/Redux';
+import { AppState, AuthState, CartState } from '#declarations/interfaces/Redux';
 import { CookieSerializeOptions } from 'cookie';
 import Cors from 'cors';
 import { baseOrder } from './baseForms';
@@ -19,6 +19,10 @@ const defaultCookieOptions: CookieSerializeOptions = {
 const cors = Cors({
 	methods: ['GET', 'HEAD'],
 });
+
+export const initAppState: AppState = {
+	loading: false,
+};
 
 export const initAuthState: AuthState = {
 	loading: false,

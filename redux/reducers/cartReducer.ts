@@ -1,6 +1,6 @@
 import { CartActionType } from '#declarations/enums/Redux';
 import { CartState } from '#declarations/interfaces/Redux';
-import { CartAction } from '#declarations/types/redux';
+import { CartAction } from '#declarations/types/Redux';
 import { initCartState } from 'utils/variables';
 
 export const cartReducer = (state: CartState = initCartState, action: CartAction): CartState => {

@@ -1,4 +1,8 @@
-export { CartActionType, AuthActionType };
+export { AppActionType, CartActionType, AuthActionType };
+
+enum AppActionType {
+	SET_LOADING,
+}
 
 enum CartActionType {
 	SET_LOADING,

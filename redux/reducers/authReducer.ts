@@ -1,6 +1,6 @@
 import { AuthActionType } from '#declarations/enums/Redux';
 import { AuthState } from '#declarations/interfaces/Redux';
-import { AuthAction } from '#declarations/types/redux';
+import { AuthAction } from '#declarations/types/Redux';
 import { initAuthState } from 'utils/variables';
 
 export const authReducer = (state: AuthState = initAuthState, action: AuthAction): AuthState => {
