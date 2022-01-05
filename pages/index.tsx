@@ -1,10 +1,11 @@
 import React from 'react';
 import type { NextPage } from 'next';
+import HomePage from '#modules/HomePage/HomePage';
 
 interface Props {}
 
-const HomePage: NextPage<Props> = ({}) => {
-	return <div></div>;
+const Index: NextPage<Props> = ({}) => {
+	return <HomePage />;
 };
 
-export default HomePage;
+export default Index;

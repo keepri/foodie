@@ -1,8 +1,9 @@
 import React from 'react';
-import { Url } from '#declarations/types/Various';
 import Link from 'next/link';
 
 import styles from './Button.module.scss';
+
+import { Url } from '#declarations/types/Various';
 
 type LinkRefType = React.ForwardedRef<HTMLAnchorElement>;
 
