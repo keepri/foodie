@@ -4,9 +4,11 @@ import { CookieSerializeOptions } from 'cookie';
 import Cors from 'cors';
 import { baseOrder } from './baseForms';
 
-export { cors, isProduction, defaultCookieOptions };
+export { cors, isProduction, defaultCookieOptions, siteName, baseUrl };
 
 const isProduction = process.env.NODE_ENV === 'production';
+const siteName = 'Foodie';
+const baseUrl = isProduction ? URLS_PROD.HOME : URLS_DEV.HOME;
 
 const defaultCookieOptions: CookieSerializeOptions = {
 	secure: isProduction,

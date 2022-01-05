@@ -1,11 +1,19 @@
-export { TITLE, DESCRIPTION, KEYWORDS };
+export { TITLE, DESCRIPTION, KEYWORDS, OG_DESCRIPTION, OG_TITLE };
 
 enum TITLE {
-	HOME = ' | Home',
+	HOME = 'Home',
 }
 
 enum DESCRIPTION {
-	BASE = '',
+	HOME = 'Descriere temporară',
+}
+
+enum OG_DESCRIPTION {
+	HOME = 'Descriere temporară',
+}
+
+enum OG_TITLE {
+	HOME = 'Foodie. Cea mai bună mâncare la un click distanță!',
 }
 
 enum KEYWORDS {
