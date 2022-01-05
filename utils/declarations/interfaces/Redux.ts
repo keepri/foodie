@@ -10,6 +10,7 @@ export interface AppState {
 export interface AuthState {
 	loading: boolean;
 	isLogged: boolean;
+	token: string | undefined;
 }
 
 export interface CartState extends OrderSchema {
@@ -32,6 +33,15 @@ export interface AuthSetLoadingAction {
 export interface AuthSetIsLoggedAction {
 	type: AuthActionType.SET_IS_LOGGED;
 	payload: boolean;
+}
+
+export interface AuthLoginAction {
+	type: AuthActionType.LOGIN;
+	payload: string;
+}
+
+export interface AuthLogoutAction {
+	type: AuthActionType.LOGOUT;
 }
 
 export interface AuthResetAction {

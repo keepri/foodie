@@ -1,0 +1,19 @@
+@use '#styles/colors.module.scss' as *;
+@use '#styles/variables.module.scss' as *;
+
+.input {
+	display: block;
+	outline: none;
+	border: 1px solid $input-border;
+	color: $input-color;
+	background: $input-background;
+	border-radius: $radius;
+	padding: 0.25em 0.5em;
+}
+
+.input:focus {
+	border-color: $input-border-focus;
+}
+
+.label {
+}

@@ -1,4 +1,4 @@
-import { cors } from 'utils/variables';
+import { cors } from 'utils/misc';
 import { runMiddleware } from '#controllers/api/runMiddleware';
 import { NextApiRequest, NextApiResponse } from 'next';
 

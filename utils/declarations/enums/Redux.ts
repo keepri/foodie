@@ -15,4 +15,6 @@ enum AuthActionType {
 	SET_LOADING,
 	SET_IS_LOGGED,
 	RESET,
+	LOGIN,
+	LOGOUT,
 }

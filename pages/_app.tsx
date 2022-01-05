@@ -10,19 +10,12 @@ import type { AppProps } from 'next/app';
 import { store } from '#redux/store';
 import axios from 'axios';
 
-import { isProduction } from 'utils/variables';
-import { URLS_DEV, URLS_PROD } from '#declarations/enums/URLS';
+import { URLS } from 'utils/misc';
 
 import Layout from '#modules/Layout/Layout';
 import Head from '#components/Layout/Head';
 
-if (!axios.defaults.baseURL) {
-	axios.defaults.baseURL = isProduction ? URLS_PROD.HOME : URLS_DEV.HOME;
-}
-
-if (!axios.defaults.headers.post['Content-Type']) {
-	axios.defaults.headers.post['Content-Type'] = 'application/json';
-}
+axios.defaults.baseURL = URLS.HOME;
 
 const Foodie = ({ Component, pageProps }: AppProps) => {
 	return (

@@ -4,14 +4,14 @@ import { default as NextHead } from 'next/head';
 import { useRouter } from 'next/router';
 
 import { DESCRIPTION, KEYWORDS, OG_DESCRIPTION, OG_TITLE, TITLE } from '#declarations/enums/Head';
-import { baseUrl, siteName } from 'utils/variables';
+import { baseUrl, siteName } from 'utils/misc';
 
 interface Props {
-	keywords: KEYWORDS;
-	title: TITLE;
-	desc: DESCRIPTION;
-	ogTitle: OG_TITLE;
-	ogDesc: OG_DESCRIPTION;
+	keywords?: KEYWORDS;
+	title?: TITLE;
+	desc?: DESCRIPTION;
+	ogTitle?: OG_TITLE;
+	ogDesc?: OG_DESCRIPTION;
 	previewImage?: string;
 }
 

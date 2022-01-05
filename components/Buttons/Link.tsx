@@ -1,41 +1,38 @@
 import React from 'react';
-import Link from 'next/link';
+import { default as NextLink, LinkProps } from 'next/link';
 
 import styles from './Button.module.scss';
 
-import { Url } from '#declarations/types/Misc';
-
 type LinkRefType = React.ForwardedRef<HTMLAnchorElement>;
 
-interface Props {
-	noStyles?: boolean;
-	href: Url;
+interface Props extends LinkProps {
+	button?: boolean;
 	className?: string;
+	fullWidth?: boolean;
 	primary?: boolean;
 	secondary?: boolean;
 }
 
-const Button = React.forwardRef<
-	HTMLAnchorElement,
-	React.PropsWithChildren<Props & React.AnchorHTMLAttributes<HTMLAnchorElement>>
->(({ children, href, className, noStyles, primary, secondary, ...rest }, ref) => {
-	return (
-		<Link href={href} passHref>
-			<a
-				ref={ref as LinkRefType}
-				className={[
-					!noStyles && styles['button'],
-					primary && styles['button-primary'],
-					secondary && styles['button-secondary'],
-					noStyles && styles['no-styles'],
-					className,
-				].join(' ')}
-				{...rest}
-			>
-				{children}
-			</a>
-		</Link>
-	);
-});
+const Link = React.forwardRef<HTMLAnchorElement, React.PropsWithChildren<Props>>(
+	({ children, fullWidth, className, button, primary, secondary, href, ...rest }, ref) => {
+		return (
+			<NextLink href={href} passHref>
+				<a
+					ref={ref as LinkRefType}
+					className={[
+						button && styles['button'],
+						fullWidth && 'full-width',
+						primary && styles['button-primary'],
+						secondary && styles['button-secondary'],
+						className,
+					].join(' ')}
+					{...rest}
+				>
+					{children}
+				</a>
+			</NextLink>
+		);
+	},
+);
 
-export default Button;
+export default Link;

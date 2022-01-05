@@ -7,8 +7,8 @@ import { REQUEST_METHODS } from '#declarations/enums/REST';
 import { ClientSchema } from '#firebase/declarations/schemas';
 import { RegisterReturnType } from '#firebase/declarations/types';
 import { handleError } from '#controllers/api/handleError';
-import { isProduction } from 'utils/variables';
-import { URLS_DEV, URLS_PROD } from '#declarations/enums/URLS';
+import { URLS } from 'utils/misc';
+
 // import nodemailer from 'nodemailer';
 
 export default async (req: NextApiRequest, res: NextApiResponse<RegisterReturnType>) => {
@@ -16,7 +16,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<RegisterReturnTy
 		case REQUEST_METHODS.POST: {
 			try {
 				const { email, password, name, phone } = req.body as ClientRegisterFields;
-				const actionCodeSettings = { url: isProduction ? URLS_PROD.LOGIN : URLS_DEV.LOGIN };
+				const actionCodeSettings = { url: URLS.HOME };
 
 				const user = await auth.createUser({ email, password });
 				if (!user) return res.status(500).json({ message: MESSAGES.CREATE_ACCOUNT_ERROR });

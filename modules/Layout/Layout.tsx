@@ -3,9 +3,29 @@ import React from 'react';
 import Footer from '#components/Layout/Footer/Footer';
 import Header from '#modules/Header/Header';
 
+import { authRef } from '#firebase/initClientApp';
+import { useAuthActions } from '#redux/actions/authActions';
+import axios from 'axios';
+
 interface Props {}
 
 const Layout: React.FC<Props> = ({ children }) => {
+	const { loginUserAuth } = useAuthActions();
+
+	React.useEffect(() => {
+		const unsubscribe = authRef.onAuthStateChanged(async user => {
+			if (user) {
+				const token = await user.getIdToken();
+
+				axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+
+				loginUserAuth(token);
+			}
+		});
+
+		return () => unsubscribe();
+	}, []);
+
 	return (
 		<>
 			<Header />

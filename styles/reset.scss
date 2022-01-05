@@ -1,4 +1,4 @@
-@use '#styles/Colors.module.scss' as *;
+@use '#styles/colors.module.scss' as *;
 
 /* Box sizing rules */
 *,
@@ -51,8 +51,9 @@ a:not([class]) {
 	text-decoration-skip-ink: auto;
 }
 a,
-a:visited {
+a:active {
 	text-decoration: none;
+	color: $link-color;
 }
 
 /* Make images easier to work with */

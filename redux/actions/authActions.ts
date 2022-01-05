@@ -2,18 +2,37 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { bindActionCreators, Dispatch } from 'redux';
 import { AuthActionType } from '#declarations/enums/Redux';
-import { AuthAction } from '#declarations/types/redux';
+import { AuthAction } from '#declarations/types/Redux';
+import { useDispatch } from 'react-redux';
+import { authRef } from '#firebase/initClientApp';
+import { signOut } from 'firebase/auth';
+import axios from 'axios';
 
-// CART ACTIONS
+// AUTH ACTIONS
 const setLoadingAuth = (payload: boolean) => (dispatch: Dispatch<AuthAction>) =>
 	dispatch({ type: AuthActionType.SET_LOADING, payload });
 
-// CART ACTIONS
 const setIsLoggedAuth = (payload: boolean) => (dispatch: Dispatch<AuthAction>) =>
 	dispatch({ type: AuthActionType.SET_IS_LOGGED, payload });
 
+const loginUserAuth = (payload: string) => (dispatch: Dispatch<AuthAction>) =>
+	dispatch({ type: AuthActionType.LOGIN, payload });
+
+const logoutUserAuth = () => (dispatch: Dispatch<AuthAction>) => {
+	axios.defaults.headers.common['Authorization'] = '';
+
+	signOut(authRef)
+		.then(_ => console.log('Successfully logged out!'))
+		.catch(({ message }) => console.warn(message));
+
+	return dispatch({ type: AuthActionType.LOGOUT });
+};
+
 const resetAuth = () => (dispatch: Dispatch<AuthAction>) => dispatch({ type: AuthActionType.RESET });
 
-// useCartActions hook
-export const useAuthActions = (dispatch: Dispatch) =>
-	bindActionCreators({ setLoadingAuth, setIsLoggedAuth, resetAuth }, dispatch);
+// useAuthActions hook
+export const useAuthActions = () =>
+	bindActionCreators(
+		{ setLoadingAuth, setIsLoggedAuth, loginUserAuth, logoutUserAuth, resetAuth },
+		useDispatch<Dispatch<AuthAction>>(),
+	);
