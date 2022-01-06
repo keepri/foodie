@@ -12,17 +12,17 @@ import { URLS } from 'utils/misc';
 // import nodemailer from 'nodemailer';
 
 export default async (req: NextApiRequest, res: NextApiResponse<RegisterReturnType>) => {
-	switch (req.method?.toLowerCase()) {
+	switch (req.method?.toUpperCase()) {
 		case REQUEST_METHODS.POST: {
 			try {
 				const { email, password, name, phone } = req.body as ClientRegisterFields;
-				const actionCodeSettings = { url: URLS.HOME };
+				const actionCodeSettings = { url: URLS.LOGIN };
 
 				const user = await auth.createUser({ email, password });
 				if (!user) return res.status(500).json({ message: MESSAGES.CREATE_ACCOUNT_ERROR });
 
 				const newUserInfo: ClientSchema = { name, phone };
-				await firestore.collection(COLLECTIONS.USERS).doc(user.uid).set(newUserInfo);
+				await firestore.collection(COLLECTIONS.USERS).doc(user.uid).create(newUserInfo);
 
 				const verificationEmail = await auth.generateEmailVerificationLink(email, actionCodeSettings);
 				if (!verificationEmail) return res.status(500).json({ message: MESSAGES.VERIF_EMAIL_ERROR });

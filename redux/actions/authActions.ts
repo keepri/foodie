@@ -8,6 +8,8 @@ import { authRef } from '#firebase/initClientApp';
 import { signOut } from 'firebase/auth';
 import axios from 'axios';
 
+export { authActions };
+
 // AUTH ACTIONS
 const setLoadingAuth = (payload: boolean) => (dispatch: Dispatch<AuthAction>) =>
 	dispatch({ type: AuthActionType.SET_LOADING, payload });
@@ -30,8 +32,7 @@ const logoutUserAuth = () => (dispatch: Dispatch<AuthAction>) => {
 
 const resetAuth = () => (dispatch: Dispatch<AuthAction>) => dispatch({ type: AuthActionType.RESET });
 
-// useAuthActions hook
-export const useAuthActions = () =>
+const authActions = () =>
 	bindActionCreators(
 		{ setLoadingAuth, setIsLoggedAuth, loginUserAuth, logoutUserAuth, resetAuth },
 		useDispatch<Dispatch<AuthAction>>(),

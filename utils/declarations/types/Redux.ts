@@ -2,6 +2,8 @@ import { rootReducer } from '#redux/reducers';
 import {
 	// APP
 	AppSetLoadingAction,
+	AppSetLangAction,
+	AppToggleDarkModeAction,
 
 	// CART
 	CartSetLoadingAction,
@@ -17,12 +19,14 @@ import {
 	AuthLoginAction,
 } from '#declarations/interfaces/Redux';
 
-export type ReduxState = ReturnType<typeof rootReducer>;
-export type CartAction = CartSetLoadingAction | CartAddItemAction | CartRemoveItemAction | CartResetAction;
-export type AuthAction =
+export type { ReduxState, CartAction, AuthAction, AppAction };
+
+type ReduxState = ReturnType<typeof rootReducer>;
+type AppAction = AppSetLoadingAction | AppSetLangAction | AppToggleDarkModeAction;
+type CartAction = CartSetLoadingAction | CartAddItemAction | CartRemoveItemAction | CartResetAction;
+type AuthAction =
 	| AuthSetLoadingAction
 	| AuthResetAction
 	| AuthSetIsLoggedAction
 	| AuthLoginAction
 	| AuthLogoutAction;
-export type AppAction = AppSetLoadingAction;

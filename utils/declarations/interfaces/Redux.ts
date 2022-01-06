@@ -1,3 +1,4 @@
+import { Langs } from '#declarations/enums/Langs';
 import { CartActionType, AuthActionType, AppActionType } from '#declarations/enums/Redux';
 import { OrderItem } from '#firebase/declarations/interfaces';
 import { OrderSchema } from '#firebase/declarations/schemas';
@@ -5,6 +6,7 @@ import { OrderSchema } from '#firebase/declarations/schemas';
 // --- STATE ---
 export interface AppState {
 	loading: boolean;
+	appLang: Langs;
 }
 
 export interface AuthState {
@@ -22,6 +24,15 @@ export interface CartState extends OrderSchema {
 export interface AppSetLoadingAction {
 	type: AppActionType.SET_LOADING;
 	payload: boolean;
+}
+
+export interface AppSetLangAction {
+	type: AppActionType.SET_LANG;
+	payload: Langs;
+}
+
+export interface AppToggleDarkModeAction {
+	type: AppActionType.TOGGLE_DARK_MODE;
 }
 
 // AUTH

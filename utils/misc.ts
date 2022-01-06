@@ -1,3 +1,4 @@
+import { Langs } from '#declarations/enums/Langs';
 import { AppState, AuthState, CartState } from '#declarations/interfaces/Redux';
 import { CookieSerializeOptions } from 'cookie';
 import Cors from 'cors';
@@ -17,7 +18,7 @@ const URLS = {
 	REGISTER: `${baseUrl}/register`,
 
 	// API
-	API_REGISTER: '/api/register',
+	API_REGISTER: '/api/auth/register',
 };
 
 // MISC
@@ -42,6 +43,7 @@ const cors = Cors({
 // REDUX INIT STATES
 export const initAppState: AppState = {
 	loading: false,
+	appLang: Langs.en,
 };
 
 export const initAuthState: AuthState = {

@@ -4,8 +4,9 @@ import Footer from '#components/Layout/Footer/Footer';
 import Header from '#modules/Header/Header';
 
 import { authRef } from '#firebase/initClientApp';
-import { useAuthActions } from '#redux/actions/authActions';
+import { useAuthActions } from '#redux/actions';
 import axios from 'axios';
+import { sendEmailVerification } from 'firebase/auth';
 
 interface Props {}
 
@@ -16,6 +17,7 @@ const Layout: React.FC<Props> = ({ children }) => {
 		const unsubscribe = authRef.onAuthStateChanged(async user => {
 			if (user) {
 				const token = await user.getIdToken();
+				!user.emailVerified && (await sendEmailVerification(user));
 
 				axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 

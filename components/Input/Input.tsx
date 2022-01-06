@@ -10,6 +10,7 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
 	labelStyle?: React.CSSProperties;
 	labelClassName?: string;
 	error?: boolean;
+	errorMsg?: string;
 }
 
 const Input: React.FC<Props> = ({
@@ -20,6 +21,7 @@ const Input: React.FC<Props> = ({
 	className,
 	name,
 	error,
+	errorMsg,
 	...rest
 }) => {
 	return (
@@ -38,6 +40,7 @@ const Input: React.FC<Props> = ({
 				className={[styles.input, error && 'error-input', className].join(' ')}
 				{...rest}
 			/>
+			{error && errorMsg && <p className='error-message'>{errorMsg}</p>}
 		</>
 	);
 };

@@ -20,7 +20,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<MenusReturnType>
 		await handleError(error, res);
 	}
 
-	switch (req.method) {
+	switch (req.method?.toUpperCase()) {
 		// GET
 		case REQUEST_METHODS.GET: {
 			try {

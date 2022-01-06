@@ -9,12 +9,12 @@ export type RequestError = {
 };
 
 // REGISTER ENDPOINT
-export type RegisterReturnType = { user?: UserRecord; verificationEmail?: string } | RequestError;
+export type RegisterSuccess = { user?: UserRecord; verificationEmail?: string; message: string };
+export type RegisterReturnType = RegisterSuccess | RequestError;
 
 // RESTAURANTS ENDPOINT
-export type RestaurantsReturnType =
-	| { restaurants?: RestaurantSchema[]; restaurant?: RestaurantSchema }
-	| RequestError;
+export type RestaurantsSuccess = { restaurants?: RestaurantSchema[]; restaurant?: RestaurantSchema };
+export type RestaurantsReturnType = RestaurantsSuccess | RequestError;
 export type RestaurantsRequestBody = {
 	uid?: string;
 	data?: Partial<RestaurantSchema>;
@@ -22,7 +22,8 @@ export type RestaurantsRequestBody = {
 };
 
 // ORDERS ENDPOINT
-export type OrdersReturnType = { orders?: OrderSchema[]; order?: OrderSchema } | RequestError;
+export type OrdersSuccess = { orders?: OrderSchema[]; order?: OrderSchema };
+export type OrdersReturnType = OrdersSuccess | RequestError;
 export type OrdersRequestBody = {
 	uid?: string;
 	data?: OrderSchema;
@@ -31,13 +32,16 @@ export type OrdersRequestBody = {
 };
 
 // CLIENTS ENDPOINT
-export type ClientsReturnType = { client?: ClientSchema } | RequestError;
+export type ClientsSuccess = { client?: ClientSchema };
+export type ClientsReturnType = ClientsSuccess | RequestError;
 export type ClientsRequestBody = { data?: ClientSchema; tokenUid?: string };
 
 // REVIEWS ENDPOINT
-export type ReviewsReturnType = { reviews?: ReviewSchema[] } | RequestError;
+export type ReviewsSuccess = { reviews?: ReviewSchema[] };
+export type ReviewsReturnType = ReviewsSuccess | RequestError;
 export type ReviewsRequestBody = { uid?: string; data?: ReviewSchema; tokenUid?: string };
 
 // MENUS ENDPOINT
-export type MenusReturnType = { menu?: MenuSchema } | RequestError;
+export type MenusSuccess = { menu?: MenuSchema };
+export type MenusReturnType = MenusSuccess | RequestError;
 export type MenusRequestBody = { uid?: string; data?: MenuSchema; tokenUid?: string };

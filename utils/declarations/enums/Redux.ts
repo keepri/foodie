@@ -2,6 +2,8 @@ export { AppActionType, CartActionType, AuthActionType };
 
 enum AppActionType {
 	SET_LOADING,
+	SET_LANG,
+	TOGGLE_DARK_MODE,
 }
 
 enum CartActionType {

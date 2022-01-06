@@ -16,6 +16,7 @@ import Layout from '#modules/Layout/Layout';
 import Head from '#components/Layout/Head';
 
 axios.defaults.baseURL = URLS.HOME;
+axios.defaults.withCredentials = true;
 
 const Foodie = ({ Component, pageProps }: AppProps) => {
 	return (

@@ -2,7 +2,7 @@ import React from 'react';
 import type { NextPage } from 'next';
 
 import Button from '#components/Buttons/Button';
-import { useAuthActions } from '#redux/actions/authActions';
+import { useAuthActions } from '#redux/actions';
 import { useSelector } from 'react-redux';
 import { ReduxState } from '#declarations/types/Redux';
 import Link from '#components/Buttons/Link';
@@ -21,6 +21,11 @@ const Index: NextPage<Props> = ({}) => {
 			{!isLogged && (
 				<Link button secondary href={URLS.LOGIN}>
 					Login
+				</Link>
+			)}
+			{!isLogged && (
+				<Link button secondary href={URLS.REGISTER}>
+					Register
 				</Link>
 			)}
 			{isLogged && (

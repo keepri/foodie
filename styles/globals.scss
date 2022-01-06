@@ -12,6 +12,16 @@ body {
 	border-color: $red !important;
 }
 
+.error-message {
+	color: $red;
+	font-size: 0.6rem;
+	font-weight: 300;
+}
+
 .full-width {
 	width: 100%;
+}
+
+input::placeholder {
+	font-size: 0.8rem;
 }

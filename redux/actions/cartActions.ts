@@ -6,6 +6,8 @@ import { OrderItem } from '#firebase/declarations/interfaces';
 import { CartAction } from '#declarations/types/Redux';
 import { useDispatch } from 'react-redux';
 
+export { cartActions };
+
 // CART ACTIONS
 const setLoadingCart = (payload: boolean) => (dispatch: Dispatch<CartAction>) =>
 	dispatch({ type: CartActionType.SET_LOADING, payload });
@@ -18,8 +20,7 @@ const removeItemCart = (payload: number) => (dispatch: Dispatch<CartAction>) =>
 
 const resetCart = () => (dispatch: Dispatch<CartAction>) => dispatch({ type: CartActionType.RESET });
 
-// useCartActions hook
-export const useCartActions = () =>
+const cartActions = () =>
 	bindActionCreators(
 		{ setLoadingCart, addItemCart, removeItemCart, resetCart },
 		useDispatch<Dispatch<CartAction>>(),

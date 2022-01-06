@@ -1,6 +1,6 @@
 import { AppActionType } from '#declarations/enums/Redux';
 import { AppState } from '#declarations/interfaces/Redux';
-import { AppAction } from '#declarations/types/redux';
+import { AppAction } from '#declarations/types/Redux';
 import { initAppState } from 'utils/misc';
 
 export const appReducer = (state: AppState = initAppState, action: AppAction): AppState => {
@@ -8,6 +8,11 @@ export const appReducer = (state: AppState = initAppState, action: AppAction): A
 		// SET_LOADING
 		case AppActionType.SET_LOADING: {
 			return { ...state, loading: action.payload };
+		}
+
+		// SET_LANG
+		case AppActionType.SET_LANG: {
+			return { ...state, appLang: action.payload };
 		}
 
 		default:
