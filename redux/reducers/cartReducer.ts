@@ -21,14 +21,22 @@ export const cartReducer = (state: CartState = initCartState, action: CartAction
 			return { ...state, items, total };
 		}
 
+		// ADD_ITEM
+		case CartActionType.UPDATE_ITEM: {
+			const { update, index } = action.payload;
+			const items = state.items;
+			items[index] = { ...items[index], ...update };
+
+			return { ...state, items };
+		}
+
 		// REMOVE_ITEM
 		case CartActionType.REMOVE_ITEM: {
-			// const item = state.items[action.payload];
-			// const items = state.items.filter((_, index) => index !== action.payload);
-			// const total = state.total - item.price;
+			const item = state.items[action.payload];
+			const items = state.items.filter((_, index) => index !== action.payload);
+			const total = state.total - item.price;
 
-			// return { ...state, items, total };
-			return state;
+			return { ...state, items, total };
 		}
 
 		// RESET

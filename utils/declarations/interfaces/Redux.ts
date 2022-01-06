@@ -31,6 +31,7 @@ export type AuthLoginPayload = string;
 export type CartSetLoadingPayload = boolean;
 export type CartAddItemPayload = OrderItem;
 export type CartRemoveItemPayload = number;
+export type CartUpdateItemPayload = { index: number; update: Partial<OrderItem> };
 
 // --- ACTIONS ---
 // APP
@@ -90,6 +91,11 @@ export interface CartSetLoadingAction {
 export interface CartAddItemAction {
 	type: CartActionType.ADD_ITEM;
 	payload: CartAddItemPayload;
+}
+
+export interface CartUpdateItemAction {
+	type: CartActionType.UPDATE_ITEM;
+	payload: CartUpdateItemPayload;
 }
 
 export interface CartRemoveItemAction {

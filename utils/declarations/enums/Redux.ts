@@ -11,6 +11,7 @@ enum CartActionType {
 	SET_LOADING,
 	ADD_ITEM,
 	REMOVE_ITEM,
+	UPDATE_ITEM,
 	RESET,
 }
 

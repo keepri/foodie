@@ -47,7 +47,7 @@ const baseCategory: Category = {
 const baseOrderItem: OrderItem = {
 	name: '',
 	description: '',
-	quantity: 0,
+	quantity: 1,
 	price: 0,
 	info: '',
 };

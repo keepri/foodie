@@ -19,13 +19,19 @@ import {
 	AuthLogoutAction,
 	AuthLoginAction,
 	AuthUpdateUserAction,
+	CartUpdateItemAction,
 } from '#declarations/interfaces/Redux';
 
 export type { ReduxState, CartAction, AuthAction, AppAction };
 
 type ReduxState = ReturnType<typeof rootReducer>;
 type AppAction = AppSetLoadingAction | AppSetLangAction | AppToggleDarkModeAction | AppResetAction;
-type CartAction = CartSetLoadingAction | CartAddItemAction | CartRemoveItemAction | CartResetAction;
+type CartAction =
+	| CartSetLoadingAction
+	| CartAddItemAction
+	| CartRemoveItemAction
+	| CartResetAction
+	| CartUpdateItemAction;
 type AuthAction =
 	| AuthSetLoadingAction
 	| AuthResetAction

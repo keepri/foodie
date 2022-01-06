@@ -1,7 +1,7 @@
 import React from 'react';
 import type { NextPage } from 'next';
 import { privateRoute } from '#controllers/privateRoute';
-import RegisterForm from '#components/Forms/RegisterForm/RegisterForm';
+import RegisterForm from '#modules/Forms/RegisterForm/RegisterForm';
 
 interface Props {}
 

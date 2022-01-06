@@ -1,6 +1,6 @@
 import React from 'react';
 import type { NextPage } from 'next';
-import LoginForm from '#components/Forms/LoginForm/LoginForm';
+import LoginForm from '#modules/Forms/LoginForm/LoginForm';
 import { privateRoute } from '#controllers/privateRoute';
 
 interface Props {}
