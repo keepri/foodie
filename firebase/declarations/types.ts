@@ -8,8 +8,12 @@ export type RequestError = {
 	errorFields?: string[];
 };
 
+// LOGIN ENDPOINT
+export type LoginSuccess = { user: ClientSchema; message: string };
+export type LoginReturnType = LoginSuccess | RequestError;
+
 // REGISTER ENDPOINT
-export type RegisterSuccess = { user?: UserRecord; verificationEmail?: string; message: string };
+export type RegisterSuccess = { user: UserRecord; verificationEmail: string; message: string };
 export type RegisterReturnType = RegisterSuccess | RequestError;
 
 // RESTAURANTS ENDPOINT
@@ -32,16 +36,16 @@ export type OrdersRequestBody = {
 };
 
 // CLIENTS ENDPOINT
-export type ClientsSuccess = { client?: ClientSchema };
+export type ClientsSuccess = { client: ClientSchema };
 export type ClientsReturnType = ClientsSuccess | RequestError;
 export type ClientsRequestBody = { data?: ClientSchema; tokenUid?: string };
 
 // REVIEWS ENDPOINT
-export type ReviewsSuccess = { reviews?: ReviewSchema[] };
+export type ReviewsSuccess = { reviews: ReviewSchema[] };
 export type ReviewsReturnType = ReviewsSuccess | RequestError;
 export type ReviewsRequestBody = { uid?: string; data?: ReviewSchema; tokenUid?: string };
 
 // MENUS ENDPOINT
-export type MenusSuccess = { menu?: MenuSchema };
+export type MenusSuccess = { menu: MenuSchema };
 export type MenusReturnType = MenusSuccess | RequestError;
 export type MenusRequestBody = { uid?: string; data?: MenuSchema; tokenUid?: string };

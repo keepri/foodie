@@ -15,6 +15,11 @@ export const appReducer = (state: AppState = initAppState, action: AppAction): A
 			return { ...state, appLang: action.payload };
 		}
 
+		// RESET
+		case AppActionType.RESET: {
+			return initAppState;
+		}
+
 		default:
 			return state;
 	}

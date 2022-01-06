@@ -2,7 +2,7 @@ import { Langs } from '#declarations/enums/Langs';
 import { AppState, AuthState, CartState } from '#declarations/interfaces/Redux';
 import { CookieSerializeOptions } from 'cookie';
 import Cors from 'cors';
-import { baseOrder } from './baseForms';
+import { baseClient, baseOrder } from './baseForms';
 
 export { cors, isProduction, defaultCookieOptions, siteName, baseUrl, reEmail, URLS, isClientSide };
 
@@ -19,20 +19,25 @@ const URLS = {
 
 	// API
 	API_REGISTER: '/api/auth/register',
+	API_LOGIN: '/api/auth/login',
+	API_GET_USER: `/api/clients`,
 };
 
 // MISC
+// TODO update to correct domain
+const domain = isProduction ? 'localhost' : 'localhost';
 const siteName = 'Foodie';
 const reEmail =
 	/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 // COOKIES
 const defaultCookieOptions: CookieSerializeOptions = {
-	secure: isProduction,
+	// TODO update to "isProduction"
+	secure: false,
 	httpOnly: true,
 	sameSite: isProduction ? 'strict' : 'lax',
 	path: '/',
-	domain: baseUrl,
+	domain,
 };
 
 // CORS
@@ -50,6 +55,7 @@ export const initAuthState: AuthState = {
 	loading: false,
 	isLogged: false,
 	token: undefined,
+	user: baseClient,
 };
 
 export const initCartState: CartState = {

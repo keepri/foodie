@@ -11,7 +11,7 @@ import { URLS } from 'utils/misc';
 interface Props {}
 
 const Index: NextPage<Props> = ({}) => {
-	const isLogged = useSelector(({ auth }: ReduxState) => auth.isLogged);
+	const { isLogged } = useSelector(({ auth }: ReduxState) => auth);
 	const { logoutUserAuth } = useAuthActions();
 
 	return (

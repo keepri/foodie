@@ -39,6 +39,7 @@ export enum MESSAGES {
 	// ACCOUNTS
 	VERIF_EMAIL_ERROR = 'Account created! Server failed to generate verification email!',
 	CREATE_ACCOUNT_SUCCESS = 'Successfully created account!',
+	LOGIN_ACCOUNT_SUCCESS = 'Successfully logged account in!',
 	CREATE_ACCOUNT_ERROR = 'Server Error! User not created.',
 
 	// SECURITY

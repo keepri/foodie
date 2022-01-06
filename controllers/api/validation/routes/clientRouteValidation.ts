@@ -4,6 +4,7 @@ import { ClientSchema } from '#firebase/declarations/schemas';
 import { ClientsRequestBody } from '#firebase/declarations/types';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { baseClient } from 'utils/baseForms';
+import { isSameUser } from '../isSameUser';
 import { objectContainsSameKeys } from '../objectContainsSameKeys';
 import { verifyToken } from '../verifyToken';
 
@@ -11,13 +12,19 @@ export { clientRouteValidation };
 
 const clientRouteValidation = async (req: NextApiRequest, res: NextApiResponse) => {
 	// BYPASS FOR ROUTES THAT ARE NOT IMPLEMENTED
-	if (req.method === REQUEST_METHODS.POST) return;
+	if (req.method === REQUEST_METHODS.GET) return;
 
 	// ROUTE SECURITY
 	try {
 		await verifyToken(req, res);
 	} catch (error) {
 		throw error;
+	}
+
+	if (req.method === REQUEST_METHODS.POST) {
+		const tokenUid = req.body.tokenUid;
+
+		isSameUser(req, res, tokenUid);
 	}
 
 	// TEST MANDATORY FIELDS "PATCH", "PUT" & CHECK FIELDS SENT TO BE WHAT WE ACCEPT IN THE SCHEMA

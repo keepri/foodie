@@ -1,27 +1,38 @@
 import React from 'react';
+import axios, { AxiosResponse } from 'axios';
 
 import Footer from '#components/Layout/Footer/Footer';
 import Header from '#modules/Header/Header';
 
 import { authRef } from '#firebase/initClientApp';
 import { useAuthActions } from '#redux/actions';
-import axios from 'axios';
 import { sendEmailVerification } from 'firebase/auth';
+import { isProduction, URLS } from 'utils/misc';
+import { LoginSuccess } from '#firebase/declarations/types';
 
 interface Props {}
 
 const Layout: React.FC<Props> = ({ children }) => {
-	const { loginUserAuth } = useAuthActions();
+	const { loginUserAuth, updateUserAuth } = useAuthActions();
 
 	React.useEffect(() => {
 		const unsubscribe = authRef.onAuthStateChanged(async user => {
 			if (user) {
-				const token = await user.getIdToken();
-				!user.emailVerified && (await sendEmailVerification(user));
+				try {
+					const token = await user.getIdToken();
 
-				axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+					!user.emailVerified && isProduction && (await sendEmailVerification(user));
 
-				loginUserAuth(token);
+					const {
+						data: { user: userInfo },
+					}: AxiosResponse<LoginSuccess> = await axios.post(URLS.API_LOGIN, { token });
+
+					loginUserAuth(token);
+					updateUserAuth(userInfo);
+				} catch ({ code, message }) {
+					// TODO handle errors
+					console.log('On auth state change error:', code, message);
+				}
 			}
 		});
 

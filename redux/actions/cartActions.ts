@@ -2,20 +2,24 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { bindActionCreators, Dispatch } from 'redux';
 import { CartActionType } from '#declarations/enums/Redux';
-import { OrderItem } from '#firebase/declarations/interfaces';
 import { CartAction } from '#declarations/types/Redux';
 import { useDispatch } from 'react-redux';
+import {
+	CartAddItemPayload,
+	CartRemoveItemPayload,
+	CartSetLoadingPayload,
+} from '#declarations/interfaces/Redux';
 
 export { cartActions };
 
 // CART ACTIONS
-const setLoadingCart = (payload: boolean) => (dispatch: Dispatch<CartAction>) =>
+const setLoadingCart = (payload: CartSetLoadingPayload) => (dispatch: Dispatch<CartAction>) =>
 	dispatch({ type: CartActionType.SET_LOADING, payload });
 
-const addItemCart = (payload: OrderItem) => (dispatch: Dispatch<CartAction>) =>
+const addItemCart = (payload: CartAddItemPayload) => (dispatch: Dispatch<CartAction>) =>
 	dispatch({ type: CartActionType.ADD_ITEM, payload });
 
-const removeItemCart = (payload: number) => (dispatch: Dispatch<CartAction>) =>
+const removeItemCart = (payload: CartRemoveItemPayload) => (dispatch: Dispatch<CartAction>) =>
 	dispatch({ type: CartActionType.REMOVE_ITEM, payload });
 
 const resetCart = () => (dispatch: Dispatch<CartAction>) => dispatch({ type: CartActionType.RESET });

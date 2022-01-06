@@ -4,6 +4,7 @@ enum AppActionType {
 	SET_LOADING,
 	SET_LANG,
 	TOGGLE_DARK_MODE,
+	RESET,
 }
 
 enum CartActionType {
@@ -16,6 +17,7 @@ enum CartActionType {
 enum AuthActionType {
 	SET_LOADING,
 	SET_IS_LOGGED,
+	UPDATE_USER,
 	RESET,
 	LOGIN,
 	LOGOUT,

@@ -54,3 +54,7 @@ export interface ClientRegisterFields {
 	password: string;
 	phone: string;
 }
+
+export interface ClientLoginFields {
+	token: string;
+}

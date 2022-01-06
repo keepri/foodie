@@ -23,11 +23,12 @@ export const cartReducer = (state: CartState = initCartState, action: CartAction
 
 		// REMOVE_ITEM
 		case CartActionType.REMOVE_ITEM: {
-			const items = state.items.filter((_, index) => index !== action.payload),
-				item = state.items[action.payload],
-				total = state.total - item.price;
+			// const item = state.items[action.payload];
+			// const items = state.items.filter((_, index) => index !== action.payload);
+			// const total = state.total - item.price;
 
-			return { ...state, items, total };
+			// return { ...state, items, total };
+			return state;
 		}
 
 		// RESET

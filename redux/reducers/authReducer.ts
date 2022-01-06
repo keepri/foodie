@@ -15,6 +15,11 @@ export const authReducer = (state: AuthState = initAuthState, action: AuthAction
 			return { ...state, isLogged: action.payload };
 		}
 
+		// UPDATE_USER
+		case AuthActionType.UPDATE_USER: {
+			return { ...state, user: { ...state.user, ...action.payload } };
+		}
+
 		// LOGIN
 		case AuthActionType.LOGIN: {
 			return { ...state, token: action.payload, isLogged: true };

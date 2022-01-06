@@ -22,7 +22,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<ClientsReturnTyp
 
 	switch (req.method?.toUpperCase()) {
 		// GET
-		case REQUEST_METHODS.GET: {
+		case REQUEST_METHODS.POST: {
 			try {
 				const { tokenUid } = req.body as ClientsRequestBody;
 				const clientDoc = await firestore
