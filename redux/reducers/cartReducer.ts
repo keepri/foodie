@@ -13,15 +13,14 @@ export const cartReducer = (state: CartState = initCartState, action: CartAction
 
 		// ADD_ITEM
 		case CartActionType.ADD_ITEM: {
-			const items = state.items,
-				item = action.payload,
+			const item = action.payload,
+				items = [...state.items, item],
 				total = state.total + item.price;
-			items.push(item);
 
 			return { ...state, items, total };
 		}
 
-		// ADD_ITEM
+		// UPDATE_ITEM
 		case CartActionType.UPDATE_ITEM: {
 			const { update, index } = action.payload;
 			const items = state.items;

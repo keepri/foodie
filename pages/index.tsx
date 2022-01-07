@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux';
 import { ReduxState } from '#declarations/types/Redux';
 import Link from '#components/Buttons/Link';
 import { URLS } from 'utils/misc';
-import { OrderItem } from '#firebase/declarations/interfaces';
 import CartItem from '#components/Cart/CartItem/CartItem';
 
 interface Props {}
@@ -22,6 +21,8 @@ const Index: NextPage<Props> = ({}) => {
 	return (
 		<main>
 			<h1>Hello</h1>
+
+			<p>{isLogged ? 'logged' : 'not logged'}</p>
 
 			{items.map((item, index) => (
 				<CartItem key={index} index={index} item={item} />

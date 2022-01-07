@@ -13,7 +13,7 @@ import { LoginSuccess } from '#firebase/declarations/types';
 interface Props {}
 
 const Layout: React.FC<Props> = ({ children }) => {
-	const { loginUserAuth, updateUserAuth } = useAuthActions();
+	const { loginUserAuth } = useAuthActions();
 
 	React.useEffect(() => {
 		const unsubscribe = authRef.onAuthStateChanged(async user => {
@@ -27,8 +27,7 @@ const Layout: React.FC<Props> = ({ children }) => {
 						data: { user: userInfo },
 					}: AxiosResponse<LoginSuccess> = await axios.post(URLS.API_LOGIN, { token });
 
-					loginUserAuth(token);
-					updateUserAuth(userInfo);
+					loginUserAuth({ token, user: userInfo });
 				} catch ({ code, message }) {
 					// TODO handle errors
 					console.log('On auth state change error:', code, message);

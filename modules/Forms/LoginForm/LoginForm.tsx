@@ -36,14 +36,15 @@ const LoginForm: React.FC<Props> = ({ className, ...rest }) => {
 		const passEmpty = password.length === 0;
 
 		if (emailEmpty || passEmpty) {
-			return setErrors({ emailErr: emailEmpty, passwordErr: passEmpty });
+			setErrors({ emailErr: emailEmpty, passwordErr: passEmpty });
+			return;
 		}
 
 		if (!emailErr && !passwordErr) {
 			try {
 				const { user } = await signInWithEmailAndPassword(authRef, email, password);
 
-				if (user) return back();
+				if (user) back();
 			} catch ({ code, message }) {
 				console.error(message);
 				(code === AuthErrorCodes.INVALID_EMAIL || code === AuthErrorCodes.USER_DELETED) &&

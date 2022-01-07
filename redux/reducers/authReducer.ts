@@ -22,7 +22,9 @@ export const authReducer = (state: AuthState = initAuthState, action: AuthAction
 
 		// LOGIN
 		case AuthActionType.LOGIN: {
-			return { ...state, token: action.payload, isLogged: true };
+			const { token, user } = action.payload;
+
+			return { ...state, token, user: user ?? state.user, isLogged: true };
 		}
 
 		// LOGOUT
@@ -35,7 +37,8 @@ export const authReducer = (state: AuthState = initAuthState, action: AuthAction
 			return initAuthState;
 		}
 
-		default:
+		default: {
 			return state;
+		}
 	}
 };

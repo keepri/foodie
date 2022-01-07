@@ -22,7 +22,8 @@ const CartItem: React.FC<Props> = ({ className, index, item, ...rest }) => {
 		const quantity = item.quantity + value;
 
 		if (quantity === 0) {
-			return removeItemCart(index);
+			removeItemCart(index);
+			return;
 		}
 
 		const update = { quantity };
