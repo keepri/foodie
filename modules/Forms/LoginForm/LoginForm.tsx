@@ -27,7 +27,10 @@ const LoginForm: React.FC<Props> = ({ className, onLoginSuccess, ...rest }) => {
 
 	const lang = getLang();
 
-	const { back } = useRouter();
+	const { push, back, query } = useRouter();
+
+	const { redirect } = query as { redirect: string };
+	console.log(query);
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
 		setForm({ ...form, [e.target.name]: e.target.value });
@@ -47,7 +50,7 @@ const LoginForm: React.FC<Props> = ({ className, onLoginSuccess, ...rest }) => {
 				await signInWithEmailAndPassword(authRef, email, password);
 
 				onLoginSuccess && onLoginSuccess(e);
-				back();
+				redirect ? push(redirect) : back();
 			} catch ({ code, message }) {
 				console.error(message);
 				(code === AuthErrorCodes.INVALID_EMAIL || code === AuthErrorCodes.USER_DELETED) &&

@@ -1,11 +1,13 @@
 import Button from '#components/Buttons/Button';
 import CartItem from '#components/Cart/CartItem/CartItem';
 import { getLang } from '#controllers/getLang';
+import { isObjPopulated } from '#controllers/validation/isObjPopulated';
 import { ReduxState } from '#declarations/types/Redux';
 import { ORDER_STATUS } from '#firebase/declarations/enums';
 import { OrderSchema } from '#firebase/declarations/schemas';
 import { authRef } from '#firebase/initClientApp';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { URLS } from 'utils/misc';
@@ -16,6 +18,7 @@ interface Props extends React.HtmlHTMLAttributes<HTMLDivElement> {}
 
 const Cart: React.FC<Props> = ({ className }) => {
 	const lang = getLang();
+	const { push } = useRouter();
 
 	const {
 		cart: { items, total, info, restaurant },
@@ -23,12 +26,24 @@ const Cart: React.FC<Props> = ({ className }) => {
 	} = useSelector(({ cart, auth }: ReduxState) => ({ cart, auth }));
 
 	const handleSubmit = async () => {
+		if (!isLogged) {
+			push(URLS.LOGIN);
+			return;
+		}
+
 		const currentUser = authRef.currentUser;
 
-		if (currentUser && isLogged) {
+		if (currentUser) {
 			const client = currentUser.uid ?? '';
 			const date = new Date().getTime();
 			const order: OrderSchema = { items, total, info, client, restaurant, status: ORDER_STATUS.PENDING, date };
+			const orderOk = isObjPopulated(order, ['info']);
+
+			if (!orderOk) {
+				// TODO handle order fields not ok
+				console.warn('Order fields not filled', order);
+				return;
+			}
 
 			try {
 				const { status } = await axios.post(URLS.API_PLACE_ORDER, { data: order });

@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux';
 import { ReduxState } from '#declarations/types/Redux';
 import Link from '#components/Buttons/Link';
 import { URLS } from 'utils/misc';
-import Cart from '#modules/Cart/Cart';
 
 interface Props {}
 
@@ -21,7 +20,9 @@ const Index: NextPage<Props> = ({}) => {
 		<main>
 			<h1>Hello{`, ${user.name}`}</h1>
 
-			<Cart />
+			<Link button secondary href={URLS.CART}>
+				CART
+			</Link>
 
 			{!isLogged && (
 				<Link button secondary href={URLS.LOGIN}>
