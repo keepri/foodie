@@ -17,7 +17,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<RestaurantsRetur
 		await useCors(req, res);
 		await restaurantRouteValidation(req, res);
 	} catch (error) {
-		await handleError(error, res);
+		handleError(error, res);
 	}
 
 	switch (req.method?.toUpperCase()) {
@@ -29,7 +29,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<RestaurantsRetur
 
 				return res.status(200).json({ restaurants });
 			} catch (error) {
-				await handleError(error, res);
+				handleError(error, res);
 			}
 
 			break;
@@ -44,7 +44,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<RestaurantsRetur
 
 		// 		return res.status(200).json({ message: MESSAGES.SUCCESS });
 		// 	} catch (error) {
-		// 		await handleError(error, res);
+		// 		handleError(error, res);
 		// 	}
 
 		// 	break;
@@ -63,7 +63,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<RestaurantsRetur
 
 				return res.status(200).json({ restaurant });
 			} catch (error) {
-				await handleError(error, res);
+				handleError(error, res);
 			}
 
 			break;
@@ -82,7 +82,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<RestaurantsRetur
 
 				return res.status(200).json({ restaurant });
 			} catch (error) {
-				await handleError(error, res);
+				handleError(error, res);
 			}
 
 			break;
@@ -100,7 +100,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<RestaurantsRetur
 
 				return res.status(200).json({ message: MESSAGES.SUCCESS });
 			} catch (error) {
-				await handleError(error, res);
+				handleError(error, res);
 			}
 
 			break;

@@ -20,7 +20,9 @@ const URLS = {
 	// API
 	API_REGISTER: '/api/auth/register',
 	API_LOGIN: '/api/auth/login',
+	API_LOGOUT: '/api/auth/logout',
 	API_GET_USER: `/api/clients`,
+	API_PLACE_ORDER: `/api/orders`,
 };
 
 // MISC

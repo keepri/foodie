@@ -32,6 +32,7 @@ export type AuthSetIsLoggedPayload = boolean;
 export type AuthUpdateUserPayload = Partial<ClientSchema>;
 export type AuthLoginPayload = { token: string; user?: ClientSchema };
 export type CartSetLoadingPayload = boolean;
+export type CartSetRestaurantPayload = string;
 export type CartAddItemPayload = OrderItem;
 export type CartRemoveItemPayload = number;
 export type CartUpdateItemPayload = { index: number; update: Partial<OrderItem> };
@@ -94,6 +95,11 @@ export interface AuthResetAction {
 export interface CartSetLoadingAction {
 	type: CartActionType.SET_LOADING;
 	payload: CartSetLoadingPayload;
+}
+
+export interface CartSetRestaurantAction {
+	type: CartActionType.SET_CART_RESTAURANT;
+	payload: CartSetRestaurantPayload;
 }
 
 export interface CartAddItemAction {

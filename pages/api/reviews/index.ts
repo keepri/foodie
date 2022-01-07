@@ -17,7 +17,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<ReviewsReturnTyp
 		await useCors(req, res);
 		await reviewRouteValidation(req, res);
 	} catch (error) {
-		await handleError(error, res);
+		handleError(error, res);
 	}
 
 	switch (req.method?.toUpperCase()) {
@@ -34,7 +34,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<ReviewsReturnTyp
 
 				return res.status(200).json({ reviews });
 			} catch (error) {
-				await handleError(error, res);
+				handleError(error, res);
 			}
 
 			break;
@@ -48,7 +48,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<ReviewsReturnTyp
 
 				return res.status(200).json({ message: MESSAGES.SUCCESS });
 			} catch (error) {
-				await handleError(error, res);
+				handleError(error, res);
 			}
 
 			break;

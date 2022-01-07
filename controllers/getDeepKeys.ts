@@ -1,4 +1,6 @@
-export const getDeepKeys = (obj: any) => {
+type Object = { [key: string]: any };
+
+export const getDeepKeys = (obj: Object) => {
 	let keys: string[] = [];
 
 	for (let key in obj) {

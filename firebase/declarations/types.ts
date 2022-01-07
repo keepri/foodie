@@ -16,6 +16,10 @@ export type LoginReturnType = LoginSuccess | RequestError;
 export type RegisterSuccess = { user: UserRecord; verificationEmail: string; message: string };
 export type RegisterReturnType = RegisterSuccess | RequestError;
 
+// LOGOUT ENDPOINT
+export type LogoutSuccess = { message: string };
+export type LogoutReturnType = LogoutSuccess | RequestError;
+
 // RESTAURANTS ENDPOINT
 export type RestaurantsSuccess = { restaurants?: RestaurantSchema[]; restaurant?: RestaurantSchema };
 export type RestaurantsReturnType = RestaurantsSuccess | RequestError;

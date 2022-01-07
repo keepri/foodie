@@ -17,16 +17,25 @@ const restaurantRouteValidation = async (req: NextApiRequest, res: NextApiRespon
 	// TEST MANDATORY FIELDS (ALL ROUTES EXCEPT "GET" and "DELETE") & CHECK FIELDS SENT TO BE WHAT WE ACCEPT IN THE SCHEMA
 	if (req.method !== REQUEST_METHODS.DELETE && req.method !== REQUEST_METHODS.GET) {
 		const { uid, data } = req.body as RestaurantsRequestBody;
-		if (!uid || !data) return res.status(400).json({ message: MESSAGES.RESTAURANTS_MANDATORY_FIELDS_ALL });
+		if (!uid || !data) {
+			res.status(400).json({ message: MESSAGES.RESTAURANTS_MANDATORY_FIELDS_ALL });
+			throw new Error(MESSAGES.RESTAURANTS_MANDATORY_FIELDS_ALL);
+		}
 
 		const { isValid, errorFields } = objectContainsSameKeys<RestaurantSchema>(data, baseRestaurant);
-		if (!isValid) return res.status(400).json({ message: MESSAGES.ERROR, errorFields });
+		if (!isValid) {
+			res.status(400).json({ message: MESSAGES.ERROR, errorFields });
+			throw new Error('Error');
+		}
 	}
 
 	// TEST MANDATORY FIELDS FOR DELETE ROUTE
 	if (req.method === REQUEST_METHODS.DELETE) {
 		const { uid } = req.body as RestaurantsRequestBody;
-		if (!uid) return res.status(400).json({ message: MESSAGES.RESTAURANTS_MANDATORY_FIELDS_UID });
+		if (!uid) {
+			res.status(400).json({ message: MESSAGES.RESTAURANTS_MANDATORY_FIELDS_UID });
+			throw new Error('No "uid" fields found');
+		}
 	}
 
 	// ROUTE SECURITY

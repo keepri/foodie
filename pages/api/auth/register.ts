@@ -29,7 +29,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<RegisterReturnTy
 
 				return res.status(200).json({ user, verificationEmail, message: MESSAGES.CREATE_ACCOUNT_SUCCESS });
 			} catch (error) {
-				await handleError(error, res);
+				handleError(error, res);
 			}
 
 			break;

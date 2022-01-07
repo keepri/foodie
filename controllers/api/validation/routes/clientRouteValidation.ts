@@ -30,9 +30,15 @@ const clientRouteValidation = async (req: NextApiRequest, res: NextApiResponse) 
 	// TEST MANDATORY FIELDS "PATCH", "PUT" & CHECK FIELDS SENT TO BE WHAT WE ACCEPT IN THE SCHEMA
 	if (req.method === REQUEST_METHODS.PATCH || req.method === REQUEST_METHODS.PUT) {
 		const { data } = req.body as ClientsRequestBody;
-		if (!data) return res.status(400).json({ message: MESSAGES.CLIENTS_MANDATORY_FIELDS_DATA });
+		if (!data) {
+			res.status(400).json({ message: MESSAGES.CLIENTS_MANDATORY_FIELDS_DATA });
+			throw new Error('Error');
+		}
 
 		const { isValid, errorFields } = objectContainsSameKeys<ClientSchema>(data, baseClient);
-		if (!isValid) return res.status(400).json({ message: MESSAGES.ERROR, errorFields });
+		if (!isValid) {
+			res.status(400).json({ message: MESSAGES.ERROR, errorFields });
+			throw new Error('Error');
+		}
 	}
 };

@@ -5,6 +5,8 @@ export const romanian = {
 	confirmPassword: 'Confirm password',
 	phone: 'Phone Number',
 	name: 'Name',
+	total: 'Total',
+	placeOrder: 'Place order',
 
 	// BUTTONS
 	signIn: 'Sign in',

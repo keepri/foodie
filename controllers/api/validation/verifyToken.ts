@@ -9,12 +9,18 @@ export { verifyToken };
 const verifyToken = async (req: NextApiRequest, res: NextApiResponse) => {
 	try {
 		const token = req.cookies?.[COOKIE_NAMES.TOKEN] as string | undefined;
-		if (!token) return res.status(401).json({ message: MESSAGES.UNAUTHORIZED_NO_TOKEN });
+		if (!token) {
+			res.status(401).json({ message: MESSAGES.UNAUTHORIZED_NO_TOKEN });
+			throw new Error(MESSAGES.UNAUTHORIZED_NO_TOKEN);
+		}
 
 		const checkRevoked = true;
 		const { pre, tokenString } = parseTokenString(token);
 
-		if (pre !== 'Bearer' || !tokenString) return res.status(401).json({ message: MESSAGES.UNAUTHORIZED_TOKEN });
+		if (pre !== 'Bearer' || !tokenString) {
+			res.status(401).json({ message: MESSAGES.UNAUTHORIZED_TOKEN });
+			throw new Error('Error token verification!');
+		}
 
 		const { uid } = await auth.verifyIdToken(tokenString, checkRevoked);
 

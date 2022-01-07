@@ -10,6 +10,7 @@ enum AppActionType {
 
 enum CartActionType {
 	SET_LOADING = 'cart_set_loading',
+	SET_CART_RESTAURANT = 'set_cart_restaurant',
 	ADD_ITEM = 'cart_add_item',
 	REMOVE_ITEM = 'cart_remove_item',
 	UPDATE_ITEM = 'cart_update_item',

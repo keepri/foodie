@@ -38,7 +38,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<LoginReturnType>
 
 				return res.status(200).json({ user, message: MESSAGES.LOGIN_ACCOUNT_SUCCESS });
 			} catch (error) {
-				await handleError(error, res);
+				handleError(error, res);
 			}
 
 			break;

@@ -16,7 +16,10 @@ const menuRouteValidation = async (req: NextApiRequest, res: NextApiResponse) =>
 	// TEST MANDATORY FIELDS "GET" & CHECK FIELDS SENT TO BE WHAT WE ACCEPT IN THE SCHEMA
 	if (req.method === REQUEST_METHODS.GET) {
 		const { uid } = req.body as MenusRequestBody;
-		if (!uid) return res.status(400).json({ message: MESSAGES.MENUS_MDANDATORY_FIELDS_UID });
+		if (!uid) {
+			res.status(400).json({ message: MESSAGES.MENUS_MDANDATORY_FIELDS_UID });
+			throw new Error('No "uid" found in body');
+		}
 	}
 
 	// TEST MANDATORY FIELDS "POST" & CHECK FIELDS SENT TO BE WHAT WE ACCEPT IN THE SCHEMA
@@ -29,10 +32,16 @@ const menuRouteValidation = async (req: NextApiRequest, res: NextApiResponse) =>
 			await verifyToken(req, res);
 
 			const { data } = req.body as MenusRequestBody;
-			if (!data) return res.status(400).json({ message: MESSAGES.MENUS_MDANDATORY_FIELDS_DATA });
+			if (!data) {
+				res.status(400).json({ message: MESSAGES.MENUS_MDANDATORY_FIELDS_DATA });
+				throw new Error('No "data" found in body');
+			}
 
 			const { isValid, errorFields } = objectContainsSameKeys<MenuSchema>(data, baseMenu);
-			if (!isValid) return res.status(400).json({ message: MESSAGES.ERROR, errorFields });
+			if (!isValid) {
+				res.status(400).json({ message: MESSAGES.ERROR, errorFields });
+				throw new Error('Fields are missing from data sent');
+			}
 		} catch (error) {
 			throw error;
 		}

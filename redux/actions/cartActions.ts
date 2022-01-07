@@ -8,6 +8,7 @@ import {
 	CartAddItemPayload,
 	CartRemoveItemPayload,
 	CartSetLoadingPayload,
+	CartSetRestaurantPayload,
 	CartUpdateItemPayload,
 } from '#declarations/interfaces/Redux';
 
@@ -16,6 +17,9 @@ export { cartActions };
 // CART ACTIONS
 const setLoadingCart = (payload: CartSetLoadingPayload) => (dispatch: Dispatch<CartAction>) =>
 	dispatch({ type: CartActionType.SET_LOADING, payload });
+
+const setRestaurantCart = (payload: CartSetRestaurantPayload) => (dispatch: Dispatch<CartAction>) =>
+	dispatch({ type: CartActionType.SET_CART_RESTAURANT, payload });
 
 const addItemCart = (payload: CartAddItemPayload) => (dispatch: Dispatch<CartAction>) =>
 	dispatch({ type: CartActionType.ADD_ITEM, payload });
@@ -30,6 +34,6 @@ const resetCart = () => (dispatch: Dispatch<CartAction>) => dispatch({ type: Car
 
 const cartActions = () =>
 	bindActionCreators(
-		{ setLoadingCart, addItemCart, removeItemCart, resetCart, updateCartItem },
+		{ setLoadingCart, setRestaurantCart, addItemCart, removeItemCart, resetCart, updateCartItem },
 		useDispatch<Dispatch<CartAction>>(),
 	);

@@ -13,6 +13,7 @@ import {
 	AuthSetLoadingPayload,
 	AuthUpdateUserPayload,
 } from '#declarations/interfaces/Redux';
+import { URLS } from 'utils/misc';
 
 export { authActions };
 
@@ -30,7 +31,10 @@ const loginUserAuth = (payload: AuthLoginPayload) => (dispatch: Dispatch<AuthAct
 	dispatch({ type: AuthActionType.LOGIN, payload });
 
 const logoutUserAuth = () => (dispatch: Dispatch<AuthAction>) => {
-	axios.defaults.headers.common['Authorization'] = '';
+	axios
+		.post(URLS.API_LOGOUT, {}, { withCredentials: true })
+		.then(res => console.log(res.data.message))
+		.catch(err => console.warn('Logout endpoint failed with:', err));
 
 	signOut(authRef)
 		.then(_ => console.log('Successfully logged out!'))
