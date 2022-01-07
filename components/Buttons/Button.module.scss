@@ -22,6 +22,10 @@ $button-background-color-dark: $dark-grey;
 		transform: scale(0.95);
 	}
 
+	&:active {
+		transform: scale(0.9);
+	}
+
 	&-primary {
 		color: $button-text-color-light;
 		background: $button-background-color-dark;

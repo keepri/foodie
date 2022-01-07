@@ -2,12 +2,14 @@ import { Langs } from '#declarations/enums/Langs';
 import { CartActionType, AuthActionType, AppActionType } from '#declarations/enums/Redux';
 import { OrderItem } from '#firebase/declarations/interfaces';
 import { ClientSchema, OrderSchema, RestaurantSchema } from '#firebase/declarations/schemas';
+import { Unsubscribe } from 'firebase/auth';
 
 // --- STATE ---
 export interface AppState {
 	loading: boolean;
 	appLang: Langs;
 	restaurants?: RestaurantSchema[];
+	unsubscribeOnAuthChange?: Unsubscribe;
 }
 
 export interface AuthState {
@@ -23,6 +25,7 @@ export interface CartState extends OrderSchema {
 
 // --- PAYLOADS ---
 export type AppSetLoadingPayload = boolean;
+export type AppSetOnAuthChangeSubPayload = Unsubscribe;
 export type AppSetLangPayload = Langs;
 export type AuthSetLoadingPayload = boolean;
 export type AuthSetIsLoggedPayload = boolean;
@@ -38,6 +41,11 @@ export type CartUpdateItemPayload = { index: number; update: Partial<OrderItem> 
 export interface AppSetLoadingAction {
 	type: AppActionType.SET_LOADING;
 	payload: AppSetLoadingPayload;
+}
+
+export interface AppSetOnAuthChangeSubAction {
+	type: AppActionType.SET_ON_AUTH_CHANGE_SUB;
+	payload: AppSetOnAuthChangeSubPayload;
 }
 
 export interface AppSetLangAction {

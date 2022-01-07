@@ -7,26 +7,18 @@ import { useSelector } from 'react-redux';
 import { ReduxState } from '#declarations/types/Redux';
 import Link from '#components/Buttons/Link';
 import { URLS } from 'utils/misc';
-import CartItem from '#components/Cart/CartItem/CartItem';
 
 interface Props {}
 
 const Index: NextPage<Props> = ({}) => {
 	const {
-		auth: { isLogged },
-		cart: { items },
-	} = useSelector(({ auth, cart }: ReduxState) => ({ auth, cart }));
+		auth: { isLogged, user },
+	} = useSelector(({ auth }: ReduxState) => ({ auth }));
 	const { logoutUserAuth } = useAuthActions();
 
 	return (
 		<main>
-			<h1>Hello</h1>
-
-			<p>{isLogged ? 'logged' : 'not logged'}</p>
-
-			{items.map((item, index) => (
-				<CartItem key={index} index={index} item={item} />
-			))}
+			<h1>Hello{`, ${user.name}`}</h1>
 
 			{!isLogged && (
 				<Link button secondary href={URLS.LOGIN}>
@@ -39,7 +31,7 @@ const Index: NextPage<Props> = ({}) => {
 				</Link>
 			)}
 			{isLogged && (
-				<Button primary onClick={logoutUserAuth}>
+				<Button primary onMouseUp={logoutUserAuth}>
 					Logout
 				</Button>
 			)}

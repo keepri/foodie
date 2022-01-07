@@ -10,6 +10,11 @@ export const appReducer = (state: AppState = initAppState, action: AppAction): A
 			return { ...state, loading: action.payload };
 		}
 
+		// SET_ON_AUTH_CHANGE_SUB
+		case AppActionType.SET_ON_AUTH_CHANGE_SUB: {
+			return { ...state, unsubscribeOnAuthChange: action.payload };
+		}
+
 		// SET_LANG
 		case AppActionType.SET_LANG: {
 			return { ...state, appLang: action.payload };

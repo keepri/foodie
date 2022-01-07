@@ -8,13 +8,10 @@ import styles from './RegisterForm.module.scss';
 import Input from '#components/Input/Input';
 import { getLang } from '#controllers/getLang';
 import { registerUser } from '#controllers/registerUser';
-import {
-	reEmail,
-	//  URLS
-} from 'utils/misc';
+import { reEmail } from 'utils/misc';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { authRef } from '#firebase/initClientApp';
-// import { useRouter } from 'next/router';
+import { checkPasswordsMatch } from '#controllers/validation/checkPasswordsMatch';
 
 type FormErrors = {
 	emailErr: boolean;
@@ -30,9 +27,12 @@ type FormErrors = {
 	phoneMsg?: string;
 };
 
-interface Props extends React.FormHTMLAttributes<HTMLFormElement> {}
+interface Props extends React.FormHTMLAttributes<HTMLFormElement> {
+	modal?: boolean;
+	setModal?: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-const RegisterForm: React.FC<Props> = ({ className, ...rest }) => {
+const RegisterForm: React.FC<Props> = ({ className, modal, setModal, ...rest }) => {
 	const initForm = {
 		email: '',
 		password: '',
@@ -65,7 +65,6 @@ const RegisterForm: React.FC<Props> = ({ className, ...rest }) => {
 	} = errors;
 
 	const lang = getLang();
-	// const { replace } = useRouter();
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
 		setForm({ ...form, [e.target.name]: e.target.value });
@@ -78,17 +77,20 @@ const RegisterForm: React.FC<Props> = ({ className, ...rest }) => {
 
 			try {
 				await registerUser(regForm);
-
-				// TODO remove "replace" and add modal pop up with "An email has been sent for email confirmation"
-				// replace(URLS.LOGIN);
-
-				await signInWithEmailAndPassword(authRef, email, password);
+				setModal && setModal(true);
 			} catch ({ code, message }) {
 				console.warn('Register failed with:', code, message);
 				// TODO handle errors
 			}
 		}
 	};
+
+	React.useEffect(() => {
+		!modal &&
+			email &&
+			password &&
+			signInWithEmailAndPassword(authRef, email, password).then(res => console.log(res));
+	}, [modal]);
 
 	React.useEffect(() => {
 		const emailError = email.length > 0 ? !reEmail.test(email) : false;
@@ -98,7 +100,7 @@ const RegisterForm: React.FC<Props> = ({ className, ...rest }) => {
 		const nameError = false;
 		// TODO verify if string entered is phone number
 		const phoneError = false;
-		const passwordsNoMatch = password.length === confPassword.length && password !== confPassword;
+		const passwordsNoMatch = checkPasswordsMatch(password, confPassword);
 
 		setErrors({
 			emailErr: emailError,

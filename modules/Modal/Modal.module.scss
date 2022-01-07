@@ -1,0 +1,58 @@
+@use '#styles/colors.module.scss' as *;
+@use '#styles/variables.module.scss' as *;
+
+.modal {
+	$modal-spacing: 1rem;
+
+	display: grid;
+	place-items: center;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: $modal-background-color;
+	backdrop-filter: blur(5px);
+	z-index: 1000;
+
+	&-content {
+		position: relative;
+		z-index: 1001;
+		padding: $modal-spacing;
+		background: $white;
+		width: 100%;
+		max-width: 50rem;
+		border-radius: $radius;
+	}
+
+	&-header {
+		display: flex;
+
+		.title {
+			p {
+				margin-top: 0.4rem;
+				font-size: 0.8rem;
+			}
+		}
+
+		// close container
+		span {
+			cursor: pointer !important;
+			margin-left: auto !important;
+			margin-bottom: auto !important;
+
+			&:hover {
+				transform: scale(1.07);
+			}
+			&:active {
+				transform: scale(0.9);
+			}
+		}
+	}
+
+	&-body {
+		margin-top: $modal-spacing;
+		padding-top: $modal-spacing;
+		border-top: 1px solid $light-grey;
+	}
+}

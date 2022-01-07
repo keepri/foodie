@@ -20,5 +20,7 @@ export const english = {
 	alertPhone: 'Incorrect phone number',
 
 	// TEXT
-	hello: 'Hello',
+	accountCreateSuccessTitle: 'Congratulations! Welcome to the party.',
+	accountCreateSuccessBody:
+		'An email has been sent to the email address you have provided. Please follow the link to activate your account. Thank you!',
 };

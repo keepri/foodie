@@ -1,7 +1,7 @@
 import React from 'react';
 import type { NextPage } from 'next';
 import LoginForm from '#modules/Forms/LoginForm/LoginForm';
-import { privateRoute } from '#controllers/privateRoute';
+import { privateRoute } from '#controllers/validation/privateRoute';
 import Link from '#components/Buttons/Link';
 
 interface Props {}

@@ -2,6 +2,7 @@ export { AppActionType, CartActionType, AuthActionType };
 
 enum AppActionType {
 	SET_LOADING = 'app_set_loading',
+	SET_ON_AUTH_CHANGE_SUB = 'app_set_on_auth_change_sub',
 	SET_LANG = 'app_set_lang',
 	TOGGLE_DARK_MODE = 'app_toggle_dark_mode',
 	RESET = 'app_reset',
