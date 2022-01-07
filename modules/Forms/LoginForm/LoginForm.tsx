@@ -14,9 +14,11 @@ import { getLang } from '#controllers/getLang';
 
 type FormErrors = { emailErr: boolean; passwordErr: boolean; emailMsg?: string; passwordMsg?: string };
 
-interface Props extends React.FormHTMLAttributes<HTMLFormElement> {}
+interface Props extends React.FormHTMLAttributes<HTMLFormElement> {
+	onLoginSuccess?: (e: React.FormEvent<HTMLFormElement>) => void;
+}
 
-const LoginForm: React.FC<Props> = ({ className, ...rest }) => {
+const LoginForm: React.FC<Props> = ({ className, onLoginSuccess, ...rest }) => {
 	const [form, setForm] = React.useState({ email: '', password: '' });
 	const [errors, setErrors] = React.useState<FormErrors>({ emailErr: false, passwordErr: false });
 
@@ -42,9 +44,10 @@ const LoginForm: React.FC<Props> = ({ className, ...rest }) => {
 
 		if (!emailErr && !passwordErr) {
 			try {
-				const { user } = await signInWithEmailAndPassword(authRef, email, password);
+				await signInWithEmailAndPassword(authRef, email, password);
 
-				if (user) back();
+				onLoginSuccess && onLoginSuccess(e);
+				back();
 			} catch ({ code, message }) {
 				console.error(message);
 				(code === AuthErrorCodes.INVALID_EMAIL || code === AuthErrorCodes.USER_DELETED) &&

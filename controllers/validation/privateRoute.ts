@@ -10,13 +10,14 @@ export { privateRoute };
 
 interface Props {
 	whenIsLoggedIs: boolean;
+	disabled?: boolean;
 }
 
-const privateRoute = ({ whenIsLoggedIs }: Props) => {
+const privateRoute = ({ whenIsLoggedIs, disabled }: Props) => {
 	const isLogged = useSelector(({ auth: { isLogged } }: ReduxState) => isLogged);
 	const { replace } = useRouter();
 
 	React.useEffect(() => {
-		isLogged === whenIsLoggedIs && replace(URLS.HOME);
+		isLogged === whenIsLoggedIs && !disabled && replace(URLS.HOME);
 	}, [isLogged]);
 };
