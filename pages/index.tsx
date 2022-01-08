@@ -24,7 +24,7 @@ const Index: NextPage<Props> = ({ restaurants }) => {
 	}, []);
 
 	return (
-		<main className='container'>
+		<main className='container container-home'>
 			<h1>Hello{`, ${user.name}`}</h1>
 			<Restaurants restaurants={restaurants} />
 		</main>

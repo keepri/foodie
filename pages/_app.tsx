@@ -1,6 +1,7 @@
 import '#firebase/initClientApp';
 import '#styles/reset.scss';
 import '#styles/globals.scss';
+import '#styles/mediaQueries.scss';
 
 import React from 'react';
 import { Provider } from 'react-redux';

@@ -1,5 +1,4 @@
 import React from 'react';
-import Image from 'next/image';
 import { useSelector } from 'react-redux';
 
 import styles from './Navbar.module.scss';
@@ -21,7 +20,7 @@ const Navbar: React.FC<Props> = ({ className, ...rest }) => {
 	const { logoutUserAuth } = useAuthActions();
 
 	return (
-		<nav className={[styles['navbar'], className].join(' ')} {...rest}>
+		<nav className={['container', styles['navbar'], className].join(' ')} {...rest}>
 			<Logo />
 			<ul>
 				<Link button secondary href={URLS.CART}>
