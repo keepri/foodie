@@ -9,6 +9,7 @@ export interface AppState {
 	loading: boolean;
 	appLang: Langs;
 	restaurants?: RestaurantSchema[];
+	selectedRestaurant: RestaurantSchema | null;
 	unsubscribeOnAuthChange?: Unsubscribe;
 }
 

@@ -77,6 +77,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<RestaurantsRetur
 
 				if (!(await restaurantDoc.get()).exists) return res.status(404).json({ message: MESSAGES.NOT_FOUND });
 
+				data && (data.uid = restaurantDoc.id);
 				await restaurantDoc.set(data as RestaurantSchema);
 				const restaurant = (await restaurantDoc.get()).data() as RestaurantSchema;
 

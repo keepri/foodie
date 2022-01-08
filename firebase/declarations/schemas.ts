@@ -8,6 +8,7 @@ export interface ClientSchema {
 }
 
 export interface RestaurantSchema {
+	uid: string;
 	status: RESTAURANT_STATUS;
 	name: string;
 	phone: string;

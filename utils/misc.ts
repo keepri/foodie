@@ -52,6 +52,7 @@ const cors = Cors({
 export const initAppState: AppState = {
 	loading: false,
 	appLang: Langs.en,
+	selectedRestaurant: null,
 };
 
 export const initAuthState: AuthState = {

@@ -28,6 +28,7 @@ export interface RestaurantCosts {
 	packaging: number;
 	delivery: number;
 	minOrder: number;
+	noDeliveryAfterMinOrder: boolean;
 }
 
 export interface Address {
