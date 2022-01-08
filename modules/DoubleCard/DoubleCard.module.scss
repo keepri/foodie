@@ -1,0 +1,125 @@
+@use '#styles/variables.module.scss' as *;
+@use '#styles/colors.module.scss' as *;
+
+.double-card {
+	$border-radius: 1rem;
+	$photo-width: 30rem;
+	$card-info-background: rgba($white, 0.8);
+
+	display: inline-block;
+	position: relative;
+	margin: 1rem;
+
+	&:hover &-content {
+		transform: translateX(-50%) scale(1.02);
+	}
+	&:hover &-photo {
+		transform: scale(0.99);
+	}
+
+	&:active > &-content {
+		transform: translateX(-50%) scale(1.05);
+	}
+	&:active > &-photo {
+		transform: scale(0.97);
+	}
+
+	&-photo {
+		position: relative;
+		border-radius: $border-radius;
+		transition: transform 250ms ease-out;
+		cursor: pointer;
+
+		// image container
+		span {
+			border: 1px solid rgba(0, 0, 0, 0.05) !important;
+			border-radius: $border-radius;
+		}
+	}
+
+	&-disabled {
+		&-text {
+			position: absolute;
+			top: 1rem;
+			left: 1rem;
+			color: $white;
+			font-weight: 300;
+			z-index: 2;
+			line-height: 1;
+		}
+
+		.double-card-photo {
+			span::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				background: rgba(0, 0, 0, 0.1);
+				backdrop-filter: blur(5px);
+				z-index: 1;
+				border-radius: $border-radius;
+			}
+		}
+	}
+
+	&-content {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		position: absolute;
+		bottom: -1.5rem;
+		left: 50%;
+		transform: translateX(-50%);
+		background: $card-info-background;
+		border-radius: $border-radius;
+		padding: 0.65em;
+		cursor: pointer;
+		backdrop-filter: blur(15px);
+		border-width: 1px;
+		border-style: solid;
+		transition: transform 250ms ease-out;
+		z-index: 2;
+
+		// image container
+		&-logo {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			border-radius: $border-radius;
+
+			span {
+				border-radius: $border-radius;
+			}
+		}
+
+		&-info {
+			position: relative;
+			align-self: flex-start;
+
+			& > p:first-of-type {
+				margin-top: 0.5rem;
+			}
+
+			& > p + p {
+				margin-top: 0.2rem;
+			}
+
+			.restaurant-info {
+				font-size: 0.7rem;
+				color: lighten($dark-grey, 30);
+				line-height: 1.1;
+			}
+
+			h2 {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				flex-wrap: wrap;
+				gap: 0.5rem;
+				font-size: 1rem;
+			}
+		}
+	}
+}

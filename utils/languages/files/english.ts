@@ -7,6 +7,11 @@ export const english = {
 	name: 'Name',
 	total: 'Total',
 	placeOrder: 'Place order',
+	minOrder: 'Minimum order',
+	delivery: 'Delivery',
+	free: 'free',
+	closed: 'Closed',
+	unavailable: 'Unavailable',
 
 	// BUTTONS
 	signIn: 'Sign in',

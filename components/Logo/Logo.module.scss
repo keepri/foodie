@@ -1,0 +1,10 @@
+.logo {
+	position: relative;
+	cursor: pointer;
+
+	&-text {
+		position: absolute;
+		left: 1.5rem;
+		bottom: 0.5rem;
+	}
+}

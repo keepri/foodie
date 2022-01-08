@@ -4,11 +4,29 @@ import { CookieSerializeOptions } from 'cookie';
 import Cors from 'cors';
 import { baseClient, baseOrder } from './baseForms';
 
-export { cors, isProduction, defaultCookieOptions, siteName, baseUrl, reEmail, URLS, isClientSide };
+export {
+	cors,
+	isProduction,
+	defaultCookieOptions,
+	siteName,
+	baseUrl,
+	reEmail,
+	URLS,
+	isClientSide,
+	defaultRestaurantPhoto,
+	defaultRestaurantLogo,
+};
 
 const isProduction = process.env.NODE_ENV === 'production';
 const baseUrl = isProduction ? 'http://localhost:3000' : 'http://localhost:3000';
 const isClientSide = typeof window !== 'undefined';
+{
+	/* TODO change default restaurant photo */
+}
+// const defaultRestaurantPhoto = '/images/default-restaurant.jpg';
+const defaultRestaurantPhoto = '/images/default-restaurant-white.png';
+// const defaultRestaurantLogo = '/images/restaurant-logo.webp';
+const defaultRestaurantLogo = '/images/pizza-hut-logo.png';
 
 // URLS
 const URLS = {

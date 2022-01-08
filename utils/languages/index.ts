@@ -1,6 +1,5 @@
 import { Langs } from '#declarations/enums/Langs';
 import { english } from './files/english';
-import { romanian } from './files/romanian';
 
 export { Lang };
 
@@ -16,5 +15,4 @@ class Lang {
 
 	lang: typeof this.en;
 	private en = english;
-	private ro = romanian;
 }

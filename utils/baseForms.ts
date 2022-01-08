@@ -64,8 +64,9 @@ const baseAddress: Address = {
 
 const baseCosts: RestaurantCosts = {
 	packaging: 0,
-	delivery: 0,
-	minOrder: 0,
+	delivery: 10,
+	minOrder: 50,
+	noDeliveryAfterMinOrder: false,
 };
 
 const baseHours: OpenHours = {
@@ -80,12 +81,16 @@ const baseHours: OpenHours = {
 
 // BASE SCHEMAS
 const baseRestaurant: RestaurantSchema = {
+	uid: '',
+	photo: '',
+	logo: '',
+	description: 'Test description jdshf ajkshd sajkdhasjkh asdjkhas jsahd djkahs!',
 	status: RESTAURANT_STATUS.CLOSED,
-	name: '',
-	phone: '',
+	name: 'Caca maca',
+	phone: '123456',
 	addresses: [baseAddress],
 	costs: baseCosts,
-	rating: 0,
+	rating: 3,
 	hours: baseHours,
 };
 

@@ -7,6 +7,8 @@ export const romanian = {
 	name: 'Name',
 	total: 'Total',
 	placeOrder: 'Place order',
+	minOrder: 'Min. order',
+	delivery: 'Delivery',
 
 	// BUTTONS
 	signIn: 'Sign in',

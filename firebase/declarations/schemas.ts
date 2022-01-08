@@ -16,6 +16,9 @@ export interface RestaurantSchema {
 	costs: RestaurantCosts;
 	rating: number;
 	hours: OpenHours;
+	photo: string;
+	logo: string;
+	description: string;
 }
 
 export interface OrderSchema {

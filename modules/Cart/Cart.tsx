@@ -17,7 +17,7 @@ import styles from './Cart.module.scss';
 
 interface Props extends React.HtmlHTMLAttributes<HTMLDivElement> {}
 
-const Cart: React.FC<Props> = ({ className }) => {
+const Cart: React.FC<Props> = ({ className, ...rest }) => {
 	const lang = getLang();
 	const { push } = useRouter();
 
@@ -66,7 +66,7 @@ const Cart: React.FC<Props> = ({ className }) => {
 	}, [selectedRestaurant]);
 
 	return (
-		<div className={[styles['cart'], className].join(' ')}>
+		<div className={[styles['cart'], className].join(' ')} {...rest}>
 			<header className='cart-header'></header>
 			<div className='cart-body'>
 				<div className='cart-body-items'>

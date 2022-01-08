@@ -1,21 +1,28 @@
-import Link from '#components/Buttons/Link';
 import React from 'react';
+import Image from 'next/image';
 import { useSelector } from 'react-redux';
+
+import styles from './Navbar.module.scss';
+
+import { useAuthActions } from '#redux/actions';
 import { URLS } from 'utils/misc';
 import { ReduxState } from '#declarations/types/Redux';
+
 import Button from '#components/Buttons/Button';
-import { useAuthActions } from '#redux/actions';
+import Link from '#components/Buttons/Link';
+import Logo from '#components/Logo/Logo';
 
-interface Props {}
+interface Props extends React.HTMLAttributes<HTMLElement> {}
 
-const Navbar: React.FC<Props> = ({}) => {
+const Navbar: React.FC<Props> = ({ className, ...rest }) => {
 	const {
 		auth: { isLogged },
 	} = useSelector(({ auth }: ReduxState) => ({ auth }));
 	const { logoutUserAuth } = useAuthActions();
 
 	return (
-		<nav>
+		<nav className={[styles['navbar'], className].join(' ')} {...rest}>
+			<Logo />
 			<ul>
 				<Link button secondary href={URLS.CART}>
 					CART

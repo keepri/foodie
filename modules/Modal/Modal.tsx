@@ -20,6 +20,7 @@ const Modal: React.FC<Props> = ({
 	body,
 	setModal,
 	onModalClose,
+	...rest
 }) => {
 	const handleClose = () => setModal(false);
 
@@ -28,7 +29,7 @@ const Modal: React.FC<Props> = ({
 	React.useEffect(() => onModalClose && onModalClose(), []);
 
 	return (
-		<div onMouseUp={() => handleClose()} className={[styles['modal'], className].join(' ')}>
+		<div onMouseUp={() => handleClose()} className={[styles['modal'], className].join(' ')} {...rest}>
 			<div
 				onMouseUp={e => (e.stopPropagation(), e.nativeEvent.stopImmediatePropagation())}
 				className={styles['modal-content']}
