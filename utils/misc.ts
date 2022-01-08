@@ -31,7 +31,7 @@ const defaultRestaurantLogo = '/images/pizza-hut-logo.png';
 // URLS
 const URLS = {
 	// WEBSITE
-	HOME: baseUrl,
+	HOME: `${baseUrl}/`,
 	LOGIN: `${baseUrl}/login`,
 	REGISTER: `${baseUrl}/register`,
 	CART: `${baseUrl}/cart`,
@@ -40,8 +40,9 @@ const URLS = {
 	API_REGISTER: '/api/auth/register',
 	API_LOGIN: '/api/auth/login',
 	API_LOGOUT: '/api/auth/logout',
-	API_GET_USER: `/api/clients`,
-	API_PLACE_ORDER: `/api/orders`,
+	API_GET_USER: '/api/clients',
+	API_PLACE_ORDER: '/api/orders',
+	API_GET_RESTAURANTS: '/api/restaurants',
 };
 
 // MISC

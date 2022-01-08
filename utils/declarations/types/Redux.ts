@@ -3,6 +3,7 @@ import {
 	// APP
 	AppSetLoadingAction,
 	AppSetLangAction,
+	AppSetRestaurantsAction,
 	AppToggleDarkModeAction,
 	AppResetAction,
 
@@ -32,7 +33,8 @@ type AppAction =
 	| AppSetLangAction
 	| AppToggleDarkModeAction
 	| AppResetAction
-	| AppSetOnAuthChangeSubAction;
+	| AppSetOnAuthChangeSubAction
+	| AppSetRestaurantsAction;
 type CartAction =
 	| CartSetLoadingAction
 	| CartAddItemAction

@@ -28,6 +28,7 @@ export interface CartState extends OrderSchema {
 export type AppSetLoadingPayload = boolean;
 export type AppSetOnAuthChangeSubPayload = Unsubscribe;
 export type AppSetLangPayload = Langs;
+export type AppSetRestaurantsPayload = RestaurantSchema[];
 export type AuthSetLoadingPayload = boolean;
 export type AuthSetIsLoggedPayload = boolean;
 export type AuthUpdateUserPayload = Partial<ClientSchema>;
@@ -53,6 +54,11 @@ export interface AppSetOnAuthChangeSubAction {
 export interface AppSetLangAction {
 	type: AppActionType.SET_LANG;
 	payload: AppSetLangPayload;
+}
+
+export interface AppSetRestaurantsAction {
+	type: AppActionType.SET_RESTAURANTS;
+	payload: AppSetRestaurantsPayload;
 }
 
 export interface AppToggleDarkModeAction {

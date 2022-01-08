@@ -20,6 +20,11 @@ export const appReducer = (state: AppState = initAppState, action: AppAction): A
 			return { ...state, appLang: action.payload };
 		}
 
+		// SET_RESTAURANTS
+		case AppActionType.SET_RESTAURANTS: {
+			return { ...state, restaurants: action.payload };
+		}
+
 		// RESET
 		case AppActionType.RESET: {
 			return initAppState;

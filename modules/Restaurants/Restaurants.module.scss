@@ -1,0 +1,11 @@
+.restaurants {
+	& > h2 {
+		margin-bottom: 2rem;
+	}
+
+	&-content {
+		display: grid;
+		gap: 1.75rem;
+		grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+	}
+}

@@ -19,7 +19,7 @@ const DoubleCard: React.FC<Props> = ({ className, restaurant, ...rest }) => {
 	const { status, name, costs, rating, photo, logo } = restaurant;
 	const unavailable = status === RESTAURANT_STATUS.CLOSED || status === RESTAURANT_STATUS.UNAVAILABLE;
 	const { minOrder, delivery } = costs;
-	const photoWidth = 450;
+	// const photoWidth = 310;
 	const logoSize = 60;
 
 	return (
@@ -35,8 +35,9 @@ const DoubleCard: React.FC<Props> = ({ className, restaurant, ...rest }) => {
 					<p className={styles['double-card-disabled-text']}>{lang.unavailable}</p>
 				)}
 				<Image
-					width={photoWidth}
-					height={180}
+					layout='fill'
+					// width={photoWidth}
+					// height={180}
 					src={photo && photo !== '' ? photo : defaultRestaurantPhoto}
 					alt='restaurant-photo'
 				/>
@@ -61,7 +62,7 @@ const DoubleCard: React.FC<Props> = ({ className, restaurant, ...rest }) => {
 					/>
 				</div>
 
-				<div style={{ minWidth: `${photoWidth - 170}px` }} className={styles['double-card-content-info']}>
+				<div className={styles['double-card-content-info']}>
 					<h2>
 						{name} <RatingIndicator compact type='small' rating={rating} />
 					</h2>

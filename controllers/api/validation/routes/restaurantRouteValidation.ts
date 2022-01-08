@@ -1,31 +1,32 @@
+import { handleError } from '#controllers/api/handleError';
 import { REQUEST_METHODS } from '#declarations/enums/REST';
 import { MESSAGES } from '#firebase/declarations/enums';
-import { RestaurantSchema } from '#firebase/declarations/schemas';
+
 import { RestaurantsRequestBody } from '#firebase/declarations/types';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { baseRestaurant } from 'utils/baseForms';
+
 import { isSameUser } from '../isSameUser';
-import { objectContainsSameKeys } from '../objectContainsSameKeys';
 import { verifyToken } from '../verifyToken';
 
 export { restaurantRouteValidation };
 
 const restaurantRouteValidation = async (req: NextApiRequest, res: NextApiResponse) => {
 	// BYPASS FOR ROUTES THAT ARE NOT IMPLEMENTED
-	if (req.method === REQUEST_METHODS.POST) return;
+	if (req.method === REQUEST_METHODS.POST || req.method === REQUEST_METHODS.GET) return;
 
-	// TEST MANDATORY FIELDS (ALL ROUTES EXCEPT "GET" and "DELETE") & CHECK FIELDS SENT TO BE WHAT WE ACCEPT IN THE SCHEMA
-	if (req.method !== REQUEST_METHODS.DELETE && req.method !== REQUEST_METHODS.GET) {
+	if (req.method === REQUEST_METHODS.PATCH || req.method === REQUEST_METHODS.PUT) {
+		try {
+			await verifyToken(req, res);
+			const { tokenUid } = req.body;
+			isSameUser(req, res, tokenUid);
+		} catch (error) {
+			handleError(error, res);
+		}
+
 		const { uid, data } = req.body as RestaurantsRequestBody;
 		if (!uid || !data) {
 			res.status(400).json({ message: MESSAGES.RESTAURANTS_MANDATORY_FIELDS_ALL });
-			throw new Error(MESSAGES.RESTAURANTS_MANDATORY_FIELDS_ALL);
-		}
-
-		const { isValid, errorFields } = objectContainsSameKeys<RestaurantSchema>(data, baseRestaurant);
-		if (!isValid) {
-			res.status(400).json({ message: MESSAGES.ERROR, errorFields });
-			throw new Error('Error');
+			throw new Error('No "uid" fields found');
 		}
 	}
 
@@ -35,16 +36,6 @@ const restaurantRouteValidation = async (req: NextApiRequest, res: NextApiRespon
 		if (!uid) {
 			res.status(400).json({ message: MESSAGES.RESTAURANTS_MANDATORY_FIELDS_UID });
 			throw new Error('No "uid" fields found');
-		}
-	}
-
-	// ROUTE SECURITY
-	if (req.method !== REQUEST_METHODS.GET) {
-		try {
-			await verifyToken(req, res);
-			isSameUser(req, res, req.body?.tokenUid);
-		} catch (error) {
-			throw error;
 		}
 	}
 };
