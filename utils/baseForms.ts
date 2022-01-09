@@ -24,6 +24,7 @@ export {
 };
 
 const baseMenuItem: MenuItem = {
+	uid: '',
 	status: MENU_ITEM_STATUS.AVAILABLE,
 	name: '',
 	description: '',

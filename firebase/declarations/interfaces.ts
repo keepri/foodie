@@ -37,6 +37,7 @@ export interface Address {
 }
 
 export interface MenuItem {
+	uid: string;
 	status: MENU_ITEM_STATUS;
 	photo?: string;
 	name: string;

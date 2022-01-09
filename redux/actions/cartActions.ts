@@ -11,6 +11,7 @@ import {
 	CartSetRestaurantPayload,
 	CartUpdateItemPayload,
 } from '#declarations/interfaces/Redux';
+import { getMenuItemStatus } from '#firebase/client-functions/get';
 
 export { cartActions };
 
@@ -21,8 +22,16 @@ const setLoadingCart = (payload: CartSetLoadingPayload) => (dispatch: Dispatch<C
 const setRestaurantCart = (payload: CartSetRestaurantPayload) => (dispatch: Dispatch<CartAction>) =>
 	dispatch({ type: CartActionType.SET_CART_RESTAURANT, payload });
 
-const addItemCart = (payload: CartAddItemPayload) => (dispatch: Dispatch<CartAction>) =>
-	dispatch({ type: CartActionType.ADD_ITEM, payload });
+const addItemCart = (payload: CartAddItemPayload) => async (dispatch: Dispatch<CartAction>) => {
+	const menuItemUid = payload.uid;
+
+	const menuItemAvailable = await getMenuItemStatus(menuItemUid);
+
+	// TODO handle menu item not available anymore
+	if (!menuItemAvailable) return;
+
+	return dispatch({ type: CartActionType.ADD_ITEM, payload });
+};
 
 const removeItemCart = (payload: CartRemoveItemPayload) => (dispatch: Dispatch<CartAction>) =>
 	dispatch({ type: CartActionType.REMOVE_ITEM, payload });
