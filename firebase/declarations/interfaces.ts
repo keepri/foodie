@@ -1,17 +1,12 @@
+import { MENU_ITEM_STATUS } from './enums';
+
 export interface AddOptions {
 	returnDoc?: boolean;
 }
 
-export interface CategoryItem {
-	name: string;
-	description: string;
-	price: number;
-	photo?: string;
-}
-
 export interface Category {
 	name: string;
-	items: CategoryItem[];
+	items: MenuItem[];
 }
 
 export interface OpenHours {
@@ -41,7 +36,9 @@ export interface Address {
 	extra?: string;
 }
 
-export interface OrderItem {
+export interface MenuItem {
+	status: MENU_ITEM_STATUS;
+	photo?: string;
 	name: string;
 	description: string;
 	quantity: number;

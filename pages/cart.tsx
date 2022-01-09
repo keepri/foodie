@@ -1,15 +1,16 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
 import type { NextPage } from 'next';
 import Cart from '#modules/Cart/Cart';
 
 interface Props {}
 
-const Page: NextPage<Props> = ({}) => {
+const CartPage: NextPage<Props> = ({}) => {
 	return (
-		<div>
+		<main className='container'>
 			<Cart />
-		</div>
+		</main>
 	);
 };
 
-export default Page;
+export default dynamic(() => Promise.resolve(CartPage), { ssr: false });

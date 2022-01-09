@@ -1,6 +1,6 @@
 import { Langs } from '#declarations/enums/Langs';
 import { CartActionType, AuthActionType, AppActionType } from '#declarations/enums/Redux';
-import { OrderItem } from '#firebase/declarations/interfaces';
+import { MenuItem } from '#firebase/declarations/interfaces';
 import { ClientSchema, OrderSchema, RestaurantSchema } from '#firebase/declarations/schemas';
 import { Unsubscribe } from 'firebase/auth';
 
@@ -35,9 +35,9 @@ export type AuthUpdateUserPayload = Partial<ClientSchema>;
 export type AuthLoginPayload = { token: string; user?: ClientSchema };
 export type CartSetLoadingPayload = boolean;
 export type CartSetRestaurantPayload = string;
-export type CartAddItemPayload = OrderItem;
+export type CartAddItemPayload = MenuItem;
 export type CartRemoveItemPayload = number;
-export type CartUpdateItemPayload = { index: number; update: Partial<OrderItem> };
+export type CartUpdateItemPayload = { index: number; update: Partial<MenuItem> };
 
 // --- ACTIONS ---
 // APP

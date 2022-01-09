@@ -31,6 +31,7 @@ const Index: NextPage<Props> = ({ restaurants }) => {
 	);
 };
 
+// TODO change to get getServerSideProps
 export const getStaticProps: GetStaticProps = async ({}: GetStaticPropsContext) => {
 	let restaurants: RestaurantSchema[] = [];
 

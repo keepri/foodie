@@ -30,7 +30,6 @@ const LoginForm: React.FC<Props> = ({ className, onLoginSuccess, ...rest }) => {
 	const { push, back, query } = useRouter();
 
 	const { redirect } = query as { redirect: string };
-	console.log(query);
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
 		setForm({ ...form, [e.target.name]: e.target.value });

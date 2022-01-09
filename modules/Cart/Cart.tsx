@@ -6,7 +6,6 @@ import { ReduxState } from '#declarations/types/Redux';
 import { ORDER_STATUS } from '#firebase/declarations/enums';
 import { OrderSchema } from '#firebase/declarations/schemas';
 import { authRef } from '#firebase/initClientApp';
-import { useCartActions } from '#redux/actions';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -21,13 +20,10 @@ const Cart: React.FC<Props> = ({ className, ...rest }) => {
 	const lang = getLang();
 	const { push } = useRouter();
 
-	const { setRestaurantCart } = useCartActions();
-
 	const {
 		cart: { items, total, info, restaurant },
 		auth: { isLogged },
-		app: { selectedRestaurant },
-	} = useSelector(({ cart, auth, app }: ReduxState) => ({ cart, auth, app }));
+	} = useSelector(({ cart, auth }: ReduxState) => ({ cart, auth }));
 
 	const handleSubmit = async () => {
 		if (!isLogged) {
@@ -58,12 +54,6 @@ const Cart: React.FC<Props> = ({ className, ...rest }) => {
 			}
 		}
 	};
-
-	React.useEffect(() => {
-		const uid = selectedRestaurant?.uid;
-
-		uid ? setRestaurantCart(uid) : console.warn('Restaurant has no "uid" field');
-	}, [selectedRestaurant]);
 
 	return (
 		<div className={[styles['cart'], className].join(' ')} {...rest}>

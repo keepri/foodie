@@ -1,12 +1,5 @@
-import { ORDER_STATUS, RESTAURANT_STATUS } from '#firebase/declarations/enums';
-import {
-	Address,
-	Category,
-	CategoryItem,
-	OpenHours,
-	OrderItem,
-	RestaurantCosts,
-} from '#firebase/declarations/interfaces';
+import { MENU_ITEM_STATUS, ORDER_STATUS, RESTAURANT_STATUS } from '#firebase/declarations/enums';
+import { Address, Category, OpenHours, MenuItem, RestaurantCosts } from '#firebase/declarations/interfaces';
 import {
 	RestaurantSchema,
 	OrderSchema,
@@ -26,30 +19,23 @@ export {
 	baseAddress,
 	baseCosts,
 	baseHours,
-	baseOrderItem,
+	baseMenuItem,
 	baseCategory,
-	baseCategoryItem,
 };
 
-// BASE SCHEMA COMPONENTS
-const baseCategoryItem: CategoryItem = {
-	name: '',
-	description: '',
-	price: 0,
-	photo: '',
-};
-
-const baseCategory: Category = {
-	name: '',
-	items: [baseCategoryItem],
-};
-
-const baseOrderItem: OrderItem = {
+const baseMenuItem: MenuItem = {
+	status: MENU_ITEM_STATUS.AVAILABLE,
 	name: '',
 	description: '',
 	quantity: 1,
 	price: 0,
 	info: '',
+	photo: '',
+};
+
+const baseCategory: Category = {
+	name: '',
+	items: [baseMenuItem],
 };
 
 const baseAddress: Address = {
@@ -95,7 +81,7 @@ const baseRestaurant: RestaurantSchema = {
 };
 
 const baseOrder: OrderSchema = {
-	items: [baseOrderItem],
+	items: [baseMenuItem],
 	total: 0,
 	client: '',
 	restaurant: '',

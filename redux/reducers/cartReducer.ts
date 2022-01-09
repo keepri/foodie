@@ -18,9 +18,15 @@ export const cartReducer = (state: CartState = initCartState, action: CartAction
 
 		// ADD_ITEM
 		case CartActionType.ADD_ITEM: {
-			const item = action.payload;
-			const items = [...state.items, item];
-			const total = state.total + item.price;
+			const itemToAdd = action.payload;
+			const stateItems = state.items;
+			const existItem = stateItems.find(item => item.name === itemToAdd.name);
+
+			const items = existItem
+				? stateItems.map(item => (item.name === itemToAdd.name ? { ...item, quantity: item.quantity + 1 } : item))
+				: [...stateItems, itemToAdd];
+
+			const total = state.total + itemToAdd.price;
 
 			return { ...state, items, total };
 		}

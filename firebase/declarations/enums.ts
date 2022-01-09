@@ -7,6 +7,11 @@ export enum COLLECTIONS {
 	MENUS = 'menus',
 }
 
+export enum MENU_ITEM_STATUS {
+	AVAILABLE = 'available',
+	UNAVAILABLE = 'unavailable',
+}
+
 export enum RESTAURANT_STATUS {
 	CLOSED = 'closed',
 	OPEN = 'open',

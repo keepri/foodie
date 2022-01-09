@@ -1,20 +1,23 @@
 import React from 'react';
 
-import { OrderItem } from '#firebase/declarations/interfaces';
+import { MenuItem } from '#firebase/declarations/interfaces';
 
 import ToggleQuantity from '#components/ToggleQuantity/ToggleQuantity';
 
 import styles from './CartItem.module.scss';
 
 import { useCartActions } from '#redux/actions';
+import Image from 'next/image';
+import { defaultItemPhoto } from 'utils/misc';
 
 interface Props extends React.HTMLAttributes<HTMLElement> {
 	index: number;
-	item: OrderItem;
+	item: MenuItem;
 }
 
 const CartItem: React.FC<Props> = ({ className, index, item, ...rest }) => {
-	const { name, description, quantity, price } = item;
+	const { name, description, quantity, price, photo } = item;
+	const photoSize = 70;
 
 	const { updateCartItem, removeItemCart } = useCartActions();
 
@@ -33,8 +36,18 @@ const CartItem: React.FC<Props> = ({ className, index, item, ...rest }) => {
 
 	return (
 		<div className={[styles['cart-item'], className].join(' ')} {...rest}>
-			<p className={styles['cart-item-name']}>{name}</p>
-			<p className={styles['cart-item-description']}>{description}</p>
+			<Image
+				src={photo && photo !== '' ? photo : defaultItemPhoto}
+				width={photoSize}
+				height={photoSize}
+				objectFit='cover'
+				objectPosition={'center'}
+				alt='item-photo'
+			/>
+			<div className={styles['cart-item-info']}>
+				<p className={styles['cart-item-info-name']}>{name}</p>
+				<p className={styles['cart-item-info-description']}>{description}</p>
+			</div>
 			<ToggleQuantity quantity={quantity} onToggle={(value: number) => handleToggleQuantity(value)} />
 			<p className={styles['cart-item-price']}>{price}</p>
 		</div>

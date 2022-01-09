@@ -15,6 +15,7 @@ export {
 	isClientSide,
 	defaultRestaurantPhoto,
 	defaultRestaurantLogo,
+	defaultItemPhoto,
 };
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -25,6 +26,7 @@ const isClientSide = typeof window !== 'undefined';
 }
 // const defaultRestaurantPhoto = '/images/default-restaurant.jpg';
 const defaultRestaurantPhoto = '/images/default-restaurant-white.png';
+const defaultItemPhoto = '/images/default-food-item.jpg';
 // const defaultRestaurantLogo = '/images/restaurant-logo.webp';
 const defaultRestaurantLogo = '/images/pizza-hut-logo.png';
 
