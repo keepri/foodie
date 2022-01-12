@@ -5,29 +5,30 @@ import styles from './ToggleQuantity.module.scss';
 
 interface Props extends React.HTMLAttributes<HTMLElement> {
 	quantity: number;
+	horizontal?: boolean;
 	onToggle: (value: number) => void;
 }
 
-const ToggleQuantity: React.FC<Props> = ({ className, quantity, onToggle, ...rest }) => {
+const ToggleQuantity: React.FC<Props> = ({ className, quantity, horizontal, onToggle, ...rest }) => {
 	return (
-		<div className={[styles['toggle'], className].join(' ')} {...rest}>
-			<Image
-				src={'/images/icons/arrow.svg'}
-				alt='arrow-up'
-				width={15}
-				height={15}
-				className={styles['toggle-image']}
-				onClick={() => onToggle(1)}
-			/>
+		<div
+			style={{ flexDirection: horizontal ? 'row' : 'column' }}
+			className={[
+				styles['toggle'],
+				horizontal ? styles['toggle-horizontal'] : styles['toggle-vertical'],
+				className,
+			].join(' ')}
+			{...rest}
+		>
+			<div className={styles['toggle-image']}>
+				<Image src={'/images/icons/arrow.svg'} alt='arrow-up' layout='fill' onClick={() => onToggle(1)} />
+			</div>
+
 			<p className={styles['toggle-quantity']}>{quantity}</p>
-			<Image
-				src={'/images/icons/arrow.svg'}
-				alt='arrow-down'
-				width={15}
-				height={15}
-				className={styles['toggle-image']}
-				onClick={() => onToggle(-1)}
-			/>
+
+			<div className={styles['toggle-image']}>
+				<Image src={'/images/icons/arrow.svg'} alt='arrow-down' layout='fill' onClick={() => onToggle(-1)} />
+			</div>
 		</div>
 	);
 };

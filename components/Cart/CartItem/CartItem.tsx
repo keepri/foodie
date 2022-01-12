@@ -48,7 +48,7 @@ const CartItem: React.FC<Props> = ({ className, index, item, ...rest }) => {
 				<p className={styles['cart-item-info-name']}>{name}</p>
 				<p className={styles['cart-item-info-description']}>{description}</p>
 			</div>
-			<ToggleQuantity quantity={quantity} onToggle={(value: number) => handleToggleQuantity(value)} />
+			<ToggleQuantity horizontal quantity={quantity} onToggle={(value: number) => handleToggleQuantity(value)} />
 			<p className={styles['cart-item-price']}>{price}</p>
 		</div>
 	);

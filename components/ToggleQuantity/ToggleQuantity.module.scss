@@ -1,6 +1,62 @@
+@use '#styles/colors.module.scss' as *;
+@use '#styles/variables.module.scss' as *;
+
 .toggle {
-	&-image {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.35rem;
+
+	&.toggle-horizontal {
+		div:first-of-type {
+			order: 3;
+			transform: rotate(90deg);
+		}
+
+		div:last-of-type {
+			order: 1;
+			transform: rotate(-90deg);
+		}
+
+		span {
+			position: absolute;
+			display: block !important;
+			transform: rotate('45deg') !important;
+		}
 	}
+
+	&.toggle-vertical {
+		div:first-of-type {
+			order: 1;
+		}
+
+		div:last-of-type {
+			order: 3;
+			transform: rotate(180deg);
+		}
+
+		span {
+			position: absolute;
+			display: block !important;
+			transform: rotate('45deg') !important;
+		}
+	}
+
+	&-image {
+		position: relative;
+		width: 20px;
+		height: 20px;
+		cursor: pointer;
+
+		span {
+			padding: 0.2rem !important;
+		}
+	}
+
 	&-quantity {
+		order: 2;
+		background: $light-grey;
+		border-radius: $radius;
+		padding: 0.25em 0.75em;
 	}
 }
