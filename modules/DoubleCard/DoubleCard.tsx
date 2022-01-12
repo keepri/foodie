@@ -3,10 +3,12 @@ import { RESTAURANT_STATUS } from '#firebase/declarations/enums';
 import { RestaurantSchema } from '#firebase/declarations/schemas';
 import Image from 'next/image';
 import React from 'react';
-import { defaultRestaurantLogo, defaultRestaurantPhoto } from 'utils/misc';
+import { defaultRestaurantLogo, defaultRestaurantPhoto, URLS } from 'utils/misc';
 
 import styles from './DoubleCard.module.scss';
 import { getLang } from '#controllers/getLang';
+import { useRouter } from 'next/router';
+import { useCartActions } from '#redux/actions';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
 	restaurant: RestaurantSchema;
@@ -14,16 +16,24 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 
 const DoubleCard: React.FC<Props> = ({ className, restaurant, ...rest }) => {
 	const lang = getLang();
+	const { push } = useRouter();
+	const { setRestaurantCart } = useCartActions();
 
 	const { minOrder: MIN_ORDER, delivery: DELIVERY } = getLang();
-	const { status, name, costs, rating, photo, logo } = restaurant;
+	const { uid, status, name, costs, rating, photo, logo } = restaurant;
 	const unavailable = status === RESTAURANT_STATUS.CLOSED || status === RESTAURANT_STATUS.UNAVAILABLE;
 	const { minOrder, delivery } = costs;
 	// const photoWidth = 310;
 	const logoSize = 60;
 
+	const handleNav = () => {
+		setRestaurantCart(uid);
+		push(`${URLS.RESTAURANT}/${uid}`);
+	};
+
 	return (
 		<div
+			onMouseUp={() => handleNav()}
 			className={[styles['double-card'], unavailable && styles['double-card-disabled'], className].join(' ')}
 			{...rest}
 		>

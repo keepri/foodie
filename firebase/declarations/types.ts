@@ -21,7 +21,9 @@ export type LogoutSuccess = { message: string };
 export type LogoutReturnType = LogoutSuccess | RequestError;
 
 // RESTAURANTS ENDPOINT
-export type RestaurantsSuccess = { restaurants?: RestaurantSchema[]; restaurant?: RestaurantSchema };
+export type RestaurantSuccess = { restaurant: RestaurantSchema };
+export type RestaurantsSuccess = Partial<{ restaurants: RestaurantSchema[]; restaurant: RestaurantSchema }>;
+export type RestaurantReturnType = RestaurantSuccess | RequestError;
 export type RestaurantsReturnType = RestaurantsSuccess | RequestError;
 export type RestaurantsRequestBody = {
 	uid?: string;

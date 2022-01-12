@@ -12,7 +12,7 @@ const ToggleQuantity: React.FC<Props> = ({ className, quantity, onToggle, ...res
 	return (
 		<div className={[styles['toggle'], className].join(' ')} {...rest}>
 			<Image
-				src={'/images/icons/arrow.png'}
+				src={'/images/icons/arrow.svg'}
 				alt='arrow-up'
 				width={15}
 				height={15}
@@ -21,7 +21,7 @@ const ToggleQuantity: React.FC<Props> = ({ className, quantity, onToggle, ...res
 			/>
 			<p className={styles['toggle-quantity']}>{quantity}</p>
 			<Image
-				src={'/images/icons/arrow.png'}
+				src={'/images/icons/arrow.svg'}
 				alt='arrow-down'
 				width={15}
 				height={15}

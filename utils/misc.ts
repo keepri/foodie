@@ -37,6 +37,7 @@ const URLS = {
 	LOGIN: `${baseUrl}/login`,
 	REGISTER: `${baseUrl}/register`,
 	CART: `${baseUrl}/cart`,
+	RESTAURANT: `${baseUrl}/restaurant`,
 
 	// API
 	API_REGISTER: '/api/auth/register',

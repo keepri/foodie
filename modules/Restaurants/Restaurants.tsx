@@ -1,6 +1,6 @@
+import React from 'react';
 import { RestaurantSchema } from '#firebase/declarations/schemas';
 import DoubleCard from '#modules/DoubleCard/DoubleCard';
-import React from 'react';
 
 import styles from './Restaurants.module.scss';
 
