@@ -1,0 +1,72 @@
+@use '#styles/variables.module.scss' as *;
+@use '#styles/colors.module.scss' as *;
+
+.item-card {
+	$photo-size: 7rem;
+
+	position: relative;
+	display: flex;
+	cursor: pointer;
+
+	&:hover &-body {
+		transform: scale(1.01);
+	}
+	&:hover &-photo {
+		transform: scale(0.97);
+	}
+
+	&:active > &-body {
+		transform: scale(1.02);
+	}
+	&:active > &-photo {
+		transform: scale(0.95);
+	}
+
+	&-photo {
+		position: relative;
+		width: $photo-size;
+		height: $photo-size;
+		border-radius: $radius;
+		z-index: 1;
+		transition: transform 150ms ease-out;
+
+		span {
+			width: $photo-size - 1rem !important;
+			height: $photo-size - 1rem !important;
+			margin: auto -0.75rem auto auto !important;
+			border-radius: $radius !important;
+		}
+	}
+
+	&-body {
+		display: flex;
+		flex-direction: column;
+		position: relative;
+		width: 100%;
+		background: $card-info-background;
+		backdrop-filter: blur(15px);
+		border: 1px solid black;
+		border-width: 1px;
+		border-style: solid;
+		border-radius: $radius;
+		padding: 0.75rem 1rem;
+		transition: transform 150ms ease-out;
+
+		&-name {
+			margin-bottom: 0.35rem;
+		}
+
+		&-description {
+			margin-bottom: 0.25rem;
+			font-size: 0.7rem;
+			color: lighten($dark-grey, 30);
+		}
+
+		&-price {
+			font-size: 1.3rem;
+			text-align: right;
+			line-height: 1;
+			margin-top: auto;
+		}
+	}
+}

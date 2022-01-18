@@ -11,16 +11,7 @@ export { menuRouteValidation };
 
 const menuRouteValidation = async (req: NextApiRequest, res: NextApiResponse) => {
 	// BYPASS FOR ROUTES THAT ARE NOT IMPLEMENTED
-	if (req.method === REQUEST_METHODS.DELETE) return;
-
-	// TEST MANDATORY FIELDS "GET" & CHECK FIELDS SENT TO BE WHAT WE ACCEPT IN THE SCHEMA
-	if (req.method === REQUEST_METHODS.GET) {
-		const { uid } = req.body as MenusRequestBody;
-		if (!uid) {
-			res.status(400).json({ message: MESSAGES.MENUS_MDANDATORY_FIELDS_UID });
-			throw new Error('No "uid" found in body');
-		}
-	}
+	if (req.method === REQUEST_METHODS.DELETE || req.method === REQUEST_METHODS.GET) return;
 
 	// TEST MANDATORY FIELDS "POST" & CHECK FIELDS SENT TO BE WHAT WE ACCEPT IN THE SCHEMA
 	if (

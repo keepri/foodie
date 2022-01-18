@@ -1,0 +1,9 @@
+@use '#styles/variables.module.scss' as *;
+
+.menu {
+	&-category-items {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax($item-card-size, 1fr));
+		gap: 1rem;
+	}
+}

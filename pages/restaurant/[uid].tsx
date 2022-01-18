@@ -10,21 +10,23 @@ import type {
 } from 'next';
 import axios, { AxiosResponse } from 'axios';
 import { URLS } from 'utils/misc';
-import { RestaurantsSuccess, RestaurantSuccess } from '#firebase/declarations/types';
-import { RestaurantSchema } from '#firebase/declarations/schemas';
+import { MenusSuccess, RestaurantsSuccess, RestaurantSuccess } from '#firebase/declarations/types';
+import { MenuSchema, RestaurantSchema } from '#firebase/declarations/schemas';
 import { useRouter } from 'next/router';
 import { useCartActions } from '#redux/actions';
 import { ParsedUrlQuery } from 'querystring';
+import Menu from '#modules/Menu/Menu';
 
 interface Params extends ParsedUrlQuery {
 	uid: string;
 }
 
 interface Props {
+	menu: MenuSchema;
 	restaurant: RestaurantSchema;
 }
 
-const RestaurantPage: NextPage<Props> = ({ restaurant }) => {
+const RestaurantPage: NextPage<Props> = ({ restaurant, menu }) => {
 	const { isFallback } = useRouter();
 	const { setRestaurantCart } = useCartActions();
 
@@ -47,6 +49,7 @@ const RestaurantPage: NextPage<Props> = ({ restaurant }) => {
 		<main className='container'>
 			<h1>Welcome to {name}</h1>
 			<p>{description}</p>
+			<Menu menu={menu} />
 		</main>
 	);
 };
@@ -81,19 +84,40 @@ export const getStaticProps: GetStaticProps = async ({
 		};
 
 	try {
-		const { status, data }: AxiosResponse<RestaurantSuccess> = await axios.get(
-			`${URLS.API_GET_RESTAURANTS}/${uid}`,
+		const { status: statusRestaurant, data: dataRestaurant }: AxiosResponse<RestaurantSuccess> =
+			await axios.get(`${URLS.API_GET_RESTAURANTS}/${uid}`);
+		const { status: statusMenu, data: dataMenu }: AxiosResponse<MenusSuccess> = await axios.get(
+			`${URLS.API_GET_MENU}/${uid}`,
 		);
 
-		if (status === 404)
+		if (statusRestaurant === 404 || statusMenu === 404)
 			return {
 				notFound: true,
 			};
 
-		const { restaurant } = data;
+		const { restaurant } = dataRestaurant;
+		let { menu } = dataMenu;
+		menu = {
+			...menu,
+			categories: [
+				{
+					...menu.categories[0],
+					items: [
+						...menu.categories[0].items,
+						...menu.categories[0].items,
+						...menu.categories[0].items,
+						...menu.categories[0].items,
+						...menu.categories[0].items,
+						...menu.categories[0].items,
+						...menu.categories[0].items,
+						...menu.categories[0].items,
+					],
+				},
+			],
+		};
 
 		return {
-			props: { restaurant },
+			props: { restaurant, menu },
 		};
 	} catch (error) {
 		return {

@@ -46,14 +46,12 @@ const RestaurantCard: React.FC<Props> = ({ className, restaurant, ...rest }) => 
 				)}
 				<Image
 					layout='fill'
-					// width={photoWidth}
-					// height={180}
 					src={photo && photo !== '' ? photo : defaultRestaurantPhoto}
 					alt='restaurant-photo'
 				/>
 			</div>
 			<div
-				style={{ borderColor: unavailable ? 'rgba(255, 0, 0, .2)' : 'rgba(0, 0, 0, .05)' }}
+				style={{ borderColor: unavailable ? 'rgba(255, 0, 0, .2)' : 'rgb(219, 219, 219)' }}
 				className={styles['double-card-content']}
 			>
 				<div

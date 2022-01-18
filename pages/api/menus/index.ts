@@ -21,27 +21,6 @@ export default async (req: NextApiRequest, res: NextApiResponse<MenusReturnType>
 	}
 
 	switch (req.method?.toUpperCase()) {
-		// GET
-		case REQUEST_METHODS.GET: {
-			try {
-				const { uid } = req.body as MenusRequestBody;
-				const menuDoc = await firestore
-					.collection(COLLECTIONS.MENUS)
-					.doc(uid as string)
-					.get();
-
-				if (!menuDoc.exists) return res.status(404).json({ message: MESSAGES.NOT_FOUND });
-
-				const menu = menuDoc.data() as MenuSchema;
-
-				return res.status(200).json({ menu });
-			} catch (error) {
-				handleError(error, res);
-			}
-
-			break;
-		}
-
 		// PATCH
 		case REQUEST_METHODS.PATCH: {
 			try {
