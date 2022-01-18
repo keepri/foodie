@@ -40,6 +40,7 @@ export type CartSetRestaurantPayload = string;
 export type CartAddItemPayload = MenuItem;
 export type CartRemoveItemPayload = number;
 export type CartUpdateItemPayload = { index: number; update: Partial<MenuItem> };
+export type CartUpdatePayload = Partial<OrderSchema>;
 
 // --- ACTIONS ---
 // APP
@@ -119,6 +120,11 @@ export interface CartAddItemAction {
 export interface CartUpdateItemAction {
 	type: CartActionType.UPDATE_ITEM;
 	payload: CartUpdateItemPayload;
+}
+
+export interface CartUpdateAction {
+	type: CartActionType.UPDATE;
+	payload: CartUpdatePayload;
 }
 
 export interface CartRemoveItemAction {

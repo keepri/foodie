@@ -7,6 +7,7 @@ import { ReduxState } from '#declarations/types/Redux';
 import { ORDER_STATUS } from '#firebase/declarations/enums';
 import { OrderSchema } from '#firebase/declarations/schemas';
 import { authRef } from '#firebase/initClientApp';
+import { useCartActions } from '#redux/actions';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -28,6 +29,7 @@ const Cart: React.FC<Props> = ({ className, page, ...rest }) => {
 		auth: { isLogged },
 		app: { currency },
 	} = useSelector(({ cart, auth, app }: ReduxState) => ({ cart, auth, app }));
+	const { updateCart } = useCartActions();
 
 	const handleSubmit = async () => {
 		if (!isLogged) {
@@ -59,6 +61,10 @@ const Cart: React.FC<Props> = ({ className, page, ...rest }) => {
 		}
 	};
 
+	const handleInfoChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+		updateCart({ info: e.target.value });
+	};
+
 	return (
 		<div className={[styles['cart'], page && styles['cart-page'], className].join(' ')} {...rest}>
 			<div className={styles['cart-body']}>
@@ -75,7 +81,7 @@ const Cart: React.FC<Props> = ({ className, page, ...rest }) => {
 
 					{/* SHOW THIS IF THE CART HAS ITEMS INSIDE OF IT */}
 					{items.map((cartItem, index) => (
-						<CartItem key={'cart-item-' + index} index={index} item={cartItem} />
+						<CartItem className={styles['cart-item']} key={'cart-item-' + index} index={index} item={cartItem} />
 					))}
 				</div>
 			</div>
@@ -88,6 +94,7 @@ const Cart: React.FC<Props> = ({ className, page, ...rest }) => {
 							{total} {currency}
 						</p>
 					</label>
+					<textarea maxLength={200} placeholder={lang.moreInfo} value={info} onChange={e => handleInfoChange(e)} />
 				</div>
 				<Button fullWidth secondary onMouseUp={() => handleSubmit()}>
 					{lang.placeOrder}

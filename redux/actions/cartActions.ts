@@ -10,6 +10,7 @@ import {
 	CartSetLoadingPayload,
 	CartSetRestaurantPayload,
 	CartUpdateItemPayload,
+	CartUpdatePayload,
 } from '#declarations/interfaces/Redux';
 import { MENU_ITEM_STATUS } from '#firebase/declarations/enums';
 // import { getMenuItemStatus } from '#firebase/client-functions/get';
@@ -42,10 +43,13 @@ const removeItemCart = (payload: CartRemoveItemPayload) => (dispatch: Dispatch<C
 const updateItemCart = (payload: CartUpdateItemPayload) => (dispatch: Dispatch<CartAction>) =>
 	dispatch({ type: CartActionType.UPDATE_ITEM, payload });
 
+const updateCart = (payload: CartUpdatePayload) => (dispatch: Dispatch<CartAction>) =>
+	dispatch({ type: CartActionType.UPDATE, payload });
+
 const resetCart = () => (dispatch: Dispatch<CartAction>) => dispatch({ type: CartActionType.RESET });
 
 const cartActions = () =>
 	bindActionCreators(
-		{ setLoadingCart, setRestaurantCart, addItemCart, removeItemCart, resetCart, updateItemCart },
+		{ setLoadingCart, setRestaurantCart, addItemCart, removeItemCart, resetCart, updateItemCart, updateCart },
 		useDispatch<Dispatch<CartAction>>(),
 	);

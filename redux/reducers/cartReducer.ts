@@ -52,6 +52,11 @@ export const cartReducer = (state: CartState = initCartState, action: CartAction
 			return { ...state, items, total };
 		}
 
+		// UPDATE
+		case CartActionType.UPDATE: {
+			return { ...state, ...action.payload };
+		}
+
 		// REMOVE_ITEM
 		case CartActionType.REMOVE_ITEM: {
 			const item = state.items[action.payload];

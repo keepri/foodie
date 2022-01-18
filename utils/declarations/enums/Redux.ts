@@ -15,6 +15,7 @@ enum CartActionType {
 	ADD_ITEM = 'cart_add_item',
 	REMOVE_ITEM = 'cart_remove_item',
 	UPDATE_ITEM = 'cart_update_item',
+	UPDATE = 'cart_update',
 	RESET = 'cart_reset',
 }
 

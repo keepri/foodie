@@ -33,15 +33,17 @@ const RestaurantPage: NextPage<Props> = ({ restaurant, menu }) => {
 
 	React.useEffect(() => {
 		return () => {
-			setRestaurantCart('');
+			restaurant && restaurant.uid && setRestaurantCart(restaurant.uid);
 		};
-	}, []);
+	}, [restaurant]);
 
 	if (isFallback)
 		return (
-			<strong>
-				<p>TEMP - Loading... - TEMP</p>
-			</strong>
+			<main className='container'>
+				<strong>
+					<p>TEMP - Loading... - TEMP</p>
+				</strong>
+			</main>
 		);
 
 	return (

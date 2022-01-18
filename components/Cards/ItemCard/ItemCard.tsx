@@ -19,25 +19,30 @@ const ItemCard: React.FC<Props> = ({ className, item, ...rest }) => {
 		app: { currency },
 		cart: { items },
 	} = useSelector(({ app, cart }: ReduxState) => ({ app, cart }));
+	const [itemIsInCart, setItemIsInCart] = React.useState(false);
 
 	const { addItemCart } = useCartActions();
 
 	const { status, photo, name, description, price } = item;
 	const unavailable = status === MENU_ITEM_STATUS.UNAVAILABLE;
 
-	const itemExistsInCart = (name: string) => {
-		const exists = items.some(item => item.name === name);
-
-		return exists;
-	};
-
 	const handleAddToCart = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
 		e.stopPropagation();
-		!itemExistsInCart(name) && addItemCart({ ...item, quantity: 1 });
+		!itemIsInCart && addItemCart({ ...item, quantity: 1 });
 	};
 
+	React.useEffect(() => {
+		const exists = items.some(item => item.name === name);
+
+		setItemIsInCart(exists);
+	}, [items]);
+
 	return (
-		<div className={[styles['item-card'], className].join(' ')} onMouseUp={e => handleAddToCart(e)} {...rest}>
+		<div
+			className={[styles['item-card'], itemIsInCart && styles['item-card-in-cart'], className].join(' ')}
+			onMouseUp={e => handleAddToCart(e)}
+			{...rest}
+		>
 			<div className={styles['item-card-photo']}>
 				<Image
 					layout='fill'
@@ -52,9 +57,12 @@ const ItemCard: React.FC<Props> = ({ className, item, ...rest }) => {
 				className={styles['item-card-body']}
 			>
 				<h3 className={styles['item-card-body-name']}>
-					{name}{' '}
-					{itemExistsInCart(name) && (
-						<Image src={'/images/icons/checked.svg'} alt='added' width={15} height={15} />
+					{name}
+					{itemIsInCart && (
+						<>
+							{' '}
+							<Image src={'/images/icons/checked.svg'} alt='added' width={15} height={15} />
+						</>
 					)}
 				</h3>
 				<p style={{ maxWidth: '18rem' }} className={styles['item-card-body-description']}>
@@ -67,7 +75,7 @@ const ItemCard: React.FC<Props> = ({ className, item, ...rest }) => {
 					<p className={styles['item-card-body-price']} style={{ fontWeight: 'bold' }}>
 						{price} {currency}
 					</p>
-					{!itemExistsInCart(name) && (
+					{!itemIsInCart && (
 						<Image
 							width={15}
 							height={15}

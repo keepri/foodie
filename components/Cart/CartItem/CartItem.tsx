@@ -11,6 +11,7 @@ import Image from 'next/image';
 import { defaultItemPhoto } from 'utils/misc';
 import { useSelector } from 'react-redux';
 import { ReduxState } from '#declarations/types/Redux';
+import { getLang } from '#controllers/getLang';
 
 interface Props extends React.HTMLAttributes<HTMLElement> {
 	index: number;
@@ -19,7 +20,9 @@ interface Props extends React.HTMLAttributes<HTMLElement> {
 }
 
 const CartItem: React.FC<Props> = ({ className, index, item, compact, ...rest }) => {
-	const { name, description, quantity, price, photo } = item;
+	const lang = getLang();
+
+	const { name, description, quantity, price, photo, info } = item;
 	const photoSize = 70;
 
 	const {
@@ -41,6 +44,12 @@ const CartItem: React.FC<Props> = ({ className, index, item, compact, ...rest })
 		updateItemCart({ index, update });
 	};
 
+	const handleInfoChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+		const update = { info: e.target.value };
+
+		updateItemCart({ index, update });
+	};
+
 	return (
 		<div
 			className={[styles['cart-item'], compact && styles['cart-item-compact'], className].join(' ')}
@@ -57,6 +66,9 @@ const CartItem: React.FC<Props> = ({ className, index, item, compact, ...rest })
 			<div className={styles['cart-item-info']}>
 				<p className={styles['cart-item-info-name']}>{name}</p>
 				<p className={styles['cart-item-info-description']}>{description}</p>
+				{!compact && (
+					<textarea maxLength={100} placeholder={lang.moreInfo} value={info} onChange={e => handleInfoChange(e)} />
+				)}
 			</div>
 			<ToggleQuantity
 				compact={compact}

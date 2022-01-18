@@ -5,18 +5,40 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	background: lighten($color: $light-grey, $amount: 10);
+	background: $card-info-background;
 	padding: 0.5rem 0.75rem;
 	border-radius: $radius;
 	border: 1px solid $card-info-border-color;
+	margin-bottom: 1rem;
 
 	&-toggle {
 		margin: 0 1rem;
 	}
 
 	&-info {
+		position: relative;
 		margin-right: auto;
 		margin-left: 1rem;
+		margin-bottom: auto;
+
+		&-name {
+			font-weight: bold;
+			font-size: 1.2rem;
+		}
+
+		&-description {
+			margin-bottom: 0.5rem;
+			font-size: 0.85rem;
+			color: lighten($dark-grey, 30);
+			line-height: 1.1;
+		}
+
+		textarea {
+			position: absolute;
+			left: 0;
+			right: 0;
+			bottom: 100;
+		}
 	}
 
 	&.cart-item-compact {
