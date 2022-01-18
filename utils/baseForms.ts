@@ -82,7 +82,7 @@ const baseRestaurant: RestaurantSchema = {
 };
 
 const baseOrder: OrderSchema = {
-	items: [baseMenuItem],
+	items: [],
 	total: 0,
 	client: '',
 	restaurant: '',

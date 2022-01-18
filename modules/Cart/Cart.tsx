@@ -1,4 +1,5 @@
 import Button from '#components/Buttons/Button';
+import Link from '#components/Buttons/Link';
 import CartItem from '#components/Cart/CartItem/CartItem';
 import { getLang } from '#controllers/getLang';
 import { isObjPopulated } from '#controllers/validation/isObjPopulated';
@@ -62,6 +63,17 @@ const Cart: React.FC<Props> = ({ className, page, ...rest }) => {
 		<div className={[styles['cart'], page && styles['cart-page'], className].join(' ')} {...rest}>
 			<div className={styles['cart-body']}>
 				<div className={styles['cart-body-items']}>
+					{/* SHOW THIS IF THE CART IS EMPTY */}
+					{items.length === 0 && (
+						<>
+							<p style={{ marginBottom: '1rem' }}>{lang.noItemsInCart}</p>
+							<Link href={URLS.HOME} button primary>
+								{lang.restaurants}
+							</Link>
+						</>
+					)}
+
+					{/* SHOW THIS IF THE CART HAS ITEMS INSIDE OF IT */}
 					{items.map((cartItem, index) => (
 						<CartItem key={'cart-item-' + index} index={index} item={cartItem} />
 					))}

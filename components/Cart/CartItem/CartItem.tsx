@@ -26,7 +26,7 @@ const CartItem: React.FC<Props> = ({ className, index, item, compact, ...rest })
 		app: { currency },
 	} = useSelector(({ app }: ReduxState) => ({ app }));
 
-	const { updateCartItem, removeItemCart } = useCartActions();
+	const { updateItemCart, removeItemCart } = useCartActions();
 
 	const handleToggleQuantity = (value: number) => {
 		const quantity = item.quantity + value;
@@ -38,7 +38,7 @@ const CartItem: React.FC<Props> = ({ className, index, item, compact, ...rest })
 
 		const update = { quantity };
 
-		updateCartItem({ index, update });
+		updateItemCart({ index, update });
 	};
 
 	return (

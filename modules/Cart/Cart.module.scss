@@ -1,3 +1,5 @@
+@use '#styles/variables.module.scss' as *;
+
 .cart {
 	&-footer {
 		&-info {
@@ -30,5 +32,11 @@
 			margin-top: 4rem;
 			margin-bottom: auto;
 		}
+	}
+}
+
+@media screen and (max-width: $container-l) {
+	.cart-page {
+		grid-template-columns: 1fr;
 	}
 }

@@ -1,16 +1,18 @@
-@media screen and (max-width: 1427px) {
+@use '#styles/variables.module.scss' as *;
+
+@media screen and (max-width: $container-xl) {
 	.container {
 		max-width: 1080px;
 	}
 }
 
-@media screen and (max-width: 1079px) {
+@media screen and (max-width: $container-l) {
 	.container {
 		max-width: 740px;
 	}
 }
 
-@media screen and (max-width: 731px) {
+@media screen and (max-width: $container-m) {
 	.container {
 		max-width: 470px;
 	}

@@ -8,6 +8,7 @@ import { defaultItemPhoto } from 'utils/misc';
 import { useSelector } from 'react-redux';
 import { ReduxState } from '#declarations/types/Redux';
 import { MENU_ITEM_STATUS } from '#firebase/declarations/enums';
+import { useCartActions } from '#redux/actions';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
 	item: MenuItem;
@@ -16,13 +17,27 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 const ItemCard: React.FC<Props> = ({ className, item, ...rest }) => {
 	const {
 		app: { currency },
-	} = useSelector(({ app }: ReduxState) => ({ app }));
+		cart: { items },
+	} = useSelector(({ app, cart }: ReduxState) => ({ app, cart }));
+
+	const { addItemCart } = useCartActions();
 
 	const { status, photo, name, description, price } = item;
 	const unavailable = status === MENU_ITEM_STATUS.UNAVAILABLE;
 
+	const itemExistsInCart = (name: string) => {
+		const exists = items.some(item => item.name === name);
+
+		return exists;
+	};
+
+	const handleAddToCart = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+		e.stopPropagation();
+		!itemExistsInCart(name) && addItemCart({ ...item, quantity: 1 });
+	};
+
 	return (
-		<div className={[styles['item-card'], className].join(' ')} {...rest}>
+		<div className={[styles['item-card'], className].join(' ')} onMouseUp={e => handleAddToCart(e)} {...rest}>
 			<div className={styles['item-card-photo']}>
 				<Image
 					layout='fill'
@@ -36,13 +51,32 @@ const ItemCard: React.FC<Props> = ({ className, item, ...rest }) => {
 				style={{ borderColor: unavailable ? 'rgba(255, 0, 0, .2)' : 'rgb(219, 219, 219)' }}
 				className={styles['item-card-body']}
 			>
-				<h3 className={styles['item-card-body-name']}>{name}</h3>
+				<h3 className={styles['item-card-body-name']}>
+					{name}{' '}
+					{itemExistsInCart(name) && (
+						<Image src={'/images/icons/checked.svg'} alt='added' width={15} height={15} />
+					)}
+				</h3>
 				<p style={{ maxWidth: '18rem' }} className={styles['item-card-body-description']}>
 					{description}
 				</p>
-				<p className={styles['item-card-body-price']} style={{ fontWeight: 'bold' }}>
-					{price} {currency}
-				</p>
+				<div
+					style={{ display: 'flex', marginTop: 'auto', gap: '1rem', justifyContent: 'space-between' }}
+					className={styles['item-card-body-bottom-container']}
+				>
+					<p className={styles['item-card-body-price']} style={{ fontWeight: 'bold' }}>
+						{price} {currency}
+					</p>
+					{!itemExistsInCart(name) && (
+						<Image
+							width={15}
+							height={15}
+							src={'/images/icons/plus.svg'}
+							alt='add'
+							onMouseUp={e => handleAddToCart(e)}
+						/>
+					)}
+				</div>
 			</div>
 		</div>
 	);
