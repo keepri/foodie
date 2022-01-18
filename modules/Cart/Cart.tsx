@@ -12,7 +12,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { URLS } from 'utils/misc';
+import { initCartState, URLS } from 'utils/misc';
 
 import styles from './Cart.module.scss';
 
@@ -54,7 +54,11 @@ const Cart: React.FC<Props> = ({ className, page, ...rest }) => {
 			try {
 				const { status } = await axios.post(URLS.API_PLACE_ORDER, { data: order });
 
-				status === 200 && console.log('Order placed successfully!');
+				if (status === 200) {
+					// TODO handle successfully placed order
+					console.log('Order placed successfully!');
+					updateCart(initCartState);
+				}
 			} catch (error) {
 				console.warn('Place order failed with:', error);
 			}

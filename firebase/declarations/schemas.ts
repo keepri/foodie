@@ -19,6 +19,7 @@ export interface RestaurantSchema {
 	photo: string;
 	logo: string;
 	description: string;
+	orders: string[];
 }
 
 export interface OrderSchema {

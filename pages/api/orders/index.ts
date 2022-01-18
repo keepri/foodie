@@ -4,7 +4,7 @@ import { REQUEST_METHODS } from '#declarations/enums/REST';
 
 import { OrdersReturnType, OrdersRequestBody } from '#firebase/declarations/types';
 import { COLLECTIONS, MESSAGES } from '#firebase/declarations/enums';
-import { OrderSchema } from '#firebase/declarations/schemas';
+import { OrderSchema, RestaurantSchema } from '#firebase/declarations/schemas';
 import { firestore } from '#firebase/initServerApp';
 
 import { handleError } from '#controllers/api/handleError';
@@ -44,8 +44,16 @@ export default async (req: NextApiRequest, res: NextApiResponse<OrdersReturnType
 		case REQUEST_METHODS.POST: {
 			try {
 				const { data } = req.body as OrdersRequestBody;
+
 				const orderDoc = firestore.collection(COLLECTIONS.ORDERS).doc();
 				await orderDoc.set(data as OrderSchema);
+
+				const orderUid = orderDoc.id;
+				const restaurantUid = (data as OrderSchema).restaurant;
+				const restaurantDoc = firestore.collection(COLLECTIONS.RESTAURANTS).doc(restaurantUid);
+				const restaurant = (await restaurantDoc.get()).data() as RestaurantSchema;
+
+				await restaurantDoc.update({ orders: [...restaurant.orders, orderUid] });
 
 				return res.status(200).json({ message: MESSAGES.SUCCESS });
 			} catch (error) {

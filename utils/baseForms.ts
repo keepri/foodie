@@ -79,6 +79,7 @@ const baseRestaurant: RestaurantSchema = {
 	costs: baseCosts,
 	rating: 0,
 	hours: baseHours,
+	orders: [],
 };
 
 const baseOrder: OrderSchema = {
