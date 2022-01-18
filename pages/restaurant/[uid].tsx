@@ -16,6 +16,7 @@ import { useRouter } from 'next/router';
 import { useCartActions } from '#redux/actions';
 import { ParsedUrlQuery } from 'querystring';
 import Menu from '#modules/Menu/Menu';
+import RestaurantHeader from '#components/RestaurantHeader/RestaurantHeader';
 
 interface Params extends ParsedUrlQuery {
 	uid: string;
@@ -43,12 +44,9 @@ const RestaurantPage: NextPage<Props> = ({ restaurant, menu }) => {
 			</strong>
 		);
 
-	const { name, description } = restaurant;
-
 	return (
 		<main className='container'>
-			<h1>Welcome to {name}</h1>
-			<p>{description}</p>
+			<RestaurantHeader restaurant={restaurant} />
 			<Menu menu={menu} />
 		</main>
 	);

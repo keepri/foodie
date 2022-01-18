@@ -8,7 +8,7 @@
 	background: lighten($color: $light-grey, $amount: 10);
 	padding: 0.5rem 0.75rem;
 	border-radius: $radius;
-	border: 1px solid lighten($color: $light-grey, $amount: 5);
+	border: 1px solid $card-info-border-color;
 
 	&-toggle {
 		margin: 0 1rem;
@@ -29,11 +29,7 @@
 	}
 
 	& > span {
-		border: 1px solid black !important;
+		border: 1px solid $card-info-border-color !important;
 		border-radius: $radius;
-
-		img {
-			padding: 0.3em !important;
-		}
 	}
 }

@@ -51,7 +51,7 @@ const CartItem: React.FC<Props> = ({ className, index, item, compact, ...rest })
 				width={photoSize}
 				height={photoSize}
 				objectFit='cover'
-				objectPosition={'center'}
+				objectPosition='center'
 				alt='item-photo'
 			/>
 			<div className={styles['cart-item-info']}>
