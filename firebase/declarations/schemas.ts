@@ -5,6 +5,7 @@ export interface ClientSchema {
 	name: string;
 	phone: string;
 	addresses?: Address[];
+	orders: string[];
 }
 
 export interface RestaurantSchema {

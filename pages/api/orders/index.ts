@@ -4,7 +4,7 @@ import { REQUEST_METHODS } from '#declarations/enums/REST';
 
 import { OrdersReturnType, OrdersRequestBody } from '#firebase/declarations/types';
 import { COLLECTIONS, MESSAGES } from '#firebase/declarations/enums';
-import { OrderSchema, RestaurantSchema } from '#firebase/declarations/schemas';
+import { ClientSchema, OrderSchema, RestaurantSchema } from '#firebase/declarations/schemas';
 import { firestore } from '#firebase/initServerApp';
 
 import { handleError } from '#controllers/api/handleError';
@@ -49,11 +49,14 @@ export default async (req: NextApiRequest, res: NextApiResponse<OrdersReturnType
 				await orderDoc.set(data as OrderSchema);
 
 				const orderUid = orderDoc.id;
-				const restaurantUid = (data as OrderSchema).restaurant;
+				const { restaurant: restaurantUid, client: clientUid } = data as OrderSchema;
 				const restaurantDoc = firestore.collection(COLLECTIONS.RESTAURANTS).doc(restaurantUid);
+				const clientDoc = firestore.collection(COLLECTIONS.USERS).doc(clientUid);
 				const restaurant = (await restaurantDoc.get()).data() as RestaurantSchema;
+				const client = (await clientDoc.get()).data() as ClientSchema;
 
 				await restaurantDoc.update({ orders: [...restaurant.orders, orderUid] });
+				await clientDoc.update({ orders: [...client.orders, orderUid] });
 
 				return res.status(200).json({ message: MESSAGES.SUCCESS });
 			} catch (error) {

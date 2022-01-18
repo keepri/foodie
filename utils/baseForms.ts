@@ -36,7 +36,7 @@ const baseMenuItem: MenuItem = {
 
 const baseCategory: Category = {
 	name: '',
-	items: [baseMenuItem],
+	items: [],
 };
 
 const baseAddress: Address = {
@@ -75,7 +75,7 @@ const baseRestaurant: RestaurantSchema = {
 	status: RESTAURANT_STATUS.CLOSED,
 	name: '',
 	phone: '',
-	addresses: [baseAddress],
+	addresses: [],
 	costs: baseCosts,
 	rating: 0,
 	hours: baseHours,
@@ -95,7 +95,8 @@ const baseOrder: OrderSchema = {
 const baseClient: ClientSchema = {
 	name: '',
 	phone: '',
-	addresses: [baseAddress],
+	addresses: [],
+	orders: [],
 };
 
 const baseReview: ReviewSchema = {
@@ -108,5 +109,5 @@ const baseReview: ReviewSchema = {
 
 const baseMenu: MenuSchema = {
 	restaurant: '',
-	categories: [baseCategory],
+	categories: [],
 };
