@@ -1,3 +1,4 @@
+import { CURRENCY } from '#declarations/enums/Currency';
 import { Langs } from '#declarations/enums/Langs';
 import { AppState, AuthState, CartState } from '#declarations/interfaces/Redux';
 import { CookieSerializeOptions } from 'cookie';
@@ -72,6 +73,7 @@ const cors = Cors({
 
 // REDUX INIT STATES
 export const initAppState: AppState = {
+	currency: CURRENCY.RON,
 	loading: false,
 	appLang: Langs.en,
 	selectedRestaurant: null,

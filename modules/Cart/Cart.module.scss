@@ -1,2 +1,35 @@
 .cart {
+	&-footer {
+		&-info {
+			width: 100%;
+			background: red;
+
+			label {
+				display: flex;
+				justify-content: space-between;
+			}
+		}
+	}
+}
+
+.cart-page {
+	display: grid;
+	grid-template-columns: 1fr 20rem;
+
+	.cart-body {
+		padding: 0.5rem;
+	}
+
+	.cart-footer {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		align-items: flex-start;
+		padding: 0.5rem;
+
+		button {
+			margin-top: 4rem;
+			margin-bottom: auto;
+		}
+	}
 }

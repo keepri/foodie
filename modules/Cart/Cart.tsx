@@ -14,16 +14,19 @@ import { URLS } from 'utils/misc';
 
 import styles from './Cart.module.scss';
 
-interface Props extends React.HtmlHTMLAttributes<HTMLDivElement> {}
+interface Props extends React.HtmlHTMLAttributes<HTMLDivElement> {
+	page?: boolean;
+}
 
-const Cart: React.FC<Props> = ({ className, ...rest }) => {
+const Cart: React.FC<Props> = ({ className, page, ...rest }) => {
 	const lang = getLang();
 	const { push } = useRouter();
 
 	const {
 		cart: { items, total, info, restaurant },
 		auth: { isLogged },
-	} = useSelector(({ cart, auth }: ReduxState) => ({ cart, auth }));
+		app: { currency },
+	} = useSelector(({ cart, auth, app }: ReduxState) => ({ cart, auth, app }));
 
 	const handleSubmit = async () => {
 		if (!isLogged) {
@@ -56,22 +59,25 @@ const Cart: React.FC<Props> = ({ className, ...rest }) => {
 	};
 
 	return (
-		<div className={[styles['cart'], className].join(' ')} {...rest}>
-			<header className='cart-header'></header>
-			<div className='cart-body'>
-				<div className='cart-body-items'>
+		<div className={[styles['cart'], page && styles['cart-page'], className].join(' ')} {...rest}>
+			<div className={styles['cart-body']}>
+				<div className={styles['cart-body-items']}>
 					{items.map((cartItem, index) => (
 						<CartItem key={'cart-item-' + index} index={index} item={cartItem} />
 					))}
 				</div>
-				<div className={styles['cart-body-info']}>
-					<p>
-						{lang.total} : {total}
-					</p>
-				</div>
 			</div>
-			<div className='cart-footer'>
-				<Button secondary onMouseUp={() => handleSubmit()}>
+			<div className={styles['cart-footer']}>
+				<div className={styles['cart-footer-info']}>
+					<label>
+						{lang.total} :
+						<p>
+							{' '}
+							{total} {currency}
+						</p>
+					</label>
+				</div>
+				<Button fullWidth secondary onMouseUp={() => handleSubmit()}>
 					{lang.placeOrder}
 				</Button>
 			</div>

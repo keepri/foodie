@@ -5,7 +5,7 @@ import Image from 'next/image';
 import React from 'react';
 import { defaultRestaurantLogo, defaultRestaurantPhoto, URLS } from 'utils/misc';
 
-import styles from './DoubleCard.module.scss';
+import styles from './RestaurantCard.module.scss';
 import { getLang } from '#controllers/getLang';
 import { useRouter } from 'next/router';
 import { useCartActions } from '#redux/actions';
@@ -14,7 +14,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 	restaurant: RestaurantSchema;
 }
 
-const DoubleCard: React.FC<Props> = ({ className, restaurant, ...rest }) => {
+const RestaurantCard: React.FC<Props> = ({ className, restaurant, ...rest }) => {
 	const lang = getLang();
 	const { push } = useRouter();
 	const { setRestaurantCart } = useCartActions();
@@ -94,4 +94,4 @@ const DoubleCard: React.FC<Props> = ({ className, restaurant, ...rest }) => {
 	);
 };
 
-export default DoubleCard;
+export default RestaurantCard;

@@ -1,3 +1,4 @@
+import { CURRENCY } from '#declarations/enums/Currency';
 import { Langs } from '#declarations/enums/Langs';
 import { CartActionType, AuthActionType, AppActionType } from '#declarations/enums/Redux';
 import { MenuItem } from '#firebase/declarations/interfaces';
@@ -6,6 +7,7 @@ import { Unsubscribe } from 'firebase/auth';
 
 // --- STATE ---
 export interface AppState {
+	currency: CURRENCY;
 	loading: boolean;
 	appLang: Langs;
 	restaurants?: RestaurantSchema[];

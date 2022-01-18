@@ -6,16 +6,18 @@ import styles from './ToggleQuantity.module.scss';
 interface Props extends React.HTMLAttributes<HTMLElement> {
 	quantity: number;
 	horizontal?: boolean;
+	compact?: boolean;
 	onToggle: (value: number) => void;
 }
 
-const ToggleQuantity: React.FC<Props> = ({ className, quantity, horizontal, onToggle, ...rest }) => {
+const ToggleQuantity: React.FC<Props> = ({ className, quantity, horizontal, onToggle, compact, ...rest }) => {
 	return (
 		<div
 			style={{ flexDirection: horizontal ? 'row' : 'column' }}
 			className={[
 				styles['toggle'],
 				horizontal ? styles['toggle-horizontal'] : styles['toggle-vertical'],
+				compact && styles['toggle-compact'],
 				className,
 			].join(' ')}
 			{...rest}

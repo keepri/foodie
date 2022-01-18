@@ -7,6 +7,23 @@
 	justify-content: center;
 	gap: 0.35rem;
 
+	&.toggle-compact {
+		gap: 0.25rem;
+
+		.toggle-image {
+			width: 10px;
+			height: 10px;
+
+			span {
+				padding: 0 !important;
+			}
+		}
+
+		.toggle-quantity {
+			font-size: 0.8rem;
+		}
+	}
+
 	&.toggle-horizontal {
 		div:first-of-type {
 			order: 3;
@@ -16,12 +33,6 @@
 		div:last-of-type {
 			order: 1;
 			transform: rotate(-90deg);
-		}
-
-		span {
-			position: absolute;
-			display: block !important;
-			transform: rotate('45deg') !important;
 		}
 	}
 
@@ -34,11 +45,9 @@
 			order: 3;
 			transform: rotate(180deg);
 		}
-
-		span {
-			position: absolute;
-			display: block !important;
-			transform: rotate('45deg') !important;
+		div:last-of-type {
+			order: 3;
+			transform: rotate(180deg);
 		}
 	}
 

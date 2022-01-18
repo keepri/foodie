@@ -1,6 +1,6 @@
 import React from 'react';
 import { RestaurantSchema } from '#firebase/declarations/schemas';
-import DoubleCard from '#modules/DoubleCard/DoubleCard';
+import RestaurantCard from '#modules/RestaurantCard/RestaurantCard';
 
 import styles from './Restaurants.module.scss';
 
@@ -14,7 +14,7 @@ const Restaurants: React.FC<Props> = ({ className, restaurants, ...rest }) => {
 			<h2>Restaurants</h2>
 			<div className={styles['restaurants-content']}>
 				{restaurants.map((restaurant, index) => (
-					<DoubleCard key={restaurant.uid + index} restaurant={restaurant} />
+					<RestaurantCard key={restaurant.uid + index} restaurant={restaurant} />
 				))}
 			</div>
 		</div>
