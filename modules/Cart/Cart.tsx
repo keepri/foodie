@@ -24,6 +24,7 @@ const Cart: React.FC<Props> = ({ className, page, ...rest }) => {
 	const lang = getLang();
 	const { push } = useRouter();
 
+	const [orderPlaced, setOrderPlaced] = React.useState(false);
 	const {
 		cart: { items, total, info, restaurant },
 		auth: { isLogged },
@@ -58,6 +59,7 @@ const Cart: React.FC<Props> = ({ className, page, ...rest }) => {
 					// TODO handle successfully placed order
 					console.log('Order placed successfully!');
 					updateCart(initCartState);
+					setOrderPlaced(true);
 				}
 			} catch (error) {
 				console.warn('Place order failed with:', error);
@@ -77,7 +79,12 @@ const Cart: React.FC<Props> = ({ className, page, ...rest }) => {
 					{items.length === 0 && (
 						<>
 							<p style={{ marginBottom: '1rem' }}>{lang.noItemsInCart}</p>
-							<Link href={URLS.HOME} button primary>
+							{orderPlaced && (
+								<Link href={URLS.ORDERS} button primary>
+									{lang.myOrders}
+								</Link>
+							)}
+							<Link href={URLS.HOME} button secondary={orderPlaced} primary={!orderPlaced}>
 								{lang.restaurants}
 							</Link>
 						</>

@@ -32,5 +32,6 @@ export const english = {
 		'An email has been sent to the email address you have provided. Please follow the link to activate your account. Thank you!',
 	noItemsInCart: 'No items in cart!...',
 	restaurants: 'Restaurants',
+	myOrders: 'My orders',
 	moreInfo: 'More info...',
 };
