@@ -45,6 +45,9 @@
 			order: 3;
 			transform: rotate(180deg);
 		}
+		div:last-of-type.toggle-image-one {
+			transform: rotate(0deg);
+		}
 		div:last-of-type {
 			order: 3;
 			transform: rotate(180deg);

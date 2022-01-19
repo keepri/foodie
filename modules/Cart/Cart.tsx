@@ -107,7 +107,7 @@ const Cart: React.FC<Props> = ({ className, page, ...rest }) => {
 					</label>
 					<textarea maxLength={200} placeholder={lang.moreInfo} value={info} onChange={e => handleInfoChange(e)} />
 				</div>
-				<Button fullWidth secondary onMouseUp={() => handleSubmit()}>
+				<Button fullWidth primary onMouseUp={() => handleSubmit()}>
 					{lang.placeOrder}
 				</Button>
 			</div>
