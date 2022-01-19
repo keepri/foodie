@@ -58,7 +58,7 @@ const Cart: React.FC<Props> = ({ className, page, ...rest }) => {
 				status: ORDER_STATUS.PENDING,
 				date,
 			};
-			const orderOk = isObjPopulated(order, ['info']);
+			const orderOk = isObjPopulated(order, ['info', 'uid']);
 
 			if (!orderOk) {
 				// TODO handle order fields not ok

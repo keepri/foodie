@@ -35,7 +35,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<OrdersReturnType
 
 				if (ordersQuery.empty) return res.status(404).json({ message: MESSAGES.NOT_FOUND });
 
-				const orders = ordersQuery.docs.map(doc => doc.data() as OrderSchema).sort((a, b) => a.date - b.date);
+				const orders = ordersQuery.docs.map(doc => doc.data() as OrderSchema).sort((a, b) => b.date - a.date);
 
 				return res.status(200).json({ orders });
 			} catch (error) {
