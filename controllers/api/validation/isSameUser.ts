@@ -10,7 +10,8 @@ const isSameUser = async (req: NextApiRequest, res: NextApiResponse, tokenUid: s
 
 	if (uid !== tokenUid) {
 		destroyCookie({ res }, COOKIE_NAMES.TOKEN, defaultCookieOptions);
-		res.status(401).json({ message: MESSAGES.UNAUTHORIZED_TOKEN });
-		throw new Error('Not same user!');
+		// res.status(401).json({ message: MESSAGES.UNAUTHORIZED_TOKEN });
+
+		throw Error(MESSAGES.UNAUTHORIZED_TOKEN);
 	}
 };

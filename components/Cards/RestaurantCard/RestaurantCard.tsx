@@ -45,7 +45,10 @@ const RestaurantCard: React.FC<Props> = ({ className, restaurant, ...rest }) => 
 					<p className={styles['double-card-disabled-text']}>{lang.unavailable}</p>
 				)}
 				<Image
-					layout='fill'
+					width={400}
+					height={180}
+					objectFit='cover'
+					objectPosition='center'
 					src={photo && photo !== '' ? photo : defaultRestaurantPhoto}
 					alt='restaurant-photo'
 				/>

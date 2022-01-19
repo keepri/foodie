@@ -16,7 +16,7 @@ import { useRouter } from 'next/router';
 import { useCartActions } from '#redux/actions';
 import { ParsedUrlQuery } from 'querystring';
 import Menu from '#modules/Menu/Menu';
-import RestaurantHeader from '#components/RestaurantHeader/RestaurantHeader';
+import RestaurantHeader from '#components/Headers/RestaurantHeader/RestaurantHeader';
 
 interface Params extends ParsedUrlQuery {
 	uid: string;
@@ -118,6 +118,7 @@ export const getStaticProps: GetStaticProps = async ({
 
 		return {
 			props: { restaurant, menu },
+			revalidate: 60 * 5, // 5 minutes
 		};
 	} catch (error) {
 		return {

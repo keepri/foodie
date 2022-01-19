@@ -8,5 +8,5 @@ export const handleError = (error: unknown, res: NextApiResponse) => {
 	if (+code === 5) statusCode = 404;
 
 	res.status(statusCode).json({ code, message });
-	throw new Error('Error handle');
+	return;
 };

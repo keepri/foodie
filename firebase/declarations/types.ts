@@ -1,6 +1,6 @@
 import { UserRecord } from 'firebase-admin/lib/auth/user-record';
-import { ACCOUNT_TYPE } from './enums';
 import { ClientSchema, MenuSchema, OrderSchema, RestaurantSchema, ReviewSchema } from './schemas';
+// import { ACCOUNT_TYPE } from './enums';
 
 export type RequestError = {
 	message: string;
@@ -32,13 +32,13 @@ export type RestaurantsRequestBody = {
 };
 
 // ORDERS ENDPOINT
-export type OrdersSuccess = { orders?: OrderSchema[]; order?: OrderSchema };
+export type OrdersSuccess = { orders?: OrderSchema[]; order?: OrderSchema; orderUid?: string };
 export type OrdersReturnType = OrdersSuccess | RequestError;
 export type OrdersRequestBody = {
 	uid?: string;
 	data?: OrderSchema;
-	accountType?: ACCOUNT_TYPE;
 	tokenUid?: string;
+	// accountType?: ACCOUNT_TYPE;
 };
 
 // CLIENTS ENDPOINT

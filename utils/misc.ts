@@ -47,6 +47,7 @@ const URLS = {
 	API_LOGOUT: '/api/auth/logout',
 	API_GET_USER: '/api/clients',
 	API_PLACE_ORDER: '/api/orders',
+	API_GET_ORDERS: '/api/orders',
 	API_GET_RESTAURANTS: '/api/restaurants',
 	API_GET_MENU: '/api/menus',
 };

@@ -22,26 +22,26 @@ const reviewRouteValidation = async (req: NextApiRequest, res: NextApiResponse) 
 	if (req.method === REQUEST_METHODS.GET) {
 		const { uid } = req.body as ReviewsRequestBody;
 		if (!uid) {
-			res.status(400).json({ message: MESSAGES.REVIEWS_MDANDATORY_FIELDS_UID });
-			throw new Error('No "uid" field found');
+			// res.status(400).json({ message: MESSAGES.REVIEWS_MDANDATORY_FIELDS_UID });
+			throw Error(MESSAGES.REVIEWS_MDANDATORY_FIELDS_UID);
 		}
 	}
 
 	// TEST MANDATORY FIELDS "POST" & CHECK FIELDS SENT TO BE WHAT WE ACCEPT IN THE SCHEMA
 	if (req.method === REQUEST_METHODS.POST) {
 		try {
-			await verifyToken(req, res);
+			await verifyToken(req);
 
 			const { data } = req.body as ReviewsRequestBody;
 			if (!data) {
-				res.status(400).json({ message: MESSAGES.REVIEWS_MDANDATORY_FIELDS_DATA });
-				throw new Error('No "data" field found');
+				// res.status(400).json({ message: MESSAGES.REVIEWS_MDANDATORY_FIELDS_DATA });
+				throw Error(MESSAGES.REVIEWS_MDANDATORY_FIELDS_DATA);
 			}
 
 			const { isValid, errorFields } = objectContainsSameKeys<ReviewSchema>(data, baseReview);
 			if (!isValid) {
-				res.status(400).json({ message: MESSAGES.ERROR, errorFields });
-				throw new Error('Fields are missing from data sent');
+				// res.status(400).json({ message: MESSAGES.ERROR, errorFields });
+				throw Error(MESSAGES.ERROR + errorFields);
 			}
 		} catch (error) {
 			throw error;

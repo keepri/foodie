@@ -12,7 +12,7 @@ import { defaultCookieOptions } from 'utils/misc';
 
 export default async (req: NextApiRequest, res: NextApiResponse<LogoutReturnType>) => {
 	try {
-		await verifyToken(req, res);
+		await verifyToken(req);
 	} catch (error) {
 		handleError(error, res);
 	}

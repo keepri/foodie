@@ -34,4 +34,6 @@ export const english = {
 	restaurants: 'Restaurants',
 	myOrders: 'My orders',
 	moreInfo: 'More info...',
+	orderNo: 'Order #',
+	items: 'items',
 };

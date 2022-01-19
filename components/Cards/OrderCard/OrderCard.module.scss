@@ -1,0 +1,104 @@
+@use '#styles/colors.module.scss' as *;
+@use '#styles/variables.module.scss' as *;
+
+.order-card {
+	background: $card-info-background;
+	border: 1px solid $card-info-border-color;
+	padding: 1rem;
+	border-radius: $radius;
+	max-width: $order-card-size;
+	cursor: pointer;
+	transition: transform 250ms ease-out;
+
+	&:hover {
+		transform: scale(1.005);
+	}
+	&:active {
+		transform: scale(1);
+	}
+
+	&-body {
+		&-restaurant-name {
+			color: darken($light-grey, 10);
+			font-size: 0.5rem;
+			line-height: 1;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		&-order-number {
+			font-weight: bold;
+		}
+
+		&-order-date {
+			color: $grey;
+			font-size: 0.8rem;
+			line-height: 1;
+			padding-bottom: 0.5rem;
+			margin-bottom: 0.5rem;
+			border-bottom: 1px solid $light-grey;
+		}
+
+		&-items {
+			span {
+				display: flex;
+				align-items: center;
+
+				& > p:first-of-type {
+					font-weight: 300;
+					font-size: 0.9rem;
+				}
+
+				& > p:last-of-type {
+					font-weight: bold;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					overflow: hidden;
+				}
+			}
+
+			div {
+				& > p:first-of-type {
+					color: $grey;
+					font-size: 0.8rem;
+					max-width: 85%;
+					line-height: 1.2;
+					margin-bottom: 0.25rem;
+				}
+
+				& > p:last-of-type {
+					font-size: 0.8rem;
+					font-weight: bold;
+					// text-align: right;
+				}
+
+				& + & {
+					margin-top: 1rem;
+				}
+			}
+
+			div:last-of-type {
+				margin-bottom: 0.5rem;
+				padding-bottom: 0.5rem;
+				border-bottom: 1px solid $light-grey;
+			}
+		}
+
+		&-items-count {
+			color: $grey;
+			font-size: 0.8rem;
+			line-height: 1;
+		}
+
+		&-total {
+			font-weight: bold;
+		}
+
+		&-order-status {
+			font-weight: bold;
+			font-size: 0.9rem;
+			align-self: flex-end;
+		}
+	}
+}

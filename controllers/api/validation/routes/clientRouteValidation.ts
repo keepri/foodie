@@ -4,7 +4,7 @@ import { ClientSchema } from '#firebase/declarations/schemas';
 import { ClientsRequestBody } from '#firebase/declarations/types';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { baseClient } from 'utils/baseForms';
-import { isSameUser } from '../isSameUser';
+// import { isSameUser } from '../isSameUser';
 import { objectContainsSameKeys } from '../objectContainsSameKeys';
 import { verifyToken } from '../verifyToken';
 
@@ -16,29 +16,32 @@ const clientRouteValidation = async (req: NextApiRequest, res: NextApiResponse) 
 
 	// ROUTE SECURITY
 	try {
-		await verifyToken(req, res);
+		await verifyToken(req);
 	} catch (error) {
 		throw error;
 	}
 
 	if (req.method === REQUEST_METHODS.POST) {
-		const tokenUid = req.body.tokenUid;
-
-		isSameUser(req, res, tokenUid);
+		// const tokenUid = req.body.tokenUid;
+		// try {
+		// 	isSameUser(req, res, tokenUid);
+		// } catch (error) {
+		// 	throw error;
+		// }
 	}
 
 	// TEST MANDATORY FIELDS "PATCH", "PUT" & CHECK FIELDS SENT TO BE WHAT WE ACCEPT IN THE SCHEMA
 	if (req.method === REQUEST_METHODS.PATCH || req.method === REQUEST_METHODS.PUT) {
 		const { data } = req.body as ClientsRequestBody;
 		if (!data) {
-			res.status(400).json({ message: MESSAGES.CLIENTS_MANDATORY_FIELDS_DATA });
-			throw new Error('Error');
+			// res.status(400).json({ message: MESSAGES.CLIENTS_MANDATORY_FIELDS_DATA });
+			throw Error(MESSAGES.CLIENTS_MANDATORY_FIELDS_DATA);
 		}
 
 		const { isValid, errorFields } = objectContainsSameKeys<ClientSchema>(data, baseClient);
 		if (!isValid) {
-			res.status(400).json({ message: MESSAGES.ERROR, errorFields });
-			throw new Error('Error');
+			// res.status(400).json({ message: MESSAGES.ERROR, errorFields });
+			throw Error(MESSAGES.ERROR + errorFields);
 		}
 	}
 };

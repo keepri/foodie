@@ -6,9 +6,10 @@ import { isObjPopulated } from '#controllers/validation/isObjPopulated';
 import { ReduxState } from '#declarations/types/Redux';
 import { ORDER_STATUS } from '#firebase/declarations/enums';
 import { OrderSchema } from '#firebase/declarations/schemas';
+import { OrdersSuccess } from '#firebase/declarations/types';
 import { authRef } from '#firebase/initClientApp';
-import { useCartActions } from '#redux/actions';
-import axios from 'axios';
+import { useAuthActions, useCartActions } from '#redux/actions';
+import axios, { AxiosResponse } from 'axios';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -27,10 +28,14 @@ const Cart: React.FC<Props> = ({ className, page, ...rest }) => {
 	const [orderPlaced, setOrderPlaced] = React.useState(false);
 	const {
 		cart: { items, total, info, restaurant },
-		auth: { isLogged },
+		auth: {
+			isLogged,
+			user: { orders },
+		},
 		app: { currency },
 	} = useSelector(({ cart, auth, app }: ReduxState) => ({ cart, auth, app }));
 	const { updateCart } = useCartActions();
+	const { updateUserAuth } = useAuthActions();
 
 	const handleSubmit = async () => {
 		if (!isLogged) {
@@ -43,7 +48,16 @@ const Cart: React.FC<Props> = ({ className, page, ...rest }) => {
 		if (currentUser) {
 			const client = currentUser.uid ?? '';
 			const date = new Date().getTime();
-			const order: OrderSchema = { items, total, info, client, restaurant, status: ORDER_STATUS.PENDING, date };
+			const order: OrderSchema = {
+				uid: '',
+				items,
+				total,
+				info,
+				client,
+				restaurant,
+				status: ORDER_STATUS.PENDING,
+				date,
+			};
 			const orderOk = isObjPopulated(order, ['info']);
 
 			if (!orderOk) {
@@ -53,11 +67,17 @@ const Cart: React.FC<Props> = ({ className, page, ...rest }) => {
 			}
 
 			try {
-				const { status } = await axios.post(URLS.API_PLACE_ORDER, { data: order });
+				const { status, data }: AxiosResponse<OrdersSuccess> = await axios.post(URLS.API_PLACE_ORDER, {
+					data: order,
+				});
 
 				if (status === 200) {
 					// TODO handle successfully placed order
 					console.log('Order placed successfully!');
+
+					const { orderUid } = data;
+
+					orderUid && updateUserAuth({ orders: [...orders, orderUid] });
 					updateCart(initCartState);
 					setOrderPlaced(true);
 				}

@@ -15,18 +15,20 @@ export default async (req: NextApiRequest, res: NextApiResponse<OrdersReturnType
 	// INITIAL ROUTE VERIFICATIONS
 	try {
 		await useCors(req, res);
-		await orderRouteValidation(req, res);
+		await orderRouteValidation(req);
 	} catch (error) {
 		handleError(error, res);
+		return;
 	}
 
 	switch (req.method?.toUpperCase()) {
 		// GET
 		case REQUEST_METHODS.GET: {
 			try {
-				const { accountType, tokenUid } = req.body as OrdersRequestBody;
+				const { tokenUid } = req.body as OrdersRequestBody;
+
 				const ordersCol = firestore.collection(COLLECTIONS.ORDERS);
-				const ordersQuery = await ordersCol.where(accountType as string, '==', tokenUid as string).get();
+				const ordersQuery = await ordersCol.where('client', '==', tokenUid as string).get();
 
 				if (ordersQuery.empty) return res.status(404).json({ message: MESSAGES.NOT_FOUND });
 
@@ -44,21 +46,23 @@ export default async (req: NextApiRequest, res: NextApiResponse<OrdersReturnType
 		case REQUEST_METHODS.POST: {
 			try {
 				const { data } = req.body as OrdersRequestBody;
+				if (!data) return res.status(400).json({ message: MESSAGES.ORDERS_MANDATORY_FIELDS_DATA });
 
 				const orderDoc = firestore.collection(COLLECTIONS.ORDERS).doc();
+				const orderUid = orderDoc.id;
+				data.uid = orderUid;
 				await orderDoc.set(data as OrderSchema);
 
-				const orderUid = orderDoc.id;
 				const { restaurant: restaurantUid, client: clientUid } = data as OrderSchema;
 				const restaurantDoc = firestore.collection(COLLECTIONS.RESTAURANTS).doc(restaurantUid);
-				const clientDoc = firestore.collection(COLLECTIONS.USERS).doc(clientUid);
+				const clientDoc = firestore.collection(COLLECTIONS.CLIENTS).doc(clientUid);
 				const restaurant = (await restaurantDoc.get()).data() as RestaurantSchema;
 				const client = (await clientDoc.get()).data() as ClientSchema;
 
 				await restaurantDoc.update({ orders: [...restaurant.orders, orderUid] });
 				await clientDoc.update({ orders: [...client.orders, orderUid] });
 
-				return res.status(200).json({ message: MESSAGES.SUCCESS });
+				return res.status(200).json({ orderUid, message: MESSAGES.SUCCESS });
 			} catch (error) {
 				handleError(error, res);
 			}

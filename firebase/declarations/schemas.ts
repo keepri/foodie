@@ -24,6 +24,7 @@ export interface RestaurantSchema {
 }
 
 export interface OrderSchema {
+	uid: string;
 	status: ORDER_STATUS;
 	items: MenuItem[];
 	total: number;

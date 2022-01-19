@@ -23,7 +23,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<LoginReturnType>
 
 				const checkRevoked = true;
 				const { uid } = await auth.verifyIdToken(token, checkRevoked);
-				const userDoc = await firestore.collection(COLLECTIONS.USERS).doc(uid).get();
+				const userDoc = await firestore.collection(COLLECTIONS.CLIENTS).doc(uid).get();
 
 				if (!userDoc.exists) {
 					await auth.revokeRefreshTokens(uid);

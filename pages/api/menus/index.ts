@@ -15,7 +15,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<MenusReturnType>
 	// INITIAL ROUTE VERIFICATIONS
 	try {
 		await useCors(req, res);
-		await menuRouteValidation(req, res);
+		await menuRouteValidation(req);
 	} catch (error) {
 		handleError(error, res);
 	}

@@ -21,8 +21,8 @@ export default async (req: NextApiRequest, res: NextApiResponse<RegisterReturnTy
 				const user = await auth.createUser({ email, password });
 				if (!user) return res.status(500).json({ message: MESSAGES.CREATE_ACCOUNT_ERROR });
 
-				const newUserInfo: ClientSchema = { name, phone };
-				await firestore.collection(COLLECTIONS.USERS).doc(user.uid).create(newUserInfo);
+				const newUserInfo: ClientSchema = { name, phone, orders: [] };
+				await firestore.collection(COLLECTIONS.CLIENTS).doc(user.uid).create(newUserInfo);
 
 				const verificationEmail = await auth.generateEmailVerificationLink(email, actionCodeSettings);
 				if (!verificationEmail) return res.status(500).json({ message: MESSAGES.VERIF_EMAIL_ERROR });
