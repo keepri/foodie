@@ -80,6 +80,7 @@ const Cart: React.FC<Props> = ({ className, page, ...rest }) => {
 					orderUid && updateUserAuth({ orders: [...orders, orderUid] });
 					updateCart(initCartState);
 					setOrderPlaced(true);
+					push(URLS.ORDERS);
 				}
 			} catch (error) {
 				console.warn('Place order failed with:', error);

@@ -20,7 +20,7 @@ const OrderCard: React.FC<Props> = ({ order, index, className, ...rest }) => {
 		app: { currency, restaurants },
 	} = useSelector(({ app }: ReduxState) => ({ app }));
 
-	const { status, items, total, date, restaurant: restaurantUid } = order;
+	const { uid, status, items, total, date, restaurant: restaurantUid } = order;
 	const orderDate = new Date(date);
 	const totalItems = items.reduce((curr, acc) => (curr += acc.quantity), 0);
 	const restaurantName = restaurants?.filter(location => location.uid === restaurantUid)?.[0]?.name;
@@ -35,7 +35,7 @@ const OrderCard: React.FC<Props> = ({ order, index, className, ...rest }) => {
 				<p className={styles['order-card-body-restaurant-name']}>{restaurantName}</p>
 				<p className={styles['order-card-body-order-number']}>
 					{lang.orderNo}
-					{index + 1}
+					{uid.slice(0, 5)}
 				</p>
 				<p suppressHydrationWarning className={styles['order-card-body-order-date']}>
 					{orderDate.toLocaleString(undefined, {
