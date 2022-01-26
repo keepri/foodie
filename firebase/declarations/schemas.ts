@@ -19,7 +19,7 @@ export interface RestaurantSchema {
 	hours: OpenHours;
 	photo: string;
 	logo: string;
-	description: string;
+	description?: string;
 	orders: string[];
 }
 

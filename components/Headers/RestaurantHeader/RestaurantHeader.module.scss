@@ -1,3 +1,104 @@
+@use '#styles/variables.module.scss' as *;
+@use '#styles/colors.module.scss' as *;
+
 .restaurant-header {
-	margin-bottom: 1rem;
+	position: relative;
+	margin: 2rem 0;
+	display: flex;
+	flex-direction: column;
+
+	span {
+		border-radius: $radius !important;
+	}
+
+	&-address {
+		max-width: 40ch;
+		font-size: 0.9rem;
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: 1.5rem;
+	}
+
+	&-description {
+		max-width: 40ch;
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: 0.35rem;
+	}
+
+	&-info {
+		display: flex;
+		gap: 1rem;
+		justify-content: center;
+		align-items: center;
+	}
+
+	&-content {
+		position: relative;
+		align-self: center;
+		min-width: 25rem;
+		width: 70%;
+		padding: 2rem;
+		text-align: center;
+		background: rgba($card-info-background, 1);
+		border: 1px solid $card-info-border-color;
+		border-radius: $radius;
+		margin-top: 1rem;
+		z-index: 1;
+
+		a {
+			text-decoration: underline;
+		}
+
+		h1 {
+			max-width: 40ch;
+			margin-left: auto;
+			margin-right: auto;
+			margin-bottom: 0.35rem;
+		}
+
+		& > span {
+			position: absolute !important;
+			left: 50%;
+			bottom: 90%;
+			transform: translateX(-50%);
+			background: rgba($card-info-background, 1) !important;
+			border: 1px solid $card-info-border-color !important;
+
+			img {
+				padding: 0.35rem !important;
+				border-radius: $radius !important;
+			}
+		}
+	}
+
+	&-closed {
+		.restaurant-header-content {
+			border-color: $err-red;
+		}
+
+		&-text {
+			position: absolute;
+			top: 2rem;
+			left: 50%;
+			transform: translateX(-50%);
+			color: $white;
+			z-index: 2;
+			font-weight: bold;
+			font-size: 1.2rem;
+		}
+
+		& > span::before {
+			content: '';
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			background: rgba($dark-grey, 0.2);
+			backdrop-filter: blur(5px);
+			z-index: 1;
+			border-radius: $radius;
+		}
+	}
 }

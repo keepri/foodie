@@ -7,7 +7,7 @@ import { MenuItem } from '#firebase/declarations/interfaces';
 import { defaultItemPhoto } from 'utils/misc';
 import { useSelector } from 'react-redux';
 import { ReduxState } from '#declarations/types/Redux';
-import { MENU_ITEM_STATUS } from '#firebase/declarations/enums';
+import { MENU_ITEM_STATUS, RESTAURANT_STATUS } from '#firebase/declarations/enums';
 import { useCartActions } from '#redux/actions';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
@@ -16,19 +16,23 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 
 const ItemCard: React.FC<Props> = ({ className, item, ...rest }) => {
 	const {
-		app: { currency },
-		cart: { items },
+		app: { currency, restaurants },
+		cart: { items, restaurant: restaurantUid },
 	} = useSelector(({ app, cart }: ReduxState) => ({ app, cart }));
 	const [itemIsInCart, setItemIsInCart] = React.useState(false);
 
 	const { addItemCart } = useCartActions();
 
+	const selectedRestaurant = restaurants?.filter(restaurant => restaurant.uid === restaurantUid)[0];
+	const restaurantIsOpen = selectedRestaurant && selectedRestaurant.status === RESTAURANT_STATUS.OPEN;
+
 	const { status, photo, name, description, price } = item;
-	const unavailable = status === MENU_ITEM_STATUS.UNAVAILABLE;
+	const itemIsUnavailable = status === MENU_ITEM_STATUS.UNAVAILABLE;
 
 	const handleAddToCart = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
 		e.stopPropagation();
-		!itemIsInCart && addItemCart({ ...item, quantity: 1 });
+
+		!itemIsInCart && !itemIsUnavailable && restaurantIsOpen && addItemCart({ ...item, quantity: 1 });
 	};
 
 	React.useEffect(() => {
@@ -53,7 +57,7 @@ const ItemCard: React.FC<Props> = ({ className, item, ...rest }) => {
 				/>
 			</div>
 			<div
-				style={{ borderColor: unavailable ? 'rgba(255, 0, 0, .2)' : 'rgb(219, 219, 219)' }}
+				style={{ borderColor: itemIsUnavailable ? 'rgba(255, 0, 0, .2)' : 'rgb(219, 219, 219)' }}
 				className={styles['item-card-body']}
 			>
 				<h3 className={styles['item-card-body-name']}>
@@ -75,7 +79,7 @@ const ItemCard: React.FC<Props> = ({ className, item, ...rest }) => {
 					<p className={styles['item-card-body-price']} style={{ fontWeight: 'bold' }}>
 						{price} {currency}
 					</p>
-					{!itemIsInCart && (
+					{!itemIsInCart && restaurantIsOpen && (
 						<Image
 							width={15}
 							height={15}

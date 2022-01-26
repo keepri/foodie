@@ -3,15 +3,16 @@ export const english = {
 	email: 'Email',
 	password: 'Password',
 	confirmPassword: 'Confirm password',
-	phone: 'Phone Number',
+	phone: 'Phone number',
 	name: 'Name',
 	total: 'Total',
 	placeOrder: 'Place order',
-	minOrder: 'Minimum order',
+	minOrder: 'Min. order',
 	delivery: 'Delivery',
-	free: 'free',
+	packaging: 'Packaging',
 	closed: 'Closed',
 	unavailable: 'Unavailable',
+	address: 'Address',
 
 	// BUTTONS
 	signIn: 'Sign in',
@@ -36,4 +37,7 @@ export const english = {
 	moreInfo: 'More info...',
 	orderNo: 'Order #',
 	items: 'items',
+	free: 'free',
+	callUs: 'Call us',
+	menu: 'Menu',
 };

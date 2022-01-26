@@ -1,6 +1,14 @@
 @use '#styles/variables.module.scss' as *;
+@use '#styles/colors.module.scss' as *;
 
 .menu {
+	&-category {
+		h2 {
+			font-size: 1.7rem;
+			color: $grey;
+		}
+	}
+
 	&-category-items {
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax($item-card-size, 1fr));
