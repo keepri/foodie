@@ -33,20 +33,23 @@ interface Props extends React.FormHTMLAttributes<HTMLFormElement> {
 }
 
 const RegisterForm: React.FC<Props> = ({ className, modal, setModal, ...rest }) => {
-	const initForm = {
+	const lang = getLang();
+
+	const { current: initForm } = React.useRef({
 		email: '',
 		password: '',
 		confPassword: '',
 		phone: '',
 		name: '',
-	};
-	const initErrors = {
+	});
+	const { current: initErrors } = React.useRef({
 		emailErr: false,
 		passwordErr: false,
 		confPasswordErr: false,
 		nameErr: false,
 		phoneErr: false,
-	};
+	});
+
 	const [form, setForm] = React.useState<ClientRegisterFields & { confPassword: string }>(initForm);
 	const [errors, setErrors] = React.useState<FormErrors>(initErrors);
 
@@ -64,32 +67,36 @@ const RegisterForm: React.FC<Props> = ({ className, modal, setModal, ...rest }) 
 		phoneMsg,
 	} = errors;
 
-	const lang = getLang();
+	const handleChange = React.useCallback(
+		(e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, [e.target.name]: e.target.value }),
+		[form],
+	);
 
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-		setForm({ ...form, [e.target.name]: e.target.value });
+	const handleSubmit = React.useCallback(
+		async (e: React.FormEvent<HTMLFormElement>) => {
+			e.preventDefault();
 
-	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
+			if (!emailErr && !passwordErr && !confPasswordErr && !nameErr && !phoneErr) {
+				const regForm = { email, password, name, phone };
 
-		if (!emailErr && !passwordErr && !confPasswordErr && !nameErr && !phoneErr) {
-			const regForm = { email, password, name, phone };
-
-			try {
-				await registerUser(regForm);
-				setModal && setModal(true);
-			} catch ({ code, message }) {
-				console.warn('Register failed with:', code, message);
-				// TODO handle errors
+				try {
+					await registerUser(regForm);
+					setModal && setModal(true);
+				} catch ({ code, message }) {
+					console.warn('Register failed with:', code, message);
+					// TODO handle errors
+				}
 			}
-		}
-	};
+		},
+		[confPasswordErr, email, emailErr, name, nameErr, password, passwordErr, phone, phoneErr, setModal],
+	);
 
 	React.useEffect(() => {
 		!modal &&
 			email &&
 			password &&
 			signInWithEmailAndPassword(authRef, email, password).then(res => console.log(res));
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [modal]);
 
 	React.useEffect(() => {
@@ -122,7 +129,8 @@ const RegisterForm: React.FC<Props> = ({ className, modal, setModal, ...rest }) 
 			nameMsg: nameError ? lang.alertName : undefined,
 			phoneMsg: phoneError ? lang.alertPhone : undefined,
 		});
-	}, [form]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [confPassword, email, password, phone, name]);
 
 	return (
 		<form className={[styles.form, className].join(' ')} onSubmit={e => handleSubmit(e)} {...rest}>

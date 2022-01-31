@@ -37,7 +37,7 @@ const Cart: React.FC<Props> = ({ className, page, ...rest }) => {
 	const { updateCart } = useCartActions();
 	const { updateUserAuth } = useAuthActions();
 
-	const handleSubmit = async () => {
+	const handleSubmit = React.useCallback(async () => {
 		if (!isLogged) {
 			push(URLS.LOGIN);
 			return;
@@ -86,11 +86,14 @@ const Cart: React.FC<Props> = ({ className, page, ...rest }) => {
 				console.warn('Place order failed with:', error);
 			}
 		}
-	};
+	}, [info, isLogged, items, orders, restaurant, total, updateCart, updateUserAuth, push]);
 
-	const handleInfoChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-		updateCart({ info: e.target.value });
-	};
+	const handleInfoChange = React.useCallback(
+		(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+			updateCart({ info: e.target.value });
+		},
+		[updateCart],
+	);
 
 	return (
 		<div className={[styles['cart'], page && styles['cart-page'], className].join(' ')} {...rest}>

@@ -31,10 +31,12 @@ const LoginForm: React.FC<Props> = ({ className, onLoginSuccess, ...rest }) => {
 
 	const { redirect } = query as { redirect: string };
 
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-		setForm({ ...form, [e.target.name]: e.target.value });
+	const handleChange = React.useCallback(
+		(e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, [e.target.name]: e.target.value }),
+		[],
+	);
 
-	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = React.useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const emailEmpty = email.length === 0;
 		const passEmpty = password.length === 0;
@@ -58,7 +60,7 @@ const LoginForm: React.FC<Props> = ({ className, onLoginSuccess, ...rest }) => {
 					setErrors({ emailErr: false, passwordErr: true, passwordMsg: lang.alertPasswordWrong });
 			}
 		}
-	};
+	}, []);
 
 	React.useEffect(() => {
 		const emailError = email.length > 0 ? !reEmail.test(email) : false;

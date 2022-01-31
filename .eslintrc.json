@@ -2,7 +2,7 @@
 	"extends": "next/core-web-vitals",
 	"rules": {
 		"react/display-name": "off",
-		"react-hooks/exhaustive-deps": "off",
+		"react-hooks/exhaustive-deps": "warn",
 		"react-hooks/rules-of-hooks": "warn",
 		"import/no-anonymous-default-export": [
 			"warn",
