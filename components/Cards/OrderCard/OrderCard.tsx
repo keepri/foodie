@@ -22,12 +22,15 @@ const OrderCard: React.FC<Props> = ({ order, index, className, ...rest }) => {
 
 	const { uid, status, items, total, date, restaurant: restaurantUid } = order;
 	const orderDate = new Date(date);
-	const totalItems = items.reduce((curr, acc) => (curr += acc.quantity), 0);
-	const restaurantName = restaurants?.filter(location => location.uid === restaurantUid)?.[0]?.name;
-	const isPending = status === ORDER_STATUS.PENDING;
-	const isAccepted = status === ORDER_STATUS.ACCEPTED;
-	const isCompleted = status === ORDER_STATUS.COMPLETED;
-	const isCanceled = status === ORDER_STATUS.CANCELED;
+	const totalItems = React.useMemo(() => items.reduce((curr, acc) => (curr += acc.quantity), 0), [items]);
+	const restaurantName = React.useMemo(
+		() => restaurants?.filter(location => location.uid === restaurantUid)?.[0]?.name,
+		[restaurants, restaurantUid],
+	);
+	const isPending = React.useMemo(() => status === ORDER_STATUS.PENDING, [status]);
+	const isAccepted = React.useMemo(() => status === ORDER_STATUS.ACCEPTED, [status]);
+	const isCompleted = React.useMemo(() => status === ORDER_STATUS.COMPLETED, [status]);
+	const isCanceled = React.useMemo(() => status === ORDER_STATUS.CANCELED, [status]);
 
 	return (
 		<div className={[styles['order-card'], className].join(' ')} {...rest}>

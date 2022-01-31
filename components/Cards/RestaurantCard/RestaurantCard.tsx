@@ -16,20 +16,23 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 
 const RestaurantCard: React.FC<Props> = ({ className, restaurant, ...rest }) => {
 	const lang = getLang();
+
 	const { push } = useRouter();
 	const { setRestaurantCart } = useCartActions();
 
-	const { minOrder: MIN_ORDER, delivery: DELIVERY } = getLang();
 	const { uid, status, name, costs, rating, photo, logo } = restaurant;
-	const unavailable = status === RESTAURANT_STATUS.CLOSED || status === RESTAURANT_STATUS.UNAVAILABLE;
+	const unavailable = React.useMemo(
+		() => status === RESTAURANT_STATUS.CLOSED || status === RESTAURANT_STATUS.UNAVAILABLE,
+		[status],
+	);
 	const { minOrder, delivery } = costs;
 	// const photoWidth = 310;
-	const logoSize = 60;
+	const { current: logoSize } = React.useRef(60);
 
-	const handleNav = () => {
+	const handleNav = React.useCallback(() => {
 		setRestaurantCart(uid);
 		push(`${URLS.RESTAURANT}/${uid}`);
-	};
+	}, [setRestaurantCart, push, uid]);
 
 	return (
 		<div
@@ -80,13 +83,13 @@ const RestaurantCard: React.FC<Props> = ({ className, restaurant, ...rest }) => 
 
 					{minOrder !== undefined && minOrder !== 0 && (
 						<p className={styles['restaurant-info']}>
-							{MIN_ORDER}: {minOrder} RON
+							{lang.minOrder}: {minOrder} RON
 						</p>
 					)}
 
 					{delivery !== undefined && (
 						<p className={styles['restaurant-info']}>
-							{DELIVERY}: {delivery === 0 ? lang.free : `${delivery} RON`}
+							{lang.delivery}: {delivery === 0 ? lang.free : `${delivery} RON`}
 						</p>
 					)}
 				</div>

@@ -23,23 +23,32 @@ const ItemCard: React.FC<Props> = ({ className, item, ...rest }) => {
 
 	const { addItemCart } = useCartActions();
 
-	const selectedRestaurant = restaurants?.filter(restaurant => restaurant.uid === restaurantUid)[0];
-	const restaurantIsOpen = selectedRestaurant && selectedRestaurant.status === RESTAURANT_STATUS.OPEN;
+	const selectedRestaurantStatus = React.useMemo(
+		() => restaurants?.filter(restaurant => restaurant.uid === restaurantUid)?.[0].status,
+		[restaurants, restaurantUid],
+	);
+	const restaurantIsOpen = React.useMemo(
+		() => selectedRestaurantStatus === RESTAURANT_STATUS.OPEN,
+		[selectedRestaurantStatus],
+	);
 
 	const { status, photo, name, description, price } = item;
-	const itemIsUnavailable = status === MENU_ITEM_STATUS.UNAVAILABLE;
+	const itemIsUnavailable = React.useMemo(() => status === MENU_ITEM_STATUS.UNAVAILABLE, [status]);
 
-	const handleAddToCart = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-		e.stopPropagation();
+	const handleAddToCart = React.useCallback(
+		(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+			e.stopPropagation();
 
-		!itemIsInCart && !itemIsUnavailable && restaurantIsOpen && addItemCart({ ...item, quantity: 1 });
-	};
+			!itemIsInCart && !itemIsUnavailable && restaurantIsOpen && addItemCart({ ...item, quantity: 1 });
+		},
+		[itemIsInCart, itemIsUnavailable, restaurantIsOpen, addItemCart, item],
+	);
 
 	React.useEffect(() => {
 		const exists = items.some(item => item.name === name);
 
 		setItemIsInCart(exists);
-	}, [items]);
+	}, [items, item, setItemIsInCart, name]);
 
 	return (
 		<div
