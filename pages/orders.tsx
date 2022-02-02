@@ -32,8 +32,10 @@ export const getServerSideProps: GetServerSideProps = async ({
 	req,
 }: GetServerSidePropsContext): Promise<GetServerSidePropsResult<{ orders: OrderSchema[] }>> => {
 	try {
-		const checkRevoked = true;
 		const token = req.cookies?.[COOKIE_NAMES.TOKEN];
+		if (!token) return { redirect: { destination: '/', statusCode: 301 } };
+
+		const checkRevoked = true;
 		const { tokenString } = parseTokenString(token);
 
 		const { uid } = await auth().verifyIdToken(tokenString, checkRevoked);

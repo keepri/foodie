@@ -8,8 +8,12 @@
 	color: $input-color;
 	background: $input-background;
 	border-radius: $radius;
-	padding: 0.25em 0.5em;
+	padding: 0.45em 0.75em;
 	font-size: 0.9rem;
+
+	& ~ label {
+		margin-top: 1.5rem;
+	}
 }
 
 .input:focus {
@@ -17,6 +21,7 @@
 }
 
 .label {
+	display: inline-block;
 	color: $label-color;
-	font-size: 0.7rem;
+	font-size: 0.8rem;
 }

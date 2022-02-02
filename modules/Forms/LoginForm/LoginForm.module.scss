@@ -1,2 +1,33 @@
 .form {
+	width: 100%;
+
+	& > input {
+		width: 100%;
+	}
+
+	&Help {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		margin-top: 0.5rem;
+		margin-bottom: 4rem;
+
+		@media screen and (max-width: 350px) {
+			justify-content: center;
+		}
+	}
+
+	&ShowPassCheckbox {
+		white-space: nowrap;
+	}
+
+	&ForgotPass {
+		white-space: nowrap;
+	}
+
+	&Google {
+		margin-top: 1rem;
+	}
 }

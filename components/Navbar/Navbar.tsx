@@ -23,9 +23,11 @@ const Navbar: React.FC<Props> = ({ className, ...rest }) => {
 		<nav className={['container', styles['navbar'], className].join(' ')} {...rest}>
 			<Logo />
 			<ul>
-				<Link button secondary href={URLS.ORDERS}>
-					ORDERS
-				</Link>
+				{isLogged && (
+					<Link button secondary href={URLS.ORDERS}>
+						ORDERS
+					</Link>
+				)}
 				<Link button secondary href={URLS.CART}>
 					CART
 				</Link>

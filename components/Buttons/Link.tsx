@@ -7,6 +7,7 @@ type LinkRefType = React.ForwardedRef<HTMLAnchorElement>;
 
 interface Props extends LinkProps {
 	button?: boolean;
+	underline?: boolean;
 	className?: string;
 	fullWidth?: boolean;
 	primary?: boolean;
@@ -14,11 +15,12 @@ interface Props extends LinkProps {
 }
 
 const Link = React.forwardRef<HTMLAnchorElement, React.PropsWithChildren<Props>>(
-	({ children, fullWidth, className, button, primary, secondary, href, ...rest }, ref) => {
+	({ children, underline, fullWidth, className, button, primary, secondary, href, ...rest }, ref) => {
 		return (
 			<NextLink href={href} passHref>
 				<a
 					ref={ref as LinkRefType}
+					style={{ textDecoration: underline ? 'underline' : 'none' }}
 					className={[
 						button && styles['button'],
 						fullWidth && 'full-width',

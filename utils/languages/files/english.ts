@@ -16,7 +16,11 @@ export const english = {
 
 	// BUTTONS
 	signIn: 'Sign in',
+	signInWithGoogle: 'Sign in with Google',
 	register: 'Register',
+	submit: 'Submit',
+	showPass: 'Show password',
+	forgotPass: 'Forgot password',
 
 	// ALERTS
 	alertEmail: 'Invalid email address',
@@ -28,6 +32,8 @@ export const english = {
 	alertPhone: 'Incorrect phone number',
 
 	// TEXT
+	welcomeBack: 'Welcome back!',
+	welcomeBackAdditional: 'We have missed you...',
 	accountCreateSuccessTitle: 'Congratulations! Welcome to the party.',
 	accountCreateSuccessBody:
 		'An email has been sent to the email address you have provided. Please follow the link to activate your account. Thank you!',
@@ -40,4 +46,6 @@ export const english = {
 	free: 'free',
 	callUs: 'Call us',
 	menu: 'Menu',
+	dontHaveAccount: "Don't have an account?",
+	signUpNow: 'Sign up now',
 };

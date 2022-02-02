@@ -3,11 +3,12 @@ import { useAppActions, useAuthActions } from '#redux/actions';
 import { useSelector } from 'react-redux';
 
 import Footer from '#components/Layout/Footer/Footer';
-import Header from '#modules/Header/Header';
+// import Header from '#modules/Header/Header';
 
 import { subscribeOnAuthChange } from '#controllers/subscribeOnAuthChange';
 
 import { ReduxState } from '#declarations/types/Redux';
+import Navbar from '#components/Navbar/Navbar';
 
 interface Props {}
 
@@ -24,7 +25,8 @@ const Layout: React.FC<Props> = ({ children }) => {
 
 	return (
 		<>
-			<Header />
+			<Navbar />
+			{/* <Header /> */}
 			{children}
 			<Footer />
 		</>

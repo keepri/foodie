@@ -1,0 +1,29 @@
+@use '#styles/colors.module.scss' as *;
+
+.login-page {
+	display: grid;
+	grid-template-columns: 1fr minmax(16rem, 25rem) 1fr;
+
+	&-welcome {
+		grid-column: 2 / span 1;
+		margin-top: 7rem;
+
+		& > h1 {
+			margin-bottom: 0.5rem;
+		}
+
+		& > p {
+			color: $grey;
+			font-size: 0.9rem;
+			margin-bottom: 4rem;
+		}
+	}
+
+	&-no-account {
+		color: $grey;
+		margin-top: 4rem;
+		grid-row: 2 / span 1;
+		grid-column: 2 / span 1;
+		justify-self: center;
+	}
+}

@@ -1,16 +1,11 @@
-import Navbar from '#components/Navbar/Navbar';
 import React from 'react';
 
-// import styles from './Header.module.scss';
+import styles from './Header.module.scss';
 
-interface Props {}
+interface Props extends React.HTMLAttributes<HTMLElement> {}
 
-const Header: React.FC<Props> = ({}) => {
-	return (
-		<header>
-			<Navbar />
-		</header>
-	);
+const Header: React.FC<Props> = ({ className, ...rest }) => {
+	return <header className={[styles['header'], className].join(' ')} {...rest}></header>;
 };
 
 export default Header;

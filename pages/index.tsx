@@ -1,22 +1,20 @@
 import React from 'react';
 import type { GetStaticProps, GetStaticPropsContext, NextPage } from 'next';
-import { useSelector } from 'react-redux';
-import { ReduxState } from '#declarations/types/Redux';
 import { RestaurantSchema } from '#firebase/declarations/schemas';
 import { useAppActions } from '#redux/actions';
 import axios from 'axios';
 import { URLS } from 'utils/misc';
 import Restaurants from '#modules/Restaurants/Restaurants';
 import { RESTAURANT_STATUS } from '#firebase/declarations/enums';
+// import { useSelector } from 'react-redux';
+// import { ReduxState } from '#declarations/types/Redux';
 
 interface Props {
 	restaurants: RestaurantSchema[];
 }
 
 const Index: NextPage<Props> = ({ restaurants }) => {
-	const {
-		auth: { user },
-	} = useSelector(({ auth }: ReduxState) => ({ auth }));
+	// const {} = useSelector(({}: ReduxState) => ({}));
 	const { setRestaurantsApp, loadRestaurants } = useAppActions();
 
 	React.useEffect(() => {
@@ -24,8 +22,7 @@ const Index: NextPage<Props> = ({ restaurants }) => {
 	}, []);
 
 	return (
-		<main className='container container-home'>
-			<h1>Hello{`, ${user.name}`}</h1>
+		<main className='container'>
 			<Restaurants restaurants={restaurants} />
 		</main>
 	);
