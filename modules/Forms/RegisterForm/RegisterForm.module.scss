@@ -1,2 +1,15 @@
 .form {
+	width: 100%;
+
+	& > input {
+		width: 100%;
+	}
+
+	&Submit {
+		margin-top: 4rem;
+	}
+
+	&ShowPassCheckbox {
+		margin-top: 0.5rem !important;
+	}
 }

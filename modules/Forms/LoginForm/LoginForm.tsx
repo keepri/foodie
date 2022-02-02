@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 
 import { AuthErrorCodes, signInWithEmailAndPassword } from 'firebase/auth';
@@ -36,7 +35,7 @@ const LoginForm: React.FC<Props> = ({ className, onLoginSuccess, ...rest }) => {
 	const { redirect } = query as { redirect: string };
 
 	const handleChange = React.useCallback(
-		(e: InputChangeEvent) => setForm({ ...form, [e.target.name]: e.target.value }),
+		(e: InputChangeEvent) => setForm(prevForm => ({ ...prevForm, [e.target.name]: e.target.value })),
 		[],
 	);
 
@@ -48,31 +47,34 @@ const LoginForm: React.FC<Props> = ({ className, onLoginSuccess, ...rest }) => {
 		console.log('Forgot password');
 	}, []);
 
-	const handleSubmit = React.useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		const emailEmpty = email.length === 0;
-		const passEmpty = password.length === 0;
+	const handleSubmit = React.useCallback(
+		async (e: React.FormEvent<HTMLFormElement>) => {
+			e.preventDefault();
+			const emailEmpty = email.length === 0;
+			const passEmpty = password.length === 0;
 
-		if (emailEmpty || passEmpty) {
-			setErrors({ emailErr: emailEmpty, passwordErr: passEmpty });
-			return;
-		}
-
-		if (!emailErr && !passwordErr) {
-			try {
-				await signInWithEmailAndPassword(authRef, email, password);
-
-				onLoginSuccess && onLoginSuccess(e);
-				redirect ? push(redirect) : back();
-			} catch ({ code, message }) {
-				console.error(message);
-				(code === AuthErrorCodes.INVALID_EMAIL || code === AuthErrorCodes.USER_DELETED) &&
-					setErrors({ emailErr: true, passwordErr: false, emailMsg: lang.alertNoAccount });
-				code === AuthErrorCodes.INVALID_PASSWORD &&
-					setErrors({ emailErr: false, passwordErr: true, passwordMsg: lang.alertPasswordWrong });
+			if (emailEmpty || passEmpty) {
+				setErrors({ emailErr: emailEmpty, passwordErr: passEmpty });
+				return;
 			}
-		}
-	}, []);
+
+			if (!emailErr && !passwordErr) {
+				try {
+					await signInWithEmailAndPassword(authRef, email, password);
+
+					onLoginSuccess && onLoginSuccess(e);
+					redirect ? push(redirect) : back();
+				} catch ({ code, message }) {
+					console.error(message);
+					(code === AuthErrorCodes.INVALID_EMAIL || code === AuthErrorCodes.USER_DELETED) &&
+						setErrors({ emailErr: true, passwordErr: false, emailMsg: lang.alertNoAccount });
+					code === AuthErrorCodes.INVALID_PASSWORD &&
+						setErrors({ emailErr: false, passwordErr: true, passwordMsg: lang.alertPasswordWrong });
+				}
+			}
+		},
+		[email, password, redirect, emailErr, passwordErr, onLoginSuccess],
+	);
 
 	React.useEffect(() => {
 		const emailError = email.length > 0 ? !reEmail.test(email) : false;
@@ -99,18 +101,19 @@ const LoginForm: React.FC<Props> = ({ className, onLoginSuccess, ...rest }) => {
 				inputMode='email'
 				error={emailErr}
 				errorMsg={emailMsg}
-				onChange={e => handleChange(e)}
+				onChange={handleChange}
 			/>
 			<Input
 				required
 				autoComplete='current-password'
 				placeholder={lang.password}
+				name='password'
 				type={showPass ? 'text' : 'password'}
 				label={lang.password}
 				value={password}
 				error={passwordErr}
 				errorMsg={passwordMsg}
-				onChange={e => handleChange(e)}
+				onChange={handleChange}
 			/>
 			<div className={styles.formHelp}>
 				<Checkbox

@@ -1,0 +1,58 @@
+@use '#styles/colors.module.scss' as *;
+
+.register-page {
+	display: grid;
+	grid-template-columns: 1fr minmax(16rem, 25rem) 1fr;
+
+	&-welcome {
+		grid-column: 2 / span 1;
+		margin-top: 3rem;
+
+		& > h1 {
+			margin-bottom: 0.5rem;
+		}
+
+		& > p:not([class]) {
+			color: $grey;
+			font-size: 0.9rem;
+			margin-bottom: 4rem;
+		}
+	}
+
+	&-already-account {
+		color: $grey;
+		margin-top: 4rem;
+		grid-row: 2 / span 1;
+		grid-column: 2 / span 1;
+		justify-self: center;
+	}
+
+	&-or {
+		position: relative;
+		color: $grey;
+		text-align: center;
+		margin: 2rem 0;
+		font-weight: 500;
+		font-size: 0.9rem;
+		opacity: 0.5;
+
+		&::before {
+			left: 0;
+		}
+
+		&::after {
+			right: 0;
+		}
+
+		&::before,
+		&::after {
+			content: '';
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			height: 1px;
+			width: 45%;
+			background: $grey;
+		}
+	}
+}

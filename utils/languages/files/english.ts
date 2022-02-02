@@ -16,7 +16,9 @@ export const english = {
 
 	// BUTTONS
 	signIn: 'Sign in',
+	signUp: 'Sign up',
 	signInWithGoogle: 'Sign in with Google',
+	signUpWithGoogle: 'Sign up with Google',
 	register: 'Register',
 	submit: 'Submit',
 	showPass: 'Show password',
@@ -34,6 +36,8 @@ export const english = {
 	// TEXT
 	welcomeBack: 'Welcome back!',
 	welcomeBackAdditional: 'We have missed you...',
+	createAnAccount: 'Create an account',
+	createAnAccountAdditional: 'And order from the best restaurants near you',
 	accountCreateSuccessTitle: 'Congratulations! Welcome to the party.',
 	accountCreateSuccessBody:
 		'An email has been sent to the email address you have provided. Please follow the link to activate your account. Thank you!',
@@ -47,5 +51,7 @@ export const english = {
 	callUs: 'Call us',
 	menu: 'Menu',
 	dontHaveAccount: "Don't have an account?",
+	alreadyHaveAccount: 'Already have an account?',
 	signUpNow: 'Sign up now',
+	or: 'or',
 };

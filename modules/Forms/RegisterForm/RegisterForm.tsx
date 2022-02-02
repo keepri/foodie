@@ -12,6 +12,8 @@ import { reEmail } from 'utils/misc';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { authRef } from '#firebase/initClientApp';
 import { checkPasswordsMatch } from '#controllers/validation/checkPasswordsMatch';
+import Checkbox from '#components/Checkbox/Checkbox';
+import { InputChangeEvent } from '#declarations/types/Misc';
 
 type FormErrors = {
 	emailErr: boolean;
@@ -50,6 +52,7 @@ const RegisterForm: React.FC<Props> = ({ className, modal, setModal, ...rest }) 
 		phoneErr: false,
 	});
 
+	const [showPass, setShowPass] = React.useState<boolean>(false);
 	const [form, setForm] = React.useState<ClientRegisterFields & { confPassword: string }>(initForm);
 	const [errors, setErrors] = React.useState<FormErrors>(initErrors);
 
@@ -62,7 +65,7 @@ const RegisterForm: React.FC<Props> = ({ className, modal, setModal, ...rest }) 
 		phoneErr,
 		emailMsg,
 		passwordMsg,
-		confPasswordMsg,
+		// confPasswordMsg,
 		nameMsg,
 		phoneMsg,
 	} = errors;
@@ -71,6 +74,10 @@ const RegisterForm: React.FC<Props> = ({ className, modal, setModal, ...rest }) 
 		(e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, [e.target.name]: e.target.value }),
 		[form],
 	);
+
+	const handleShowPass = React.useCallback((e: InputChangeEvent) => {
+		setShowPass(e.target.checked);
+	}, []);
 
 	const handleSubmit = React.useCallback(
 		async (e: React.FormEvent<HTMLFormElement>) => {
@@ -102,11 +109,16 @@ const RegisterForm: React.FC<Props> = ({ className, modal, setModal, ...rest }) 
 	React.useEffect(() => {
 		const emailError = email.length > 0 ? !reEmail.test(email) : false;
 		const passError = password.length > 0 ? password.length < 6 && true : false;
-		const confPassError = confPassword.length > 0 ? confPassword.length < 6 && true : false;
+		// const confPassError = confPassword.length > 0 ? confPassword.length < 6 && true : false;
+		const confPassError = false;
 		// TODO test name if contains bad words, etc...
 		const nameError = false;
-		// TODO verify if string entered is phone number
-		const phoneError = false;
+		const phoneError =
+			phone.length > 0
+				? phone.length >= 10 && phone.length <= 13
+					? Number.isNaN(phone) === true
+					: true
+				: false;
 		const passwordsNoMatch = checkPasswordsMatch(password, confPassword);
 
 		setErrors({
@@ -114,7 +126,9 @@ const RegisterForm: React.FC<Props> = ({ className, modal, setModal, ...rest }) 
 			passwordErr: passError || passwordsNoMatch,
 			confPasswordErr: confPassError || passwordsNoMatch,
 			nameErr: nameError,
+			nameMsg: nameError ? lang.alertName : undefined,
 			phoneErr: phoneError,
+			phoneMsg: phoneError ? lang.alertPhone : undefined,
 			emailMsg: emailError ? lang.alertEmail : undefined,
 			passwordMsg: passwordsNoMatch
 				? lang.alertPassswordNoMatch
@@ -126,8 +140,6 @@ const RegisterForm: React.FC<Props> = ({ className, modal, setModal, ...rest }) 
 				: confPassError
 				? lang.alertPasswordInvalid
 				: undefined,
-			nameMsg: nameError ? lang.alertName : undefined,
-			phoneMsg: phoneError ? lang.alertPhone : undefined,
 		});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [confPassword, email, password, phone, name]);
@@ -146,7 +158,7 @@ const RegisterForm: React.FC<Props> = ({ className, modal, setModal, ...rest }) 
 				value={name}
 				error={nameErr}
 				errorMsg={nameMsg}
-				onChange={e => handleChange(e)}
+				onChange={handleChange}
 			/>
 			{/* PHONE */}
 			<Input
@@ -160,7 +172,7 @@ const RegisterForm: React.FC<Props> = ({ className, modal, setModal, ...rest }) 
 				inputMode='tel'
 				error={phoneErr}
 				errorMsg={phoneMsg}
-				onChange={e => handleChange(e)}
+				onChange={handleChange}
 			/>
 			{/* EMAIL */}
 			<Input
@@ -173,33 +185,43 @@ const RegisterForm: React.FC<Props> = ({ className, modal, setModal, ...rest }) 
 				inputMode='email'
 				error={emailErr}
 				errorMsg={emailMsg}
-				onChange={e => handleChange(e)}
+				onChange={handleChange}
 			/>
 			{/* PASSWORD */}
 			<Input
 				required
+				autoComplete='new-password'
 				placeholder={lang.password}
-				type='password'
+				name='password'
+				type={showPass ? 'text' : 'password'}
 				label={lang.password}
 				value={password}
 				error={passwordErr}
 				errorMsg={passwordMsg}
-				onChange={e => handleChange(e)}
+				onChange={handleChange}
 			/>
 			{/* CONFIRM PASSWORD */}
-			<Input
+			{/* <Input
 				required
 				placeholder={lang.confirmPassword}
-				type='password'
+				name='confPassword'
+				type={showPass ? 'text' : 'password'}
 				name='confPassword'
 				label={lang.confirmPassword}
 				value={confPassword}
 				error={confPasswordErr}
 				errorMsg={confPasswordMsg}
-				onChange={e => handleChange(e)}
+				onChange={handleChange}
+			/> */}
+			{/* SHOW PASS TOGGLE */}
+			<Checkbox
+				text={lang.showPass}
+				checked={showPass}
+				onCheck={handleShowPass}
+				className={styles.formShowPassCheckbox}
 			/>
-			<Button primary type='submit'>
-				Submit
+			<Button primary fullWidth type='submit' className={styles.formSubmit}>
+				{lang.signUp}
 			</Button>
 		</form>
 	);

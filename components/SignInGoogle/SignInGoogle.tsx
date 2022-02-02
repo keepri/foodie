@@ -6,9 +6,10 @@ import styles from './SignInGoogle.module.scss';
 
 interface Props extends React.HTMLAttributes<HTMLButtonElement> {
 	fullWidth?: boolean;
+	text?: string;
 }
 
-const SignInGoogle: React.FC<Props> = ({ className, fullWidth, onMouseUp, ...rest }) => {
+const SignInGoogle: React.FC<Props> = ({ className, fullWidth, text, onMouseUp, ...rest }) => {
 	const lang = getLang();
 
 	const handleGoogleSignIn = React.useCallback(
@@ -26,7 +27,7 @@ const SignInGoogle: React.FC<Props> = ({ className, fullWidth, onMouseUp, ...res
 			{...rest}
 		>
 			<Image src={'/images/icons/google.svg'} width={20} height={20} alt='google-icon' />
-			{lang.signInWithGoogle}
+			{text ?? lang.signInWithGoogle}
 		</button>
 	);
 };
