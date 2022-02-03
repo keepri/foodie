@@ -10,40 +10,63 @@ import { ReduxState } from '#declarations/types/Redux';
 import Button from '#components/Buttons/Button';
 import Link from '#components/Buttons/Link';
 import Logo from '#components/Logo/Logo';
+import Icon from '#components/Icon/Icon';
+import { getLang } from '#controllers/getLang';
 
 interface Props extends React.HTMLAttributes<HTMLElement> {}
 
 const Navbar: React.FC<Props> = ({ className, ...rest }) => {
+	const lang = getLang();
+
 	const {
 		auth: { isLogged },
-	} = useSelector(({ auth }: ReduxState) => ({ auth }));
+		cart: { items },
+	} = useSelector(({ auth, cart }: ReduxState) => ({ auth, cart }));
 	const { logoutUserAuth } = useAuthActions();
 
 	return (
 		<nav className={['container', styles['navbar'], className].join(' ')} {...rest}>
 			<Logo />
-			<ul>
-				{isLogged && (
-					<Link button secondary href={URLS.ORDERS}>
-						ORDERS
+			<ul className={styles['navbar-list']}>
+				{/* ALWAYS */}
+				<li>
+					<Link href={URLS.CART} tooltip={lang.cartTooltip} badge={items.length ? items.length : undefined}>
+						<Icon icon={'/images/icons/cloche.svg'} size='medium' />
 					</Link>
-				)}
-				<Link button secondary href={URLS.CART}>
-					CART
-				</Link>
+				</li>
+
+				{/* LOGGED */}
 				{isLogged && (
-					<Button secondary onMouseUp={() => logoutUserAuth()}>
-						LOGOUT
-					</Button>
+					<li>
+						<Link href={URLS.ORDERS} tooltip={lang.ordersTooltip}>
+							<Icon icon={'/images/icons/orders.svg'} size='medium' />
+						</Link>
+					</li>
 				)}
+				{isLogged && (
+					<li>
+						<Link href={URLS.ACCOUNT} tooltip={lang.accountTooltip}>
+							<Icon icon={'/images/icons/settings.svg'} size='medium' />
+						</Link>
+					</li>
+				)}
+				{isLogged && (
+					<li>
+						<Button simple onMouseUp={() => logoutUserAuth()} tooltip={lang.signOutTooltip}>
+							<Icon icon={'/images/icons/sign-out.svg'} size='medium' />
+						</Button>
+					</li>
+				)}
+
+				{/* NOT LOGGED */}
 				{!isLogged && (
 					<>
-						<Link button secondary href={URLS.LOGIN}>
-							LOGIN
-						</Link>
-						<Link button secondary href={URLS.REGISTER}>
-							REGISTER
-						</Link>
+						<li className={styles['navbar-sign-in']}>
+							<Link href={URLS.LOGIN}>
+								<Icon icon={'/images/icons/profile.svg'} size='medium' />
+								{lang.signIn}
+							</Link>
+						</li>
 					</>
 				)}
 			</ul>

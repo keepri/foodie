@@ -40,6 +40,7 @@ const URLS = {
 	CART: `${baseUrl}/cart`,
 	RESTAURANT: `${baseUrl}/restaurant`,
 	ORDERS: `${baseUrl}/orders`,
+	ACCOUNT: `${baseUrl}/account`,
 
 	// API
 	API_REGISTER: '/api/auth/register',

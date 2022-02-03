@@ -33,6 +33,13 @@ export const english = {
 	alertNoAccount: 'Account does not exist',
 	alertPhone: 'Incorrect phone number',
 
+	// TOOLTIPS
+	ordersTooltip: 'Orders',
+	cartTooltip: 'Cart',
+	signOutTooltip: 'Sign out',
+	signInTooltip: 'Sign in',
+	accountTooltip: 'Account',
+
 	// TEXT
 	welcomeBack: 'Welcome back!',
 	welcomeBackAdditional: 'We have missed you...',

@@ -11,4 +11,32 @@
 	background: $background-color;
 	margin-bottom: 2rem;
 	z-index: 999;
+
+	&-sign-in {
+		& > a {
+			display: flex;
+			gap: 0.5rem;
+			justify-content: center;
+			align-items: center;
+		}
+	}
+
+	&-list {
+		display: grid;
+		place-items: center;
+		grid-auto-flow: column;
+		gap: 1rem;
+		list-style: none;
+
+		li {
+			display: grid;
+			place-items: center;
+			padding: 0.25rem 0.75rem;
+
+			span {
+				display: grid !important;
+				place-items: center;
+			}
+		}
+	}
 }
