@@ -18,7 +18,7 @@ const RestaurantCard: React.FC<Props> = ({ className, restaurant, ...rest }) => 
 	const lang = getLang();
 
 	const { push } = useRouter();
-	const { setRestaurantCart } = useCartActions();
+	const { setRestaurantUidCart } = useCartActions();
 
 	const { uid, status, name, costs, rating, photo, logo } = restaurant;
 	const unavailable = React.useMemo(
@@ -30,9 +30,9 @@ const RestaurantCard: React.FC<Props> = ({ className, restaurant, ...rest }) => 
 	const { current: logoSize } = React.useRef(60);
 
 	const handleNav = React.useCallback(() => {
-		setRestaurantCart(uid);
+		setRestaurantUidCart(uid);
 		push(`${URLS.RESTAURANT}/${uid}`);
-	}, [setRestaurantCart, push, uid]);
+	}, [setRestaurantUidCart, push, uid]);
 
 	return (
 		<div

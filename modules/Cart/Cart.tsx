@@ -34,10 +34,15 @@ const Cart: React.FC<Props> = ({ className, page, ...rest }) => {
 		},
 		app: { currency },
 	} = useSelector(({ cart, auth, app }: ReduxState) => ({ cart, auth, app }));
-	const { updateCart } = useCartActions();
+	const { updateCart, resetCart } = useCartActions();
 	const { updateUserAuth } = useAuthActions();
 
 	const handleSubmit = React.useCallback(async () => {
+		if (!items.length) {
+			// TODO - add "no items in cart" modal
+			return;
+		}
+
 		if (!isLogged) {
 			push(URLS.LOGIN);
 			return;
@@ -47,6 +52,12 @@ const Cart: React.FC<Props> = ({ className, page, ...rest }) => {
 
 		if (currentUser) {
 			const client = currentUser.uid ?? '';
+
+			if (client === '') {
+				// TODO handle error
+				return;
+			}
+
 			const date = new Date().getTime();
 			const order: OrderSchema = {
 				uid: '',
@@ -58,6 +69,9 @@ const Cart: React.FC<Props> = ({ className, page, ...rest }) => {
 				status: ORDER_STATUS.PENDING,
 				date,
 			};
+
+			console.log(order);
+
 			const orderOk = isObjPopulated(order, ['info', 'uid']);
 
 			if (!orderOk) {
@@ -95,12 +109,16 @@ const Cart: React.FC<Props> = ({ className, page, ...rest }) => {
 		[updateCart],
 	);
 
+	const handleClearItems = React.useCallback(() => {
+		resetCart();
+	}, [resetCart]);
+
 	return (
 		<div className={[styles['cart'], page && styles['cart-page'], className].join(' ')} {...rest}>
 			<div className={styles['cart-body']}>
 				<div className={styles['cart-body-items']}>
 					{/* SHOW THIS IF THE CART IS EMPTY */}
-					{items.length === 0 && (
+					{items.length === 0 ? (
 						<>
 							<p style={{ marginBottom: '1rem' }}>{lang.noItemsInCart}</p>
 							{orderPlaced && (
@@ -112,18 +130,24 @@ const Cart: React.FC<Props> = ({ className, page, ...rest }) => {
 								{lang.restaurants}
 							</Link>
 						</>
-					)}
+					) : (
+						// SHOW THIS IF THE CART HAS ITEMS INSIDE OF IT
+						<>
+							<Button simple className={styles['cart-body-items-clear']} onMouseUp={handleClearItems}>
+								{lang.clear}
+							</Button>
 
-					{/* SHOW THIS IF THE CART HAS ITEMS INSIDE OF IT */}
-					{items.map((cartItem, index) => (
-						<CartItem className={styles['cart-item']} key={'cart-item-' + index} index={index} item={cartItem} />
-					))}
+							{items.map((cartItem, index) => (
+								<CartItem className={styles['cart-item']} key={'cart-item-' + index} index={index} item={cartItem} />
+							))}
+						</>
+					)}
 				</div>
 			</div>
 			<div className={styles['cart-footer']}>
 				<div className={styles['cart-footer-info']}>
 					<label>
-						{lang.total} :
+						{lang.total}:
 						<p>
 							{' '}
 							{total} {currency}

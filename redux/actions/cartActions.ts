@@ -8,7 +8,7 @@ import {
 	CartAddItemPayload,
 	CartRemoveItemPayload,
 	CartSetLoadingPayload,
-	CartSetRestaurantPayload,
+	CartSetRestaurantUidPayload,
 	CartUpdateItemPayload,
 	CartUpdatePayload,
 } from '#declarations/interfaces/Redux';
@@ -21,13 +21,12 @@ export { cartActions };
 const setLoadingCart = (payload: CartSetLoadingPayload) => (dispatch: Dispatch<CartAction>) =>
 	dispatch({ type: CartActionType.SET_LOADING, payload });
 
-const setRestaurantCart = (payload: CartSetRestaurantPayload) => (dispatch: Dispatch<CartAction>) =>
+const setRestaurantUidCart = (payload: CartSetRestaurantUidPayload) => (dispatch: Dispatch<CartAction>) =>
 	dispatch({ type: CartActionType.SET_CART_RESTAURANT, payload });
 
 const addItemCart = (payload: CartAddItemPayload) => async (dispatch: Dispatch<CartAction>) => {
 	// const menuItemUid = payload.uid;
 	const menuItemStatus = payload.status;
-
 	// const menuItemAvailable = await getMenuItemStatus(menuItemUid);
 	const menuItemAvailable = menuItemStatus === MENU_ITEM_STATUS.AVAILABLE;
 
@@ -50,6 +49,14 @@ const resetCart = () => (dispatch: Dispatch<CartAction>) => dispatch({ type: Car
 
 const cartActions = () =>
 	bindActionCreators(
-		{ setLoadingCart, setRestaurantCart, addItemCart, removeItemCart, resetCart, updateItemCart, updateCart },
+		{
+			setLoadingCart,
+			setRestaurantUidCart,
+			addItemCart,
+			removeItemCart,
+			resetCart,
+			updateItemCart,
+			updateCart,
+		},
 		useDispatch<Dispatch<CartAction>>(),
 	);

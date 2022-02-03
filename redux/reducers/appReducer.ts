@@ -25,6 +25,11 @@ export const appReducer = (state: AppState = initAppState, action: AppAction): A
 			return { ...state, restaurants: action.payload };
 		}
 
+		// SET_SELECTED_RESTAURANT
+		case AppActionType.SET_SELECTED_RESTAURANT: {
+			return { ...state, selectedRestaurant: action.payload };
+		}
+
 		// RESET
 		case AppActionType.RESET: {
 			return initAppState;

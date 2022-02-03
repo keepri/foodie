@@ -16,7 +16,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 
 const ItemCard: React.FC<Props> = ({ className, item, ...rest }) => {
 	const {
-		app: { currency, restaurants },
+		app: { currency, restaurants, selectedRestaurant },
 		cart: { items, restaurant: restaurantUid },
 	} = useSelector(({ app, cart }: ReduxState) => ({ app, cart }));
 	const [itemIsInCart, setItemIsInCart] = React.useState(false);
@@ -27,28 +27,37 @@ const ItemCard: React.FC<Props> = ({ className, item, ...rest }) => {
 		() => restaurants?.filter(restaurant => restaurant.uid === restaurantUid)?.[0].status,
 		[restaurants, restaurantUid],
 	);
+
 	const restaurantIsOpen = React.useMemo(
 		() => selectedRestaurantStatus === RESTAURANT_STATUS.OPEN,
 		[selectedRestaurantStatus],
 	);
 
-	const { status, photo, name, description, price } = item;
+	const { uid, status, photo, name, description, price } = item;
 	const itemIsUnavailable = React.useMemo(() => status === MENU_ITEM_STATUS.UNAVAILABLE, [status]);
 
 	const handleAddToCart = React.useCallback(
 		(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+			// TODO - handle restaurant is closed modal
 			e.stopPropagation();
+
+			const selectedRestaurantUid = selectedRestaurant?.uid ?? '';
+
+			if (selectedRestaurantUid !== restaurantUid) {
+				// TODO - handle adding item from another restaurant warning modal (clear);
+				console.log('Tried adding item from another restaurant');
+			}
 
 			!itemIsInCart && !itemIsUnavailable && restaurantIsOpen && addItemCart({ ...item, quantity: 1 });
 		},
-		[itemIsInCart, itemIsUnavailable, restaurantIsOpen, addItemCart, item],
+		[itemIsInCart, itemIsUnavailable, restaurantIsOpen, restaurantUid, addItemCart, item],
 	);
 
 	React.useEffect(() => {
-		const exists = items.some(item => item.name === name);
+		const exists = items.some(item => item.uid === uid);
 
 		setItemIsInCart(exists);
-	}, [items, item, setItemIsInCart, name]);
+	}, [items, uid, item, setItemIsInCart]);
 
 	return (
 		<div

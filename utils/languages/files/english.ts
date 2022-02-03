@@ -23,6 +23,7 @@ export const english = {
 	submit: 'Submit',
 	showPass: 'Show password',
 	forgotPass: 'Forgot password',
+	clear: 'Clear',
 
 	// ALERTS
 	alertEmail: 'Invalid email address',

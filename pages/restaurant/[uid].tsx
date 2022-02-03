@@ -9,14 +9,16 @@ import type {
 	NextPage,
 } from 'next';
 import axios, { AxiosResponse } from 'axios';
-import { URLS } from 'utils/misc';
+import { isClientSide, URLS } from 'utils/misc';
 import { MenusSuccess, RestaurantsSuccess, RestaurantSuccess } from '#firebase/declarations/types';
 import { MenuSchema, RestaurantSchema } from '#firebase/declarations/schemas';
 import { useRouter } from 'next/router';
-import { useCartActions } from '#redux/actions';
+import { useAppActions, useCartActions } from '#redux/actions';
 import { ParsedUrlQuery } from 'querystring';
 import Menu from '#modules/Menu/Menu';
 import RestaurantHeader from '#components/Headers/RestaurantHeader/RestaurantHeader';
+import { useSelector } from 'react-redux';
+import { ReduxState } from '#declarations/types/Redux';
 
 interface Params extends ParsedUrlQuery {
 	uid: string;
@@ -29,17 +31,25 @@ interface Props {
 
 const RestaurantPage: NextPage<Props> = ({ restaurant, menu }) => {
 	const { isFallback } = useRouter();
-	const { setRestaurantCart } = useCartActions();
+
+	const {
+		cart: { items },
+	} = useSelector(({ cart }: ReduxState) => ({ cart }));
+
+	const { setRestaurantUidCart } = useCartActions();
+	const { setSelectedRestaurantApp } = useAppActions();
 
 	React.useEffect(() => {
-		return () => {
-			restaurant && restaurant.uid && setRestaurantCart(restaurant.uid);
-		};
+		if (restaurant && isClientSide && !items.length) {
+			setRestaurantUidCart(restaurant.uid);
+			setSelectedRestaurantApp(restaurant);
+		}
 	}, [restaurant]);
 
 	if (isFallback)
 		return (
 			<main className='container'>
+				{/* TODO - make placeholder page */}
 				<strong>
 					<p>TEMP - Loading... - TEMP</p>
 				</strong>
@@ -111,6 +121,13 @@ export const getStaticProps: GetStaticProps = async ({
 						...menu.categories[0].items,
 						...menu.categories[0].items,
 						...menu.categories[0].items,
+					],
+				},
+				{
+					...menu.categories[0],
+					items: [
+						...menu.categories[0].items,
+						{ ...menu.categories[0].items[0], uid: 'kaljsdhgfkjlasd' + Math.random() },
 					],
 				},
 			],

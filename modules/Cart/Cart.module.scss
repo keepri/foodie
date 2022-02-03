@@ -24,6 +24,12 @@
 			.cart-item + .cart-item {
 				margin-top: 1.75rem;
 			}
+
+			&-clear {
+				display: block;
+				margin-left: auto;
+				margin-bottom: 1rem;
+			}
 		}
 	}
 

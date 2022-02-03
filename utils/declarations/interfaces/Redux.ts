@@ -30,13 +30,14 @@ export interface CartState extends OrderSchema {
 export type AppSetLoadingPayload = boolean;
 export type AppSetOnAuthChangeSubPayload = Unsubscribe;
 export type AppSetLangPayload = Langs;
+export type AppSetSelectedRestaurantPayload = RestaurantSchema | null;
 export type AppSetRestaurantsPayload = RestaurantSchema[];
 export type AuthSetLoadingPayload = boolean;
 export type AuthSetIsLoggedPayload = boolean;
 export type AuthUpdateUserPayload = Partial<ClientSchema>;
 export type AuthLoginPayload = { token: string; user?: ClientSchema };
 export type CartSetLoadingPayload = boolean;
-export type CartSetRestaurantPayload = string;
+export type CartSetRestaurantUidPayload = string;
 export type CartAddItemPayload = MenuItem;
 export type CartRemoveItemPayload = number;
 export type CartUpdateItemPayload = { index: number; update: Partial<MenuItem> };
@@ -62,6 +63,11 @@ export interface AppSetLangAction {
 export interface AppSetRestaurantsAction {
 	type: AppActionType.SET_RESTAURANTS;
 	payload: AppSetRestaurantsPayload;
+}
+
+export interface AppSetSelectedRestaurantAction {
+	type: AppActionType.SET_SELECTED_RESTAURANT;
+	payload: AppSetSelectedRestaurantPayload;
 }
 
 export interface AppToggleDarkModeAction {
@@ -107,9 +113,9 @@ export interface CartSetLoadingAction {
 	payload: CartSetLoadingPayload;
 }
 
-export interface CartSetRestaurantAction {
+export interface CartSetRestaurantUidAction {
 	type: CartActionType.SET_CART_RESTAURANT;
-	payload: CartSetRestaurantPayload;
+	payload: CartSetRestaurantUidPayload;
 }
 
 export interface CartAddItemAction {
