@@ -9,7 +9,7 @@ import type {
 	NextPage,
 } from 'next';
 import axios, { AxiosResponse } from 'axios';
-import { isClientSide, URLS } from 'utils/misc';
+import { URLS } from 'utils/misc';
 import { MenusSuccess, RestaurantsSuccess, RestaurantSuccess } from '#firebase/declarations/types';
 import { MenuSchema, RestaurantSchema } from '#firebase/declarations/schemas';
 import { useRouter } from 'next/router';
@@ -33,18 +33,22 @@ const RestaurantPage: NextPage<Props> = ({ restaurant, menu }) => {
 	const { isFallback } = useRouter();
 
 	const {
-		cart: { items },
+		cart: { items, restaurant: cartRestaurantUid },
 	} = useSelector(({ cart }: ReduxState) => ({ cart }));
 
 	const { setRestaurantUidCart } = useCartActions();
 	const { setSelectedRestaurantApp } = useAppActions();
 
 	React.useEffect(() => {
-		if (restaurant && isClientSide && !items.length) {
-			setRestaurantUidCart(restaurant.uid);
+		if (!isFallback) {
+			items.length === 0 && cartRestaurantUid !== restaurant.uid && setRestaurantUidCart(restaurant.uid);
 			setSelectedRestaurantApp(restaurant);
 		}
-	}, [restaurant]);
+
+		return () => {
+			setSelectedRestaurantApp(null);
+		};
+	}, []);
 
 	if (isFallback)
 		return (
@@ -97,7 +101,7 @@ export const getStaticProps: GetStaticProps = async ({
 		const { status: statusRestaurant, data: dataRestaurant }: AxiosResponse<RestaurantSuccess> =
 			await axios.get(`${URLS.API_GET_RESTAURANTS}/${uid}`);
 		const { status: statusMenu, data: dataMenu }: AxiosResponse<MenusSuccess> = await axios.get(
-			`${URLS.API_GET_MENU}/${uid}`,
+			`${URLS.API_GET_MENU}/${'EJQpn8wM19qiqNoqaQhM'}`, // TODO - was uid
 		);
 
 		if (statusRestaurant === 404 || statusMenu === 404)
@@ -113,21 +117,19 @@ export const getStaticProps: GetStaticProps = async ({
 				{
 					...menu.categories[0],
 					items: [
-						...menu.categories[0].items,
-						...menu.categories[0].items,
-						...menu.categories[0].items,
-						...menu.categories[0].items,
-						...menu.categories[0].items,
-						...menu.categories[0].items,
-						...menu.categories[0].items,
-						...menu.categories[0].items,
+						{ ...menu.categories[0].items[0], uid: 'kaljsdhfadklsjfhdsa' },
+						{ ...menu.categories[0].items[0], uid: 'jksdalfhkjldshfdas' },
+						{ ...menu.categories[0].items[0], uid: 'kjlasdhfakjldsh' },
+						{ ...menu.categories[0].items[0], uid: 'lksdajfaldskfhjdsklafds' },
 					],
 				},
 				{
 					...menu.categories[0],
 					items: [
-						...menu.categories[0].items,
-						{ ...menu.categories[0].items[0], uid: 'kaljsdhgfkjlasd' + Math.random() },
+						{ ...menu.categories[0].items[0], uid: 'jkalsdhfkaljsdhfkjsda' },
+						{ ...menu.categories[0].items[0], uid: 'jkalhfdkldshfdsalkjfds' },
+						{ ...menu.categories[0].items[0], uid: 'sdkjlfhdskjlfadsklj' },
+						{ ...menu.categories[0].items[0], uid: 'kaljsdhgfkjlasd' },
 					],
 				},
 			],

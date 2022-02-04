@@ -30,7 +30,7 @@ const Navbar: React.FC<Props> = ({ className, ...rest }) => {
 			<ul className={styles['navbar-list']}>
 				{/* ALWAYS */}
 				<li>
-					<Link href={URLS.CART} tooltip={lang.cartTooltip} badge={items.length ? items.length : undefined}>
+					<Link href={URLS.CART} tooltip={lang.cartTooltip} badge={items.length > 0 ? items.length : undefined}>
 						<Icon icon={'/images/icons/cloche.svg'} size='medium' />
 					</Link>
 				</li>

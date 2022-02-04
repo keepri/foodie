@@ -38,9 +38,14 @@ export default async (req: NextApiRequest, res: NextApiResponse<RestaurantsRetur
 		// POST
 		// case REQUEST_METHODS.POST: {
 		// 	try {
-		// 		const { uid, data } = req.body as RestaurantsRequestBody;
-		// 		const restaurantCol = firestore.collection(COLLECTIONS.RESTAURANTS);
-		// 		await restaurantCol.doc(uid as string).set(data as RestaurantSchema);
+		// 		const { data } = req.body as RestaurantsRequestBody;
+		// 		if (!data) return res.status(401).json({ message: 'Wrong' });
+
+		// 		const restaurantDoc = firestore.collection(COLLECTIONS.RESTAURANTS).doc();
+		// 		const restaurantUid = restaurantDoc.id;
+		// 		data.uid = restaurantUid;
+
+		// 		await restaurantDoc.set(data as RestaurantSchema);
 
 		// 		return res.status(200).json({ message: MESSAGES.SUCCESS });
 		// 	} catch (error) {

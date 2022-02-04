@@ -141,3 +141,7 @@ export interface CartRemoveItemAction {
 export interface CartResetAction {
 	type: CartActionType.RESET;
 }
+
+export interface CartGetItemsNumberAction {
+	type: CartActionType.GET_ITEMS_NUMBER;
+}

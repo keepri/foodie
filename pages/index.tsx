@@ -5,16 +5,12 @@ import { useAppActions } from '#redux/actions';
 import axios from 'axios';
 import { URLS } from 'utils/misc';
 import Restaurants from '#modules/Restaurants/Restaurants';
-import { RESTAURANT_STATUS } from '#firebase/declarations/enums';
-// import { useSelector } from 'react-redux';
-// import { ReduxState } from '#declarations/types/Redux';
 
 interface Props {
 	restaurants: RestaurantSchema[];
 }
 
 const Index: NextPage<Props> = ({ restaurants }) => {
-	// const {} = useSelector(({}: ReduxState) => ({}));
 	const { setRestaurantsApp, loadRestaurants } = useAppActions();
 
 	React.useEffect(() => {
@@ -34,28 +30,13 @@ export const getStaticProps: GetStaticProps = async ({}: GetStaticPropsContext) 
 	try {
 		const { status, data } = await axios.get(URLS.API_GET_RESTAURANTS, { withCredentials: true });
 
-		status === 200 &&
-			(restaurants = [
-				{ ...data.restaurants[0], status: RESTAURANT_STATUS.OPEN },
-				{ ...data.restaurants[0], status: RESTAURANT_STATUS.OPEN },
-				{ ...data.restaurants[0], status: RESTAURANT_STATUS.OPEN },
-				{ ...data.restaurants[0], status: RESTAURANT_STATUS.OPEN },
-				{ ...data.restaurants[0], status: RESTAURANT_STATUS.OPEN },
-				{ ...data.restaurants[0], status: RESTAURANT_STATUS.OPEN },
-				{ ...data.restaurants[0], status: RESTAURANT_STATUS.OPEN },
-				{ ...data.restaurants[0], status: RESTAURANT_STATUS.OPEN },
-				{ ...data.restaurants[0], status: RESTAURANT_STATUS.OPEN },
-				{ ...data.restaurants[0], status: RESTAURANT_STATUS.OPEN },
-				{ ...data.restaurants[0], status: RESTAURANT_STATUS.OPEN },
-				{ ...data.restaurants[0], status: RESTAURANT_STATUS.OPEN },
-				{ ...data.restaurants[0], status: RESTAURANT_STATUS.OPEN },
-				...data.restaurants,
-				...data.restaurants,
-				...data.restaurants,
-				...data.restaurants,
-				...data.restaurants,
-				...data.restaurants,
-			]);
+		if (status !== 200) {
+			return {
+				notFound: true,
+			};
+		}
+
+		restaurants = data.restaurants;
 	} catch (error) {
 		console.log('Get static props failed with:', error);
 	}

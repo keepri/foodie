@@ -34,12 +34,14 @@ const Cart: React.FC<Props> = ({ className, page, ...rest }) => {
 		},
 		app: { currency },
 	} = useSelector(({ cart, auth, app }: ReduxState) => ({ cart, auth, app }));
+
 	const { updateCart, resetCart } = useCartActions();
 	const { updateUserAuth } = useAuthActions();
 
 	const handleSubmit = React.useCallback(async () => {
 		if (!items.length) {
 			// TODO - add "no items in cart" modal
+			console.log('no items in cart');
 			return;
 		}
 
@@ -55,6 +57,7 @@ const Cart: React.FC<Props> = ({ className, page, ...rest }) => {
 
 			if (client === '') {
 				// TODO handle error
+				console.log('no client uid has been set');
 				return;
 			}
 
@@ -100,7 +103,7 @@ const Cart: React.FC<Props> = ({ className, page, ...rest }) => {
 				console.warn('Place order failed with:', error);
 			}
 		}
-	}, [info, isLogged, items, orders, restaurant, total, updateCart, updateUserAuth, push]);
+	}, [info, isLogged, items, orders, restaurant, total]);
 
 	const handleInfoChange = React.useCallback(
 		(e: React.ChangeEvent<HTMLTextAreaElement>) => {

@@ -12,12 +12,13 @@ enum AppActionType {
 
 enum CartActionType {
 	SET_LOADING = 'cart_set_loading',
-	SET_CART_RESTAURANT = 'set_cart_restaurant',
+	SET_CART_RESTAURANT = 'cart_set_restaurant',
 	ADD_ITEM = 'cart_add_item',
 	REMOVE_ITEM = 'cart_remove_item',
 	UPDATE_ITEM = 'cart_update_item',
 	UPDATE = 'cart_update',
 	RESET = 'cart_reset',
+	GET_ITEMS_NUMBER = 'cart_get_items_number',
 }
 
 enum AuthActionType {

@@ -6,12 +6,17 @@ import {
 	AppSetRestaurantsAction,
 	AppToggleDarkModeAction,
 	AppResetAction,
+	AppSetOnAuthChangeSubAction,
+	AppSetSelectedRestaurantAction,
 
 	// CART
 	CartSetLoadingAction,
 	CartAddItemAction,
 	CartRemoveItemAction,
 	CartResetAction,
+	CartUpdateItemAction,
+	CartSetRestaurantUidAction,
+	CartUpdateAction,
 
 	// AUTH
 	AuthSetLoadingAction,
@@ -20,11 +25,6 @@ import {
 	AuthLogoutAction,
 	AuthLoginAction,
 	AuthUpdateUserAction,
-	CartUpdateItemAction,
-	AppSetOnAuthChangeSubAction,
-	CartSetRestaurantUidAction,
-	CartUpdateAction,
-	AppSetSelectedRestaurantAction,
 } from '#declarations/interfaces/Redux';
 
 export type { ReduxState, CartAction, AuthAction, AppAction };

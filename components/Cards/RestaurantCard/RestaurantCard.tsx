@@ -8,7 +8,6 @@ import { defaultRestaurantLogo, defaultRestaurantPhoto, URLS } from 'utils/misc'
 import styles from './RestaurantCard.module.scss';
 import { getLang } from '#controllers/getLang';
 import { useRouter } from 'next/router';
-import { useCartActions } from '#redux/actions';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
 	restaurant: RestaurantSchema;
@@ -18,7 +17,6 @@ const RestaurantCard: React.FC<Props> = ({ className, restaurant, ...rest }) => 
 	const lang = getLang();
 
 	const { push } = useRouter();
-	const { setRestaurantUidCart } = useCartActions();
 
 	const { uid, status, name, costs, rating, photo, logo } = restaurant;
 	const unavailable = React.useMemo(
@@ -30,13 +28,12 @@ const RestaurantCard: React.FC<Props> = ({ className, restaurant, ...rest }) => 
 	const { current: logoSize } = React.useRef(60);
 
 	const handleNav = React.useCallback(() => {
-		setRestaurantUidCart(uid);
 		push(`${URLS.RESTAURANT}/${uid}`);
-	}, [setRestaurantUidCart, push, uid]);
+	}, [uid]);
 
 	return (
 		<div
-			onMouseUp={() => handleNav()}
+			onMouseUp={handleNav}
 			className={[styles['double-card'], unavailable && styles['double-card-disabled'], className].join(' ')}
 			{...rest}
 		>

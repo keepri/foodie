@@ -12,8 +12,9 @@ import {
 	AppSetSelectedRestaurantPayload,
 } from '#declarations/interfaces/Redux';
 import { RestaurantSchema } from '#firebase/declarations/schemas';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { URLS } from 'utils/misc';
+import { RestaurantsSuccess } from '#firebase/declarations/types';
 
 export { appActions };
 
@@ -39,9 +40,13 @@ const toggleDarkModeApp = () => (dispatch: Dispatch<AppAction>) =>
 const loadRestaurants = () => async (dispatch: Dispatch<AppAction>) => {
 	let payload: RestaurantSchema[] = [];
 
-	const { status, data } = await axios.get(URLS.API_GET_RESTAURANTS);
+	const { status, data }: AxiosResponse<RestaurantsSuccess> = await axios.get(URLS.API_GET_RESTAURANTS);
+	if (!data?.restaurants) {
+		dispatch({ type: AppActionType.SET_RESTAURANTS, payload: [] });
+		return;
+	}
 
-	status === 200 && (payload = data);
+	status === 200 && (payload = data.restaurants);
 
 	dispatch({ type: AppActionType.SET_RESTAURANTS, payload });
 };

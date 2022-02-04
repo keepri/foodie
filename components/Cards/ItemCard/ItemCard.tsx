@@ -16,48 +16,41 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 
 const ItemCard: React.FC<Props> = ({ className, item, ...rest }) => {
 	const {
-		app: { currency, restaurants, selectedRestaurant },
+		app: { currency, selectedRestaurant },
 		cart: { items, restaurant: restaurantUid },
 	} = useSelector(({ app, cart }: ReduxState) => ({ app, cart }));
-	const [itemIsInCart, setItemIsInCart] = React.useState(false);
 
-	const { addItemCart } = useCartActions();
+	const { addItemCart, resetCart, setRestaurantUidCart } = useCartActions();
 
-	const selectedRestaurantStatus = React.useMemo(
-		() => restaurants?.filter(restaurant => restaurant.uid === restaurantUid)?.[0].status,
-		[restaurants, restaurantUid],
-	);
+	const { uid, status, photo, name, description, price } = React.useRef(item).current;
 
-	const restaurantIsOpen = React.useMemo(
-		() => selectedRestaurantStatus === RESTAURANT_STATUS.OPEN,
-		[selectedRestaurantStatus],
-	);
-
-	const { uid, status, photo, name, description, price } = item;
 	const itemIsUnavailable = React.useMemo(() => status === MENU_ITEM_STATUS.UNAVAILABLE, [status]);
+	const selectedRestaurantUid = React.useMemo(() => selectedRestaurant?.uid ?? '', [selectedRestaurant]);
+	const restaurantIsOpen = React.useMemo(
+		() => selectedRestaurant?.status === RESTAURANT_STATUS.OPEN,
+		[selectedRestaurant],
+	);
+	const itemIsInCart = React.useMemo(() => items.some(item => item.uid === uid), [items.length]);
 
 	const handleAddToCart = React.useCallback(
 		(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
 			// TODO - handle restaurant is closed modal
 			e.stopPropagation();
 
-			const selectedRestaurantUid = selectedRestaurant?.uid ?? '';
-
 			if (selectedRestaurantUid !== restaurantUid) {
-				// TODO - handle adding item from another restaurant warning modal (clear);
 				console.log('Tried adding item from another restaurant');
+
+				// TODO - handle adding item from another restaurant warning modal (clear);
+				confirm(
+					'You have items inside your cart that are from another restaurant. Do you wish to reset the cart and add the new item?',
+				) && (resetCart(), addItemCart(item), setRestaurantUidCart(selectedRestaurantUid));
+				return;
 			}
 
 			!itemIsInCart && !itemIsUnavailable && restaurantIsOpen && addItemCart({ ...item, quantity: 1 });
 		},
-		[itemIsInCart, itemIsUnavailable, restaurantIsOpen, restaurantUid, addItemCart, item],
+		[itemIsInCart, itemIsUnavailable, restaurantIsOpen, restaurantUid, selectedRestaurantUid],
 	);
-
-	React.useEffect(() => {
-		const exists = items.some(item => item.uid === uid);
-
-		setItemIsInCart(exists);
-	}, [items, uid, item, setItemIsInCart]);
 
 	return (
 		<div
