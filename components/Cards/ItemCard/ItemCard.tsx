@@ -43,7 +43,7 @@ const ItemCard: React.FC<Props> = ({ className, item, ...rest }) => {
 				// TODO - handle adding item from another restaurant warning modal (clear);
 				confirm(
 					'You have items inside your cart that are from another restaurant. Do you wish to reset the cart and add the new item?',
-				) && (resetCart(), addItemCart(item), setRestaurantUidCart(selectedRestaurantUid));
+				) && (resetCart(), addItemCart({ ...item, quantity: 1 }), setRestaurantUidCart(selectedRestaurantUid));
 				return;
 			}
 
