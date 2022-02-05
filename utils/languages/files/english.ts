@@ -49,6 +49,8 @@ export const english = {
 	noItemsInCartBody: 'Please add items to the cart in order to place an order.',
 	orderPlaceSuccessTitle: 'Hooray! Your order has been placed.',
 	orderPlaceSuccessBody: 'Enjoy the food.',
+	itemNotAvTitle: 'Item no longer available :(',
+	itemNotAvBody: 'We are sorry! The restaurant made the item unavailable.',
 
 	// TEXT
 	welcomeBack: 'Welcome back!',

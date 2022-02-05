@@ -14,9 +14,10 @@ import { getMenuItemStatus } from '#firebase/client-functions/get';
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
 	item: MenuItem;
 	index: number;
+	onItemNotAv?: () => void;
 }
 
-const ItemCard: React.FC<Props> = ({ className, item, index, ...rest }) => {
+const ItemCard: React.FC<Props> = ({ className, item, index, onItemNotAv, ...rest }) => {
 	const {
 		app: { currency, selectedRestaurant },
 		cart: { items, restaurant: restaurantUid },
@@ -50,15 +51,15 @@ const ItemCard: React.FC<Props> = ({ className, item, index, ...rest }) => {
 		async (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
 			e.stopPropagation();
 
-			if (itemIsInCart || !restaurantIsOpen) {
-				// TODO - handle item is in cart (open modal with more item info)
+			if (itemIsInCart || !restaurantIsOpen || itemIsUnavailable) {
 				return;
 			}
 
-			const itemIsAvailable = await getMenuItemStatus(selectedRestaurant?.uid ?? '', item.uid);
+			const itemStatusDb = await getMenuItemStatus(selectedRestaurant?.uid ?? '', item.uid);
 
-			if (!itemIsAvailable) {
-				// TODO - handle 'item no longer available' modal
+			if (!itemStatusDb) {
+				item.status = MENU_ITEM_STATUS.UNAVAILABLE;
+				onItemNotAv && onItemNotAv();
 				return;
 			}
 
@@ -117,7 +118,7 @@ const ItemCard: React.FC<Props> = ({ className, item, index, ...rest }) => {
 					<p className={styles['item-card-body-price']} style={{ fontWeight: 'bold' }}>
 						{price} {currency}
 					</p>
-					{!itemIsInCart && restaurantIsOpen && (
+					{!itemIsInCart && restaurantIsOpen && !itemIsUnavailable && (
 						<Image
 							width={15}
 							height={15}
