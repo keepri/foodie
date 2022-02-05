@@ -13,19 +13,21 @@ import axios, { AxiosResponse } from 'axios';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { initCartState, URLS } from 'utils/misc';
+import { URLS } from 'utils/misc';
 
 import styles from './Cart.module.scss';
 
 interface Props extends React.HtmlHTMLAttributes<HTMLDivElement> {
 	page?: boolean;
+	onNoItems?: () => void;
+	onOrderSuccess?: () => void;
+	onOrderFail?: () => void;
 }
 
-const Cart: React.FC<Props> = ({ className, page, ...rest }) => {
+const Cart: React.FC<Props> = ({ className, page, onNoItems, onOrderSuccess, onOrderFail, ...rest }) => {
 	const lang = getLang();
 	const { push } = useRouter();
 
-	const [orderPlaced, setOrderPlaced] = React.useState(false);
 	const {
 		cart: { items, total, info, restaurant },
 		auth: {
@@ -40,8 +42,8 @@ const Cart: React.FC<Props> = ({ className, page, ...rest }) => {
 
 	const handleSubmit = React.useCallback(async () => {
 		if (!items.length) {
-			// TODO - add "no items in cart" modal
-			console.log('no items in cart');
+			console.warn('no items in cart');
+			onNoItems && onNoItems();
 			return;
 		}
 
@@ -89,18 +91,18 @@ const Cart: React.FC<Props> = ({ className, page, ...rest }) => {
 				});
 
 				if (status === 200) {
-					// TODO handle successfully placed order
 					console.log('Order placed successfully!');
 
 					const { orderUid } = data;
 
 					orderUid && updateUserAuth({ orders: [...orders, orderUid] });
-					updateCart(initCartState);
-					setOrderPlaced(true);
-					push(URLS.ORDERS);
+					onOrderSuccess && onOrderSuccess();
+					resetCart();
+					return;
 				}
 			} catch (error) {
 				console.warn('Place order failed with:', error);
+				onOrderFail && onOrderFail();
 			}
 		}
 	}, [info, isLogged, items.length, orders.length, restaurant, total]);
@@ -124,12 +126,7 @@ const Cart: React.FC<Props> = ({ className, page, ...rest }) => {
 					{items.length === 0 ? (
 						<>
 							<p style={{ marginBottom: '1rem' }}>{lang.noItemsInCart}</p>
-							{orderPlaced && (
-								<Link href={URLS.ORDERS} button primary>
-									{lang.myOrders}
-								</Link>
-							)}
-							<Link href={URLS.HOME} button secondary={orderPlaced} primary={!orderPlaced}>
+							<Link button primary href={URLS.HOME}>
 								{lang.restaurants}
 							</Link>
 						</>

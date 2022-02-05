@@ -41,14 +41,20 @@ export const english = {
 	signInTooltip: 'Sign in',
 	accountTooltip: 'Account',
 
+	// MODALS
+	accountCreateSuccessTitle: 'Congratulations! Welcome to the party',
+	accountCreateSuccessBody:
+		'An email has been sent to the email address you have provided. Please follow the link to activate your account. Thank you!',
+	noItemsInCartTitle: 'No items in cart',
+	noItemsInCartBody: 'Please add items to the cart in order to place an order.',
+	orderPlaceSuccessTitle: 'Hooray! Your order has been placed.',
+	orderPlaceSuccessBody: 'Enjoy the food.',
+
 	// TEXT
 	welcomeBack: 'Welcome back!',
 	welcomeBackAdditional: 'We have missed you...',
 	createAnAccount: 'Create an account',
 	createAnAccountAdditional: 'And order from the best restaurants near you',
-	accountCreateSuccessTitle: 'Congratulations! Welcome to the party.',
-	accountCreateSuccessBody:
-		'An email has been sent to the email address you have provided. Please follow the link to activate your account. Thank you!',
 	noItemsInCart: 'No items in cart!...',
 	restaurants: 'Restaurants',
 	myOrders: 'My orders',

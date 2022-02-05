@@ -11,20 +11,20 @@ import { registerUser } from '#controllers/registerUser';
 import { reEmail, rePhone } from 'utils/misc';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { authRef } from '#firebase/initClientApp';
-import { checkPasswordsMatch } from '#controllers/validation/checkPasswordsMatch';
 import Checkbox from '#components/Checkbox/Checkbox';
 import { InputChangeEvent } from '#declarations/types/Misc';
+// import { checkPasswordsMatch } from '#controllers/validation/checkPasswordsMatch';
 
 type FormErrors = {
 	emailErr: boolean;
 	passwordErr: boolean;
-	confPasswordErr: boolean;
+	// confPasswordErr: boolean;
 	nameErr: boolean;
 	phoneErr: boolean;
 
 	emailMsg?: string;
 	passwordMsg?: string;
-	confPasswordMsg?: string;
+	// confPasswordMsg?: string;
 	nameMsg?: string;
 	phoneMsg?: string;
 };
@@ -40,33 +40,41 @@ const RegisterForm: React.FC<Props> = ({ className, modal, setModal, ...rest }) 
 	const { current: initForm } = React.useRef({
 		email: '',
 		password: '',
-		confPassword: '',
+		// confPassword: '',
 		phone: '',
 		name: '',
 	});
 	const { current: initErrors } = React.useRef({
 		emailErr: false,
 		passwordErr: false,
-		confPasswordErr: false,
+		// confPasswordErr: false,
 		nameErr: false,
 		phoneErr: false,
 	});
 
 	const [showPass, setShowPass] = React.useState<boolean>(false);
-	const [form, setForm] = React.useState<ClientRegisterFields & { confPassword: string }>(initForm);
+	//  & { confPassword: string }
+	const [form, setForm] = React.useState<ClientRegisterFields>(initForm);
 	const [errors, setErrors] = React.useState<FormErrors>(initErrors);
 
-	const { email, password, confPassword, name, phone } = form;
+	const {
+		email,
+		password,
+		//  confPassword,
+		name,
+		phone,
+	} = form;
+
 	const {
 		emailErr,
-		passwordErr,
-		confPasswordErr,
-		nameErr,
-		phoneErr,
 		emailMsg,
+		passwordErr,
 		passwordMsg,
+		// confPasswordErr,
 		// confPasswordMsg,
+		nameErr,
 		nameMsg,
+		phoneErr,
 		phoneMsg,
 	} = errors;
 
@@ -84,7 +92,13 @@ const RegisterForm: React.FC<Props> = ({ className, modal, setModal, ...rest }) 
 		async (e: React.FormEvent<HTMLFormElement>) => {
 			e.preventDefault();
 
-			if (!emailErr && !passwordErr && !confPasswordErr && !nameErr && !phoneErr) {
+			if (
+				!emailErr &&
+				!passwordErr &&
+				// !confPasswordErr &&
+				!nameErr &&
+				!phoneErr
+			) {
 				const regForm = { email, password, name, phone };
 
 				try {
@@ -96,52 +110,69 @@ const RegisterForm: React.FC<Props> = ({ className, modal, setModal, ...rest }) 
 				}
 			}
 		},
-		[confPasswordErr, email, emailErr, name, nameErr, password, passwordErr, phone, phoneErr, setModal],
+		[
+			email,
+			emailErr,
+			password,
+			passwordErr,
+			// confPassword,
+			// confPasswordErr,
+			name,
+			nameErr,
+			phone,
+			phoneErr,
+			setModal,
+		],
 	);
 
 	React.useEffect(() => {
-		!modal &&
-			email &&
-			password &&
+		if (!modal && email && password) {
 			signInWithEmailAndPassword(authRef, email, password).then(res => console.log(res));
-		// eslint-disable-next-line react-hooks/exhaustive-deps
+		}
 	}, [modal]);
 
 	React.useEffect(() => {
 		const emailError = email.length > 0 ? !reEmail.test(email) : false;
 		const passError = password.length > 0 ? password.length < 6 && true : false;
 		// const confPassError = confPassword.length > 0 ? confPassword.length < 6 && true : false;
-		const confPassError = false;
+		// const confPassError = false;
 		// TODO test name if contains bad words, etc...
 		const nameError = false;
 		const phoneError =
 			phone.length > 0 ? (phone.length >= 10 && phone.length <= 13 ? !rePhone.test(phone) : true) : false;
-		const passwordsNoMatch = checkPasswordsMatch(password, confPassword);
+		// const passwordsNoMatch = checkPasswordsMatch(password, confPassword);
 
 		console.log(rePhone.test(phone));
 
 		setErrors({
 			emailErr: emailError,
-			passwordErr: passError || passwordsNoMatch,
-			confPasswordErr: confPassError || passwordsNoMatch,
+			passwordErr: passError,
+			//  || passwordsNoMatch
+			// confPasswordErr: confPassError || passwordsNoMatch,
 			nameErr: nameError,
 			nameMsg: nameError ? lang.alertName : undefined,
 			phoneErr: phoneError,
 			phoneMsg: phoneError ? lang.alertPhone : undefined,
 			emailMsg: emailError ? lang.alertEmail : undefined,
-			passwordMsg: passwordsNoMatch
-				? lang.alertPassswordNoMatch
-				: passError
-				? lang.alertPasswordInvalid
-				: undefined,
-			confPasswordMsg: passwordsNoMatch
-				? lang.alertPassswordNoMatch
-				: confPassError
-				? lang.alertPasswordInvalid
-				: undefined,
+			passwordMsg:
+				// passwordsNoMatch
+				// ? lang.alertPassswordNoMatch
+				// :
+				passError ? lang.alertPasswordInvalid : undefined,
+			// confPasswordMsg: passwordsNoMatch
+			// 	? lang.alertPassswordNoMatch
+			// 	: confPassError
+			// 	? lang.alertPasswordInvalid
+			// 	: undefined,
 		});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [confPassword, email, password, phone, name]);
+	}, [
+		// confPassword,
+		email,
+		password,
+		phone,
+		name,
+	]);
 
 	return (
 		<form className={[styles.form, className].join(' ')} onSubmit={e => handleSubmit(e)} {...rest}>

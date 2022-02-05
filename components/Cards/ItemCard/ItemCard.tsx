@@ -37,7 +37,6 @@ const ItemCard: React.FC<Props> = ({ className, item, ...rest }) => {
 
 	const handleAddToCart = React.useCallback(
 		(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-			// TODO - handle restaurant is closed modal
 			e.stopPropagation();
 
 			if (selectedRestaurant?.uid !== restaurantUid) {
@@ -54,6 +53,8 @@ const ItemCard: React.FC<Props> = ({ className, item, ...rest }) => {
 		},
 		[itemIsInCart, itemIsUnavailable, restaurantIsOpen, restaurantUid, selectedRestaurant?.uid],
 	);
+
+	React.useLayoutEffect;
 
 	return (
 		<div

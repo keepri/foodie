@@ -26,7 +26,11 @@ const Modal: React.FC<Props> = ({
 
 	closeWithEsc(handleClose);
 
-	React.useEffect(() => onModalClose && onModalClose(), [onModalClose]);
+	React.useEffect(() => {
+		return () => {
+			onModalClose && onModalClose();
+		};
+	}, [onModalClose]);
 
 	return (
 		<div onMouseUp={() => handleClose()} className={[styles['modal'], className].join(' ')} {...rest}>

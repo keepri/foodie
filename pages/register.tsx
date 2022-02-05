@@ -1,13 +1,14 @@
 import React from 'react';
 import type { NextPage } from 'next';
-import { privateRoute } from '#controllers/validation/privateRoute';
-import RegisterForm from '#modules/Forms/RegisterForm/RegisterForm';
-import Modal from '#modules/Modal/Modal';
-import { getLang } from '#controllers/getLang';
 
-import styles from '#styles/pages/RegisterPage.module.scss';
+import RegisterForm from '#modules/Forms/RegisterForm/RegisterForm';
+import { getLang } from '#controllers/getLang';
 import SignInGoogle from '#components/SignInGoogle/SignInGoogle';
 import Link from '#components/Buttons/Link';
+import AccountCreateSuccess from '#modules/Modals/AccountCreateSuccess';
+
+import { privateRoute } from '#controllers/validation/privateRoute';
+import styles from '#styles/pages/RegisterPage.module.scss';
 import { URLS } from 'utils/misc';
 
 interface Props {}
@@ -17,7 +18,7 @@ const RegisterPage: NextPage<Props> = ({}) => {
 
 	const lang = getLang();
 
-	const [modal, setModal] = React.useState(false);
+	const [modalSuccess, setModalSuccess] = React.useState<boolean>(false);
 
 	return (
 		<main className={['container', styles['register-page']].join(' ')}>
@@ -26,7 +27,7 @@ const RegisterPage: NextPage<Props> = ({}) => {
 				<p>{lang.createAnAccountAdditional}</p>
 				<SignInGoogle fullWidth text={lang.signUpWithGoogle} />
 				<p className={styles['register-page-or']}>{lang.or.toUpperCase()}</p>
-				<RegisterForm modal={modal} setModal={setModal} />
+				<RegisterForm modal={modalSuccess} setModal={setModalSuccess} />
 			</div>
 			<p className={styles['register-page-already-account']}>
 				{lang.alreadyHaveAccount}{' '}
@@ -34,9 +35,7 @@ const RegisterPage: NextPage<Props> = ({}) => {
 					{lang.signIn}
 				</Link>
 			</p>
-			{modal && (
-				<Modal title={lang.accountCreateSuccessTitle} body={lang.accountCreateSuccessBody} setModal={setModal} />
-			)}
+			{modalSuccess && <AccountCreateSuccess setModal={setModalSuccess} />}
 		</main>
 	);
 };

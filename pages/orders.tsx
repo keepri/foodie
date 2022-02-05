@@ -44,19 +44,17 @@ export const getServerSideProps: GetServerSideProps = async ({
 			withCredentials: true,
 		});
 
-		if (status !== 200) return { notFound: true };
+		if (status !== 200) return { props: { orders: [] } };
 
 		const { orders } = data;
-		if (!orders) return { notFound: true };
+		if (!orders) return { props: { orders: [] } };
 
 		return {
 			props: { orders },
 		};
 	} catch ({ code, message }) {
 		console.warn('get server side props fail:', code, message);
-		return {
-			notFound: true,
-		};
+		return { props: { orders: [] } };
 	}
 };
 
