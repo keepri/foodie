@@ -12,6 +12,7 @@ export {
 	siteName,
 	baseUrl,
 	reEmail,
+	rePhone,
 	URLS,
 	isClientSide,
 	defaultRestaurantPhoto,
@@ -59,6 +60,8 @@ const domain = isProduction ? 'localhost' : 'localhost';
 const siteName = 'Foodie';
 const reEmail =
 	/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const rePhone =
+	/^(\+4|)?(07[0-8]{1}[0-9]{1}|02[0-9]{2}|03[0-9]{2}){1}?(\s|\.|\-)?([0-9]{3}(\s|\.|\-|)){2}$/gim;
 
 // COOKIES
 const defaultCookieOptions: CookieSerializeOptions = {

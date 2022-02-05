@@ -8,13 +8,12 @@ import styles from './RegisterForm.module.scss';
 import Input from '#components/Input/Input';
 import { getLang } from '#controllers/getLang';
 import { registerUser } from '#controllers/registerUser';
-import { reEmail } from 'utils/misc';
+import { reEmail, rePhone } from 'utils/misc';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { authRef } from '#firebase/initClientApp';
 import { checkPasswordsMatch } from '#controllers/validation/checkPasswordsMatch';
 import Checkbox from '#components/Checkbox/Checkbox';
 import { InputChangeEvent } from '#declarations/types/Misc';
-import { getDeepKeys } from '#controllers/getDeepKeys';
 
 type FormErrors = {
 	emailErr: boolean;
@@ -73,13 +72,8 @@ const RegisterForm: React.FC<Props> = ({ className, modal, setModal, ...rest }) 
 
 	const handleChange = React.useCallback(
 		(e: React.ChangeEvent<HTMLInputElement>) =>
-			setForm(prevForm => {
-				const key = e.target.name as 'email' | 'password' | 'confPassword' | 'name' | 'phone';
-				prevForm[key] = e.target.value;
-
-				return prevForm;
-			}),
-		[email, password, confPassword, name, phone],
+			setForm(prevForm => ({ ...prevForm, [e.target.name]: e.target.value })),
+		[],
 	);
 
 	const handleShowPass = React.useCallback((e: InputChangeEvent) => {
@@ -121,12 +115,10 @@ const RegisterForm: React.FC<Props> = ({ className, modal, setModal, ...rest }) 
 		// TODO test name if contains bad words, etc...
 		const nameError = false;
 		const phoneError =
-			phone.length > 0
-				? phone.length >= 10 && phone.length <= 13
-					? Number.isNaN(phone) === true
-					: true
-				: false;
+			phone.length > 0 ? (phone.length >= 10 && phone.length <= 13 ? !rePhone.test(phone) : true) : false;
 		const passwordsNoMatch = checkPasswordsMatch(password, confPassword);
+
+		console.log(rePhone.test(phone));
 
 		setErrors({
 			emailErr: emailError,

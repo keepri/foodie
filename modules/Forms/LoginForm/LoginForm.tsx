@@ -35,13 +35,7 @@ const LoginForm: React.FC<Props> = ({ className, onLoginSuccess, ...rest }) => {
 	const { redirect } = query as { redirect: string };
 
 	const handleChange = React.useCallback(
-		(e: InputChangeEvent) =>
-			setForm(prevForm => {
-				const key = e.target.name as 'email' | 'password';
-				prevForm[key] = e.target.value;
-
-				return prevForm;
-			}),
+		(e: InputChangeEvent) => setForm(prevForm => ({ ...prevForm, [e.target.name]: e.target.value })),
 		[],
 	);
 
