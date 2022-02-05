@@ -24,17 +24,20 @@ const setLoadingCart = (payload: CartSetLoadingPayload) => (dispatch: Dispatch<C
 const setRestaurantUidCart = (payload: CartSetRestaurantUidPayload) => (dispatch: Dispatch<CartAction>) =>
 	dispatch({ type: CartActionType.SET_CART_RESTAURANT, payload });
 
-const addItemCart = (payload: CartAddItemPayload) => async (dispatch: Dispatch<CartAction>) => {
-	// const menuItemUid = payload.uid;
-	const menuItemStatus = payload.status;
-	// const menuItemAvailable = await getMenuItemStatus(menuItemUid);
-	const menuItemAvailable = menuItemStatus === MENU_ITEM_STATUS.AVAILABLE;
+const addItemCart =
+	(payload: CartAddItemPayload, quantity: number) => async (dispatch: Dispatch<CartAction>) => {
+		// const menuItemUid = payload.uid;
+		const menuItemStatus = payload.status;
+		// const menuItemAvailable = await getMenuItemStatus(menuItemUid);
+		const menuItemAvailable = menuItemStatus === MENU_ITEM_STATUS.AVAILABLE;
 
-	// TODO handle menu item not available anymore
-	if (!menuItemAvailable) return;
+		// TODO handle menu item not available anymore
+		if (!menuItemAvailable) return;
 
-	return dispatch({ type: CartActionType.ADD_ITEM, payload });
-};
+		payload.quantity = quantity;
+
+		return dispatch({ type: CartActionType.ADD_ITEM, payload });
+	};
 
 const removeItemCart = (payload: CartRemoveItemPayload) => (dispatch: Dispatch<CartAction>) =>
 	dispatch({ type: CartActionType.REMOVE_ITEM, payload });

@@ -24,30 +24,35 @@ const ItemCard: React.FC<Props> = ({ className, item, ...rest }) => {
 
 	const { uid, status, photo, name, description, price } = React.useRef(item).current;
 
-	const restaurantIsOpen = selectedRestaurant?.status === RESTAURANT_STATUS.OPEN;
-	const selectedRestaurantUid = selectedRestaurant?.uid ?? '';
+	const restaurantIsOpen = React.useMemo(
+		() => selectedRestaurant?.status === RESTAURANT_STATUS.OPEN,
+		[selectedRestaurant?.uid],
+	);
 
 	const itemIsUnavailable = React.useMemo(() => status === MENU_ITEM_STATUS.UNAVAILABLE, [status]);
-	const itemIsInCart = React.useMemo(() => items.some(item => item.uid === uid), [items.length]);
+	const itemIsInCart = React.useMemo(
+		() => items.some(item => item.uid === uid),
+		[items.length, items[0]?.uid],
+	);
 
 	const handleAddToCart = React.useCallback(
 		(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
 			// TODO - handle restaurant is closed modal
 			e.stopPropagation();
 
-			if (selectedRestaurantUid !== restaurantUid) {
+			if (selectedRestaurant?.uid !== restaurantUid) {
 				console.log('Tried adding item from another restaurant');
 
 				// TODO - handle adding item from another restaurant warning modal (clear);
 				confirm(
 					'You have items inside your cart that are from another restaurant. Do you wish to reset the cart and add the new item?',
-				) && (resetCart(), addItemCart({ ...item, quantity: 1 }), setRestaurantUidCart(selectedRestaurantUid));
+				) && (resetCart(), addItemCart(item, 1), setRestaurantUidCart(selectedRestaurant?.uid ?? ''));
 				return;
 			}
 
-			!itemIsInCart && !itemIsUnavailable && restaurantIsOpen && addItemCart({ ...item, quantity: 1 });
+			!itemIsInCart && !itemIsUnavailable && restaurantIsOpen && addItemCart(item, 1);
 		},
-		[itemIsInCart, itemIsUnavailable, restaurantIsOpen, restaurantUid, selectedRestaurantUid],
+		[itemIsInCart, itemIsUnavailable, restaurantIsOpen, restaurantUid, selectedRestaurant?.uid],
 	);
 
 	return (
