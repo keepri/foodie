@@ -12,7 +12,7 @@ interface Props {
 const Icon: React.FC<Props> = ({ icon, size }) => {
 	const alt = React.useMemo(() => {
 		const iconPathSplit = icon.split('/');
-		const alt = iconPathSplit[iconPathSplit.length - 1].split('.')[0];
+		const alt = iconPathSplit[iconPathSplit.length - 1].split('.')[0] ?? `icon-alt-${Math.random() * 100}`;
 
 		return alt;
 	}, [icon]);

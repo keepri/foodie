@@ -24,12 +24,10 @@ const ItemCard: React.FC<Props> = ({ className, item, ...rest }) => {
 
 	const { uid, status, photo, name, description, price } = React.useRef(item).current;
 
+	const restaurantIsOpen = selectedRestaurant?.status === RESTAURANT_STATUS.OPEN;
+	const selectedRestaurantUid = selectedRestaurant?.uid ?? '';
+
 	const itemIsUnavailable = React.useMemo(() => status === MENU_ITEM_STATUS.UNAVAILABLE, [status]);
-	const selectedRestaurantUid = React.useMemo(() => selectedRestaurant?.uid ?? '', [selectedRestaurant]);
-	const restaurantIsOpen = React.useMemo(
-		() => selectedRestaurant?.status === RESTAURANT_STATUS.OPEN,
-		[selectedRestaurant],
-	);
 	const itemIsInCart = React.useMemo(() => items.some(item => item.uid === uid), [items.length]);
 
 	const handleAddToCart = React.useCallback(

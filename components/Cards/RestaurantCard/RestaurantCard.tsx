@@ -19,13 +19,15 @@ const RestaurantCard: React.FC<Props> = ({ className, restaurant, ...rest }) => 
 	const { push } = useRouter();
 
 	const { uid, status, name, costs, rating, photo, logo } = restaurant;
+	const { minOrder, delivery } = costs;
+
+	const { current: logoSize } = React.useRef(60);
+
 	const unavailable = React.useMemo(
 		() => status === RESTAURANT_STATUS.CLOSED || status === RESTAURANT_STATUS.UNAVAILABLE,
 		[status],
 	);
-	const { minOrder, delivery } = costs;
 	// const photoWidth = 310;
-	const { current: logoSize } = React.useRef(60);
 
 	const handleNav = React.useCallback(() => {
 		push(`${URLS.RESTAURANT}/${uid}`);

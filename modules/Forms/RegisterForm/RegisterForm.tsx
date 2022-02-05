@@ -14,6 +14,7 @@ import { authRef } from '#firebase/initClientApp';
 import { checkPasswordsMatch } from '#controllers/validation/checkPasswordsMatch';
 import Checkbox from '#components/Checkbox/Checkbox';
 import { InputChangeEvent } from '#declarations/types/Misc';
+import { getDeepKeys } from '#controllers/getDeepKeys';
 
 type FormErrors = {
 	emailErr: boolean;
@@ -71,8 +72,14 @@ const RegisterForm: React.FC<Props> = ({ className, modal, setModal, ...rest }) 
 	} = errors;
 
 	const handleChange = React.useCallback(
-		(e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, [e.target.name]: e.target.value }),
-		[form],
+		(e: React.ChangeEvent<HTMLInputElement>) =>
+			setForm(prevForm => {
+				const key = e.target.name as 'email' | 'password' | 'confPassword' | 'name' | 'phone';
+				prevForm[key] = e.target.value;
+
+				return prevForm;
+			}),
+		[email, password, confPassword, name, phone],
 	);
 
 	const handleShowPass = React.useCallback((e: InputChangeEvent) => {

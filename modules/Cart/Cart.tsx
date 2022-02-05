@@ -103,7 +103,7 @@ const Cart: React.FC<Props> = ({ className, page, ...rest }) => {
 				console.warn('Place order failed with:', error);
 			}
 		}
-	}, [info, isLogged, items, orders, restaurant, total]);
+	}, [info, isLogged, items.length, orders.length, restaurant, total]);
 
 	const handleInfoChange = React.useCallback(
 		(e: React.ChangeEvent<HTMLTextAreaElement>) => {

@@ -7,11 +7,9 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const Tooltip: React.FC<Props> = ({ text, className, ...rest }) => {
-	const tooltip = React.useMemo(() => text, [text]);
-
 	return (
 		<div className={[styles.tooltip, className].join(' ')} {...rest}>
-			<p>{tooltip}</p>
+			<p>{text}</p>
 		</div>
 	);
 };
