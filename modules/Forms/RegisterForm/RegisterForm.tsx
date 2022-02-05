@@ -30,11 +30,18 @@ type FormErrors = {
 };
 
 interface Props extends React.FormHTMLAttributes<HTMLFormElement> {
-	modal?: boolean;
-	setModal?: React.Dispatch<React.SetStateAction<boolean>>;
+	modalSuccess?: boolean;
+	onRegisterSuccess?: () => void;
+	onRegisterFail?: () => void;
 }
 
-const RegisterForm: React.FC<Props> = ({ className, modal, setModal, ...rest }) => {
+const RegisterForm: React.FC<Props> = ({
+	className,
+	modalSuccess,
+	onRegisterSuccess,
+	onRegisterFail,
+	...rest
+}) => {
 	const lang = getLang();
 
 	const { current: initForm } = React.useRef({
@@ -103,10 +110,11 @@ const RegisterForm: React.FC<Props> = ({ className, modal, setModal, ...rest }) 
 
 				try {
 					await registerUser(regForm);
-					setModal && setModal(true);
+					onRegisterSuccess && onRegisterSuccess();
 				} catch ({ code, message }) {
-					console.warn('Register failed with:', code, message);
 					// TODO handle errors
+					console.warn('Register failed with:', code, message);
+					onRegisterFail && onRegisterFail();
 				}
 			}
 		},
@@ -121,15 +129,16 @@ const RegisterForm: React.FC<Props> = ({ className, modal, setModal, ...rest }) 
 			nameErr,
 			phone,
 			phoneErr,
-			setModal,
+			onRegisterSuccess,
+			onRegisterFail,
 		],
 	);
 
 	React.useEffect(() => {
-		if (!modal && email && password) {
+		if (!modalSuccess && email && password) {
 			signInWithEmailAndPassword(authRef, email, password).then(res => console.log(res));
 		}
-	}, [modal]);
+	}, [modalSuccess]);
 
 	React.useEffect(() => {
 		const emailError = email.length > 0 ? !reEmail.test(email) : false;
@@ -141,8 +150,6 @@ const RegisterForm: React.FC<Props> = ({ className, modal, setModal, ...rest }) 
 		const phoneError =
 			phone.length > 0 ? (phone.length >= 10 && phone.length <= 13 ? !rePhone.test(phone) : true) : false;
 		// const passwordsNoMatch = checkPasswordsMatch(password, confPassword);
-
-		console.log(rePhone.test(phone));
 
 		setErrors({
 			emailErr: emailError,

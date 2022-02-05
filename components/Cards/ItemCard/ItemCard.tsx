@@ -9,12 +9,14 @@ import { useSelector } from 'react-redux';
 import { ReduxState } from '#declarations/types/Redux';
 import { MENU_ITEM_STATUS, RESTAURANT_STATUS } from '#firebase/declarations/enums';
 import { useCartActions } from '#redux/actions';
+import { getMenuItemStatus } from '#firebase/client-functions/get';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
 	item: MenuItem;
+	index: number;
 }
 
-const ItemCard: React.FC<Props> = ({ className, item, ...rest }) => {
+const ItemCard: React.FC<Props> = ({ className, item, index, ...rest }) => {
 	const {
 		app: { currency, selectedRestaurant },
 		cart: { items, restaurant: restaurantUid },
@@ -22,22 +24,43 @@ const ItemCard: React.FC<Props> = ({ className, item, ...rest }) => {
 
 	const { addItemCart, resetCart, setRestaurantUidCart } = useCartActions();
 
-	const { uid, status, photo, name, description, price } = React.useRef(item).current;
+	const { uid, status, photo, name, description, price } = React.useMemo(
+		() => ({
+			uid: item.uid,
+			status: item.status,
+			photo: item.photo,
+			name: item.name,
+			description: item.description,
+			price: item.price,
+		}),
+		[item.uid, item.status, item.photo, item.name, item.description, item.price],
+	);
 
 	const restaurantIsOpen = React.useMemo(
 		() => selectedRestaurant?.status === RESTAURANT_STATUS.OPEN,
 		[selectedRestaurant?.uid],
 	);
-
-	const itemIsUnavailable = React.useMemo(() => status === MENU_ITEM_STATUS.UNAVAILABLE, [status]);
 	const itemIsInCart = React.useMemo(
 		() => items.some(item => item.uid === uid),
 		[items.length, items[0]?.uid],
 	);
+	const itemIsUnavailable = React.useMemo(() => status === MENU_ITEM_STATUS.UNAVAILABLE, [status]);
 
 	const handleAddToCart = React.useCallback(
-		(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+		async (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
 			e.stopPropagation();
+
+			if (itemIsInCart || !restaurantIsOpen) {
+				// TODO - handle item is in cart (open modal with more item info)
+				return;
+			}
+
+			const itemIsAvailable = await getMenuItemStatus(selectedRestaurant?.uid ?? '', item.uid);
+
+			if (!itemIsAvailable) {
+				// TODO - handle 'item no longer available' modal
+				return;
+			}
 
 			if (selectedRestaurant?.uid !== restaurantUid) {
 				console.log('Tried adding item from another restaurant');
@@ -45,11 +68,11 @@ const ItemCard: React.FC<Props> = ({ className, item, ...rest }) => {
 				// TODO - handle adding item from another restaurant warning modal (clear);
 				confirm(
 					'You have items inside your cart that are from another restaurant. Do you wish to reset the cart and add the new item?',
-				) && (resetCart(), addItemCart(item, 1), setRestaurantUidCart(selectedRestaurant?.uid ?? ''));
+				) && (resetCart(), setRestaurantUidCart(selectedRestaurant?.uid ?? ''), addItemCart(item, 1));
 				return;
 			}
 
-			!itemIsInCart && !itemIsUnavailable && restaurantIsOpen && addItemCart(item, 1);
+			addItemCart(item, 1);
 		},
 		[itemIsInCart, itemIsUnavailable, restaurantIsOpen, restaurantUid, selectedRestaurant?.uid],
 	);

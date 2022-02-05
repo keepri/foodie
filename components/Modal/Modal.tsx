@@ -22,7 +22,7 @@ const Modal: React.FC<Props> = ({
 	onModalClose,
 	...rest
 }) => {
-	const handleClose = React.useCallback(() => setModal(false), [setModal]);
+	const handleClose = React.useCallback(() => setModal(false), []);
 
 	closeWithEsc(handleClose);
 

@@ -36,20 +36,24 @@ export const cartReducer = (state: CartState = initCartState, action: CartAction
 			const { update, index } = action.payload;
 			// get the cart items from state
 			const items = state.items;
-			// get quantity of item
-			const itemQuantity = items[index].quantity;
-			// set new cart total
-			const total =
-				'quantity' in update && update.quantity
-					? update.quantity < itemQuantity
-						? state.total - items[index].price
-						: state.total + items[index].price
-					: state.total;
+
+			if (update.quantity !== undefined) {
+				// get quantity of item
+				const itemQuantity = items[index].quantity;
+
+				// set new cart total
+				state.total =
+					'quantity' in update && update.quantity
+						? update.quantity < itemQuantity
+							? state.total - items[index].price
+							: state.total + items[index].price
+						: state.total;
+			}
 
 			// update the item
 			items[index] = { ...items[index], ...update };
 
-			return { ...state, items, total };
+			return { ...state, items };
 		}
 
 		// UPDATE

@@ -31,7 +31,7 @@ const RestaurantCard: React.FC<Props> = ({ className, restaurant, ...rest }) => 
 
 	const handleNav = React.useCallback(() => {
 		push(`${URLS.RESTAURANT}/${uid}`);
-	}, [uid]);
+	}, []);
 
 	return (
 		<div

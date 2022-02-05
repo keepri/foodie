@@ -12,8 +12,6 @@ import {
 	CartUpdateItemPayload,
 	CartUpdatePayload,
 } from '#declarations/interfaces/Redux';
-import { MENU_ITEM_STATUS } from '#firebase/declarations/enums';
-// import { getMenuItemStatus } from '#firebase/client-functions/get';
 
 export { cartActions };
 
@@ -26,14 +24,6 @@ const setRestaurantUidCart = (payload: CartSetRestaurantUidPayload) => (dispatch
 
 const addItemCart =
 	(payload: CartAddItemPayload, quantity: number) => async (dispatch: Dispatch<CartAction>) => {
-		// const menuItemUid = payload.uid;
-		const menuItemStatus = payload.status;
-		// const menuItemAvailable = await getMenuItemStatus(menuItemUid);
-		const menuItemAvailable = menuItemStatus === MENU_ITEM_STATUS.AVAILABLE;
-
-		// TODO handle menu item not available anymore
-		if (!menuItemAvailable) return;
-
 		payload.quantity = quantity;
 
 		return dispatch({ type: CartActionType.ADD_ITEM, payload });

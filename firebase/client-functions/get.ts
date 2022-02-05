@@ -1,22 +1,16 @@
 import { getDoc, doc, DocumentReference } from 'firebase/firestore';
 import { firestoreRef } from '#firebase/initClientApp';
-import {
-	COLLECTIONS,
-	//  MENU_ITEM_STATUS
-} from '#firebase/declarations/enums';
-// import { MenuItem } from '#firebase/declarations/interfaces';
+import { COLLECTIONS, MENU_ITEM_STATUS } from '#firebase/declarations/enums';
+import { MenuItem } from '#firebase/declarations/interfaces';
+import { MenuSchema } from '#firebase/declarations/schemas';
 
-export {
-	fireGetDoc,
-	//  getMenuItemStatus
-};
+export { fireGetDoc, getMenuItemStatus };
 
 const fireGetDoc = async <T>(collectionName: COLLECTIONS, docId: string): Promise<T | undefined> => {
-	const docRef = doc(firestoreRef, `/${collectionName}/${docId}`) as DocumentReference<T>;
+	const docRef = doc(firestoreRef, `${collectionName}/${docId}`) as DocumentReference<T>;
 
 	try {
 		const doc = await getDoc<T>(docRef);
-
 		if (!doc.exists()) return;
 
 		return doc.data();
@@ -27,20 +21,26 @@ const fireGetDoc = async <T>(collectionName: COLLECTIONS, docId: string): Promis
 };
 
 // TODO WORK IN PROGRESS
-// const getMenuItemStatus = async (restaurantUid: string, menuItemUid: string) => {
-// 	if (!menuItemUid) return;
+const getMenuItemStatus = async (restaurantUid: string, menuItemUid: string) => {
+	if (!menuItemUid || !restaurantUid) return;
 
-// 	try {
-// 		const doc = await fireGetDoc<MenuItem>(COLLECTIONS.MENUS, `${restaurantUid}`);
+	try {
+		const menu = await fireGetDoc<MenuSchema>(COLLECTIONS.MENUS, `${restaurantUid}`);
+		if (!menu) return false;
 
-// 		if (!doc) return;
+		const menuItem = menu.categories.reduce((item, category) => {
+			const found = category.items.find(item => item.uid === menuItemUid);
 
-// 		const menuItemIsAvailable = doc.status === MENU_ITEM_STATUS.AVAILABLE;
+			if (found) item = found;
 
-// 		return menuItemIsAvailable;
-// 	} catch (error) {
-// 		console.warn('firestore get menu item status failed with:', error);
-// 	}
+			return item;
+		}, {} as MenuItem);
 
-// 	return;
-// };
+		const menuItemIsAvailable = menuItem.status === MENU_ITEM_STATUS.AVAILABLE;
+
+		return menuItemIsAvailable;
+	} catch (error) {
+		console.warn('firestore get menu item status failed with:', error);
+		return false;
+	}
+};

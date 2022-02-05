@@ -17,7 +17,7 @@ const OrderPlaceSuccess: React.FC<Props> = ({ setModal }) => {
 
 	const handleModalClose = React.useCallback(() => {
 		push(URLS.ORDERS);
-	}, [push]);
+	}, []);
 
 	return (
 		<Modal

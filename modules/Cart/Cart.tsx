@@ -59,7 +59,7 @@ const Cart: React.FC<Props> = ({ className, page, onNoItems, onOrderSuccess, onO
 
 			if (client === '') {
 				// TODO handle error
-				console.log('no client uid has been set');
+				console.warn('no client uid has been set');
 				return;
 			}
 
@@ -74,8 +74,6 @@ const Cart: React.FC<Props> = ({ className, page, onNoItems, onOrderSuccess, onO
 				status: ORDER_STATUS.PENDING,
 				date,
 			};
-
-			console.log(order);
 
 			const orderOk = isObjPopulated(order, ['info', 'uid']);
 
@@ -98,7 +96,6 @@ const Cart: React.FC<Props> = ({ className, page, onNoItems, onOrderSuccess, onO
 					orderUid && updateUserAuth({ orders: [...orders, orderUid] });
 					onOrderSuccess && onOrderSuccess();
 					resetCart();
-					return;
 				}
 			} catch (error) {
 				console.warn('Place order failed with:', error);
@@ -107,16 +104,13 @@ const Cart: React.FC<Props> = ({ className, page, onNoItems, onOrderSuccess, onO
 		}
 	}, [info, isLogged, items.length, orders.length, restaurant, total]);
 
-	const handleInfoChange = React.useCallback(
-		(e: React.ChangeEvent<HTMLTextAreaElement>) => {
-			updateCart({ info: e.target.value });
-		},
-		[updateCart],
-	);
+	const handleInfoChange = React.useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
+		updateCart({ info: e.target.value });
+	}, []);
 
 	const handleClearItems = React.useCallback(() => {
 		resetCart();
-	}, [resetCart]);
+	}, []);
 
 	return (
 		<div className={[styles['cart'], page && styles['cart-page'], className].join(' ')} {...rest}>

@@ -19,7 +19,7 @@ const Menu: React.FC<Props> = ({ className, menu, ...rest }) => {
 					<h2 style={{ marginBottom: '2rem', marginTop: '4rem' }}>{name}</h2>
 					<div className={styles['menu-category-items']}>
 						{items.map((item, index) => (
-							<ItemCard key={`category_${name}_item_${index}`} item={item} />
+							<ItemCard key={`category_${name}_item_${index}`} index={index} item={item} />
 						))}
 					</div>
 				</div>

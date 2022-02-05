@@ -48,7 +48,7 @@ const RestaurantPage: NextPage<Props> = ({ restaurant, menu }) => {
 		return () => {
 			setSelectedRestaurantApp(null);
 		};
-	}, []);
+	}, [restaurant]);
 
 	if (isFallback)
 		return (

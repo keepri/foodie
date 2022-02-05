@@ -20,6 +20,12 @@ const RegisterPage: NextPage<Props> = ({}) => {
 
 	const [modalSuccess, setModalSuccess] = React.useState<boolean>(false);
 
+	const handleRegisterSuccess = React.useCallback(() => {
+		setModalSuccess(true);
+	}, []);
+
+	const handleRegisterFail = React.useCallback(() => {}, []);
+
 	return (
 		<main className={['container', styles['register-page']].join(' ')}>
 			<div className={styles['register-page-welcome']}>
@@ -27,7 +33,11 @@ const RegisterPage: NextPage<Props> = ({}) => {
 				<p>{lang.createAnAccountAdditional}</p>
 				<SignInGoogle fullWidth text={lang.signUpWithGoogle} />
 				<p className={styles['register-page-or']}>{lang.or.toUpperCase()}</p>
-				<RegisterForm modal={modalSuccess} setModal={setModalSuccess} />
+				<RegisterForm
+					modalSuccess={modalSuccess}
+					onRegisterSuccess={handleRegisterSuccess}
+					onRegisterFail={handleRegisterFail}
+				/>
 			</div>
 			<p className={styles['register-page-already-account']}>
 				{lang.alreadyHaveAccount}{' '}
