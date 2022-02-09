@@ -71,13 +71,15 @@ const RestaurantPage: NextPage<Props> = ({ restaurant, menu }) => {
 export const getStaticPaths: GetStaticPaths = async ({}: GetStaticPathsContext): Promise<
 	GetStaticPathsResult<Params>
 > => {
-	const { restaurants }: RestaurantsSuccess = await axios.get(URLS.API_GET_RESTAURANTS);
+	const { status, data }: AxiosResponse<RestaurantsSuccess> = await axios.get(URLS.API_GET_RESTAURANTS);
 
-	if (!restaurants)
+	if (status !== 200 || !data?.restaurants)
 		return {
 			paths: [],
 			fallback: true,
 		};
+
+	const { restaurants } = data;
 
 	const paths = restaurants.map(restaurant => ({ params: { uid: restaurant.uid } }));
 
@@ -100,6 +102,7 @@ export const getStaticProps: GetStaticProps = async ({
 	try {
 		const { status: statusRestaurant, data: dataRestaurant }: AxiosResponse<RestaurantSuccess> =
 			await axios.get(`${URLS.API_GET_RESTAURANTS}/${uid}`);
+
 		const { status: statusMenu, data: dataMenu }: AxiosResponse<MenusSuccess> = await axios.get(
 			`${URLS.API_GET_MENU}/${'EJQpn8wM19qiqNoqaQhM'}`, // TODO - was uid
 		);

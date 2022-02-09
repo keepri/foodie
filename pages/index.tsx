@@ -2,9 +2,10 @@ import React from 'react';
 import type { GetStaticProps, GetStaticPropsContext, NextPage } from 'next';
 import { RestaurantSchema } from '#firebase/declarations/schemas';
 import { useAppActions } from '#redux/actions';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { URLS } from 'utils/misc';
 import Restaurants from '#modules/Restaurants/Restaurants';
+import { RestaurantsSuccess } from '#firebase/declarations/types';
 
 interface Props {
 	restaurants: RestaurantSchema[];
@@ -28,9 +29,11 @@ export const getStaticProps: GetStaticProps = async ({}: GetStaticPropsContext) 
 	let restaurants: RestaurantSchema[] = [];
 
 	try {
-		const { status, data } = await axios.get(URLS.API_GET_RESTAURANTS, { withCredentials: true });
+		const { status, data }: AxiosResponse<RestaurantsSuccess> = await axios.get(URLS.API_GET_RESTAURANTS, {
+			withCredentials: true,
+		});
 
-		if (status !== 200) {
+		if (status !== 200 || !data?.restaurants) {
 			return {
 				notFound: true,
 			};

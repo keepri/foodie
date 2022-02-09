@@ -37,15 +37,13 @@ const ItemCard: React.FC<Props> = ({ className, item, index, onItemNotAv, ...res
 		[item.uid, item.status, item.photo, item.name, item.description, item.price],
 	);
 
-	const restaurantIsOpen = React.useMemo(
-		() => selectedRestaurant?.status === RESTAURANT_STATUS.OPEN,
-		[selectedRestaurant?.uid],
-	);
+	const restaurantIsOpen = selectedRestaurant?.status === RESTAURANT_STATUS.OPEN;
+	const itemIsUnavailable = status === MENU_ITEM_STATUS.UNAVAILABLE;
+
 	const itemIsInCart = React.useMemo(
 		() => items.some(item => item.uid === uid),
 		[items.length, items[0]?.uid],
 	);
-	const itemIsUnavailable = React.useMemo(() => status === MENU_ITEM_STATUS.UNAVAILABLE, [status]);
 
 	const handleAddToCart = React.useCallback(
 		async (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {

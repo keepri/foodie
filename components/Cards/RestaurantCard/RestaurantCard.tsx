@@ -23,10 +23,7 @@ const RestaurantCard: React.FC<Props> = ({ className, restaurant, ...rest }) => 
 
 	const { current: logoSize } = React.useRef(60);
 
-	const unavailable = React.useMemo(
-		() => status === RESTAURANT_STATUS.CLOSED || status === RESTAURANT_STATUS.UNAVAILABLE,
-		[status],
-	);
+	const unavailable = status === RESTAURANT_STATUS.CLOSED || status === RESTAURANT_STATUS.UNAVAILABLE;
 	// const photoWidth = 310;
 
 	const handleNav = React.useCallback(() => {

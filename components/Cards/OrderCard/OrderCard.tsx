@@ -31,10 +31,11 @@ const OrderCard: React.FC<Props> = ({ order, index, className, ...rest }) => {
 		() => restaurants?.filter(location => location.uid === restaurantUid)?.[0]?.name,
 		[restaurants?.length, restaurantUid],
 	);
-	const isPending = React.useMemo(() => status === ORDER_STATUS.PENDING, [status]);
-	const isAccepted = React.useMemo(() => status === ORDER_STATUS.ACCEPTED, [status]);
-	const isCompleted = React.useMemo(() => status === ORDER_STATUS.COMPLETED, [status]);
-	const isCanceled = React.useMemo(() => status === ORDER_STATUS.CANCELED, [status]);
+
+	const isPending = status === ORDER_STATUS.PENDING;
+	const isAccepted = status === ORDER_STATUS.ACCEPTED;
+	const isCompleted = status === ORDER_STATUS.COMPLETED;
+	const isCanceled = status === ORDER_STATUS.CANCELED;
 
 	return (
 		<div className={[styles['order-card'], className].join(' ')} {...rest}>

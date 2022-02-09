@@ -17,10 +17,7 @@ const Icon: React.FC<Props> = ({ icon, size }) => {
 		return alt;
 	}, [icon]);
 
-	const iconSize = React.useMemo(
-		() => (size === 'small' ? 20 : size === 'medium' ? 25 : size === 'large' ? 30 : 25),
-		[size],
-	);
+	const iconSize = size === 'small' ? 20 : size === 'medium' ? 25 : size === 'large' ? 30 : 25;
 
 	return (
 		<Image className={styles['icon']} src={icon} width={iconSize} height={iconSize} alt={`${alt}-icon`} />
