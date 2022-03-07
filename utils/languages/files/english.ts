@@ -40,6 +40,7 @@ export const english = {
 	signOutTooltip: 'Sign out',
 	signInTooltip: 'Sign in',
 	accountTooltip: 'Account',
+	settingsTooltip: 'Settings',
 
 	// MODALS
 	accountCreateSuccessTitle: 'Congratulations! Welcome to the party',

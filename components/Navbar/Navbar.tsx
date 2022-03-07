@@ -46,7 +46,7 @@ const Navbar: React.FC<Props> = ({ className, ...rest }) => {
 				{isLogged && (
 					<li>
 						{/* TODO - remove '#' */}
-						<Link href={'#' ?? URLS.ACCOUNT} tooltip={lang.accountTooltip}>
+						<Link href={URLS.SETTINGS} tooltip={lang.settingsTooltip}>
 							<Icon icon={'/images/icons/settings.svg'} size='medium' />
 						</Link>
 					</li>
