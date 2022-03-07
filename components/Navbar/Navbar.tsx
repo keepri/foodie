@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import styles from './Navbar.module.scss';
@@ -24,18 +24,28 @@ const Navbar: React.FC<Props> = ({ className, ...rest }) => {
 	} = useSelector(({ auth, cart }: ReduxState) => ({ auth, cart }));
 	const { logoutUserAuth } = useAuthActions();
 
+	const [cartItemCount, setCartItemCount] = useState<number>();
+
+	React.useEffect(() => {
+		const itemCount = items.length > 0 ? items.length : undefined;
+
+		setCartItemCount(itemCount);
+	}, [items]);
+
 	return (
 		<nav className={['container', styles['navbar'], className].join(' ')} {...rest}>
 			<Logo />
 			<ul className={styles['navbar-list']}>
-				{/* ALWAYS */}
+				{/* --- ALWAYS --- */}
+				{/* CART */}
 				<li>
-					<Link href={URLS.CART} tooltip={lang.cartTooltip} badge={items.length > 0 ? items.length : undefined}>
+					<Link href={URLS.CART} tooltip={lang.cartTooltip} badge={cartItemCount}>
 						<Icon icon={'/images/icons/cloche.svg'} size='medium' />
 					</Link>
 				</li>
 
-				{/* LOGGED */}
+				{/* --- LOGGED --- */}
+				{/* ORDERS */}
 				{isLogged && (
 					<li>
 						<Link href={URLS.ORDERS} tooltip={lang.ordersTooltip}>
@@ -43,14 +53,17 @@ const Navbar: React.FC<Props> = ({ className, ...rest }) => {
 						</Link>
 					</li>
 				)}
+
+				{/* SETTINGS */}
 				{isLogged && (
 					<li>
-						{/* TODO - remove '#' */}
 						<Link href={URLS.SETTINGS} tooltip={lang.settingsTooltip}>
 							<Icon icon={'/images/icons/settings.svg'} size='medium' />
 						</Link>
 					</li>
 				)}
+
+				{/* SIGN OUT */}
 				{isLogged && (
 					<li>
 						<Button simple onMouseUp={() => logoutUserAuth()} tooltip={lang.signOutTooltip}>
@@ -59,7 +72,8 @@ const Navbar: React.FC<Props> = ({ className, ...rest }) => {
 					</li>
 				)}
 
-				{/* NOT LOGGED */}
+				{/* --- NOT LOGGED --- */}
+				{/* SIGN IN */}
 				{!isLogged && (
 					<>
 						<li className={styles['navbar-sign-in']}>

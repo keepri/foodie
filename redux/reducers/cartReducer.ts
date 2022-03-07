@@ -1,10 +1,16 @@
+import { LS } from '#declarations/enums/LocalStorage';
 import { CartActionType } from '#declarations/enums/Redux';
 import { CartState } from '#declarations/interfaces/Redux';
 import { CartAction } from '#declarations/types/Redux';
 
-import { initCartState } from 'utils/misc';
+import { initCartState, isClientSide } from 'utils/misc';
 
-export const cartReducer = (state: CartState = initCartState, action: CartAction): CartState => {
+const localSavedCart = isClientSide && localStorage.getItem(LS.CART);
+
+export const cartReducer = (
+	state: CartState = localSavedCart ? JSON.parse(localSavedCart) : initCartState,
+	action: CartAction,
+): CartState => {
 	switch (action.type) {
 		// SET_LOADING
 		case CartActionType.SET_LOADING: {
@@ -28,7 +34,11 @@ export const cartReducer = (state: CartState = initCartState, action: CartAction
 
 			const total = state.total + itemToAdd.price;
 
-			return { ...state, items, total };
+			const cartState = { ...state, items, total };
+
+			localStorage.setItem(LS.CART, JSON.stringify(cartState));
+
+			return cartState;
 		}
 
 		// UPDATE_ITEM
@@ -53,7 +63,11 @@ export const cartReducer = (state: CartState = initCartState, action: CartAction
 			// update the item
 			items[index] = { ...items[index], ...update };
 
-			return { ...state, items };
+			const cartState = { ...state, items };
+
+			localStorage.setItem(LS.CART, JSON.stringify(cartState));
+
+			return cartState;
 		}
 
 		// UPDATE
@@ -66,12 +80,17 @@ export const cartReducer = (state: CartState = initCartState, action: CartAction
 			const item = state.items[action.payload];
 			const items = state.items.filter((_, index) => index !== action.payload);
 			const total = state.total - item.price;
+			const cartState = { ...state, items, total };
 
-			return { ...state, items, total };
+			items.length ? localStorage.setItem(LS.CART, JSON.stringify(cartState)) : localStorage.removeItem(LS.CART);
+
+			return cartState;
 		}
 
 		// RESET
 		case CartActionType.RESET: {
+			localStorage.removeItem(LS.CART);
+
 			return initCartState;
 		}
 

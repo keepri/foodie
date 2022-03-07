@@ -22,12 +22,11 @@ const setLoadingCart = (payload: CartSetLoadingPayload) => (dispatch: Dispatch<C
 const setRestaurantUidCart = (payload: CartSetRestaurantUidPayload) => (dispatch: Dispatch<CartAction>) =>
 	dispatch({ type: CartActionType.SET_CART_RESTAURANT, payload });
 
-const addItemCart =
-	(payload: CartAddItemPayload, quantity: number) => async (dispatch: Dispatch<CartAction>) => {
-		payload.quantity = quantity;
+const addItemCart = (payload: CartAddItemPayload, quantity: number) => (dispatch: Dispatch<CartAction>) => {
+	payload.quantity = quantity;
 
-		return dispatch({ type: CartActionType.ADD_ITEM, payload });
-	};
+	return dispatch({ type: CartActionType.ADD_ITEM, payload });
+};
 
 const removeItemCart = (payload: CartRemoveItemPayload) => (dispatch: Dispatch<CartAction>) =>
 	dispatch({ type: CartActionType.REMOVE_ITEM, payload });

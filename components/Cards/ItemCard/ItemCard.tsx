@@ -40,10 +40,7 @@ const ItemCard: React.FC<Props> = ({ className, item, index, onItemNotAv, ...res
 	const restaurantIsOpen = selectedRestaurant?.status === RESTAURANT_STATUS.OPEN;
 	const itemIsUnavailable = status === MENU_ITEM_STATUS.UNAVAILABLE;
 
-	const itemIsInCart = React.useMemo(
-		() => items.some(item => item.uid === uid),
-		[items.length, items[0]?.uid],
-	);
+	const itemIsInCart = React.useMemo(() => items.some(item => item.uid === uid), [items, uid]);
 
 	const handleAddToCart = React.useCallback(
 		async (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -73,10 +70,16 @@ const ItemCard: React.FC<Props> = ({ className, item, index, onItemNotAv, ...res
 
 			addItemCart(item, 1);
 		},
-		[itemIsInCart, itemIsUnavailable, restaurantIsOpen, restaurantUid, selectedRestaurant?.uid],
+		[
+			item,
+			itemIsInCart,
+			itemIsUnavailable,
+			restaurantIsOpen,
+			restaurantUid,
+			selectedRestaurant?.uid,
+			onItemNotAv,
+		],
 	);
-
-	React.useLayoutEffect;
 
 	return (
 		<div
