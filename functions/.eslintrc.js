@@ -22,10 +22,11 @@ module.exports = {
 	],
 	plugins: ['@typescript-eslint', 'import'],
 	rules: {
-		allowIndentationTabs: true,
-		indent: [1, 'tab'],
-		'object-curly-spacing': [1, 'always'],
+		'quote-props': ['warn'],
 		quotes: ['error', 'single'],
+		indent: [1, 'tab'],
+		'no-tabs': ['warn', { allowIndentationTabs: true }],
+		'object-curly-spacing': [1, 'always'],
 		'import/no-unresolved': 0,
 	},
 };
