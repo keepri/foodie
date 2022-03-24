@@ -1,0 +1,11 @@
+@use '#styles/variables.module.scss' as *;
+
+.settingsPage {
+	display: grid;
+	grid-template-columns: 17rem 1fr;
+
+	&-body {
+		max-width: $container-xl;
+		padding: 0 1rem;
+	}
+}

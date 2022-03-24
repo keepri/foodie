@@ -8,7 +8,7 @@ import Footer from '#components/Layout/Footer/Footer';
 import { subscribeOnAuthChange } from '#controllers/subscribeOnAuthChange';
 
 import { ReduxState } from '#declarations/types/Redux';
-import Navbar from '#components/Navbar/Navbar';
+import NavbarMain from '#components/Navigation/NavbarMain/NavbarMain';
 
 interface Props {}
 
@@ -25,7 +25,7 @@ const Layout: React.FC<Props> = ({ children }) => {
 
 	return (
 		<>
-			<Navbar />
+			<NavbarMain />
 			{/* <Header /> */}
 			{children}
 			<Footer />

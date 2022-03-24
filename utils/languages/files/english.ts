@@ -24,6 +24,7 @@ export const english = {
 	showPass: 'Show password',
 	forgotPass: 'Forgot password',
 	clear: 'Clear',
+	account: 'Account',
 
 	// ALERTS
 	alertEmail: 'Invalid email address',

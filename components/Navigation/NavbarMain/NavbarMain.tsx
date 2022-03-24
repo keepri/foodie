@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import styles from './Navbar.module.scss';
+import styles from './NavbarMain.module.scss';
 
 import { useAuthActions } from '#redux/actions';
 import { URLS } from 'utils/misc';

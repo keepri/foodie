@@ -1,0 +1,35 @@
+@use '#styles/Colors.module.scss' as *;
+@use '#styles/Variables.module.scss' as *;
+
+.navbar-dashboard {
+	padding: 0 0.4rem;
+
+	nav {
+		.list {
+			display: grid;
+			gap: 0.25rem;
+			list-style: none;
+			padding: 0;
+
+			.listItem {
+				width: 100%;
+				background-color: $light-grey;
+				border-radius: $radius;
+				transition: background-color 100ms linear;
+
+				&Selected {
+					background-color: darken($light-grey, 5);
+				}
+
+				&:hover {
+					background-color: darken($light-grey, 5);
+				}
+
+				.listItemLink {
+					display: block;
+					padding: 0.25rem 1rem;
+				}
+			}
+		}
+	}
+}
