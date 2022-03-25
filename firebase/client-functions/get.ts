@@ -4,9 +4,12 @@ import { COLLECTIONS, MENU_ITEM_STATUS } from '#firebase/declarations/enums';
 import { MenuItem } from '#firebase/declarations/interfaces';
 import { MenuSchema } from '#firebase/declarations/schemas';
 
-export { fireGetDoc, getMenuItemStatus };
+export { firebaseGetDocClientSide, getMenuItemStatus };
 
-const fireGetDoc = async <T>(collectionName: COLLECTIONS, docId: string): Promise<T | undefined> => {
+const firebaseGetDocClientSide = async <T>(
+	collectionName: COLLECTIONS,
+	docId: string,
+): Promise<T | undefined> => {
 	const docRef = doc(firestoreRef, `${collectionName}/${docId}`) as DocumentReference<T>;
 
 	try {
@@ -25,7 +28,7 @@ const getMenuItemStatus = async (restaurantUid: string, menuItemUid: string) => 
 	if (!menuItemUid || !restaurantUid) return;
 
 	try {
-		const menu = await fireGetDoc<MenuSchema>(COLLECTIONS.MENUS, `${restaurantUid}`);
+		const menu = await firebaseGetDocClientSide<MenuSchema>(COLLECTIONS.MENUS, `${restaurantUid}`);
 		if (!menu) return false;
 
 		const menuItem = menu.categories.reduce((item, category) => {

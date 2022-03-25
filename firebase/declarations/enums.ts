@@ -1,3 +1,8 @@
+export enum STORAGE_FOLDERS {
+	RESTAURANTS = 'restaurants',
+	USERS = 'users',
+}
+
 export enum COLLECTIONS {
 	USERS = 'users',
 	RESTAURANTS = 'restaurants',
