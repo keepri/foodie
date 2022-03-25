@@ -1,4 +1,5 @@
 {
+	"main": "server.js",
 	"name": "foodie",
 	"private": true,
 	"scripts": {
