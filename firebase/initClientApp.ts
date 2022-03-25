@@ -4,13 +4,13 @@ import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
-	apiKey: JSON.parse(process.env.NEXT_PUBLIC_FIREBASE_API_KEY as string),
-	authDomain: JSON.parse(process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN as string),
-	projectId: JSON.parse(process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID as string),
-	storageBucket: JSON.parse(process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET as string),
-	messagingSenderId: JSON.parse(process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID as string),
-	appId: JSON.parse(process.env.NEXT_PUBLIC_FIREBASE_APP_ID as string),
-	measurementId: JSON.parse(process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID as string),
+	apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+	authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+	projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+	storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+	messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+	appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+	measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
 // init firebase
