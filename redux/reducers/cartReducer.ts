@@ -3,9 +3,10 @@ import { CartActionType } from '#declarations/enums/Redux';
 import { CartState } from '#declarations/interfaces/Redux';
 import { CartAction } from '#declarations/types/Redux';
 
-import { initCartState, isClientSide } from '#utils/misc';
+import { initCartState } from '#utils/misc';
 
-const localSavedCart = isClientSide && localStorage.getItem(LS.CART);
+const localSavedCart =
+	typeof 'window' !== 'undefined' && typeof localStorage !== 'undefined' && localStorage.getItem(LS.CART);
 
 export const cartReducer = (
 	state: CartState = localSavedCart ? JSON.parse(localSavedCart) : initCartState,
@@ -36,7 +37,7 @@ export const cartReducer = (
 
 			const cartState = { ...state, items, total };
 
-			localStorage.setItem(LS.CART, JSON.stringify(cartState));
+			typeof localStorage !== 'undefined' && localStorage.setItem(LS.CART, JSON.stringify(cartState));
 
 			return cartState;
 		}
@@ -65,7 +66,7 @@ export const cartReducer = (
 
 			const cartState = { ...state, items };
 
-			localStorage.setItem(LS.CART, JSON.stringify(cartState));
+			typeof localStorage !== 'undefined' && localStorage.setItem(LS.CART, JSON.stringify(cartState));
 
 			return cartState;
 		}
@@ -82,14 +83,17 @@ export const cartReducer = (
 			const total = state.total - item.price;
 			const cartState = { ...state, items, total };
 
-			items.length ? localStorage.setItem(LS.CART, JSON.stringify(cartState)) : localStorage.removeItem(LS.CART);
+			typeof localStorage !== 'undefined' &&
+				(items.length
+					? localStorage.setItem(LS.CART, JSON.stringify(cartState))
+					: localStorage.removeItem(LS.CART));
 
 			return cartState;
 		}
 
 		// RESET
 		case CartActionType.RESET: {
-			localStorage.removeItem(LS.CART);
+			typeof localStorage !== 'undefined' && localStorage.removeItem(LS.CART);
 
 			return initCartState;
 		}

@@ -46,7 +46,7 @@ const Modal: React.FC<Props> = ({
 						</div>
 					)}
 					<Image
-						src={'/images/icons/close.png'}
+						src={'/close.png'}
 						width={20}
 						height={20}
 						objectFit='contain'

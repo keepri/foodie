@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import styles from './RestaurantHeader.module.scss';
 import { ReduxState } from '#declarations/types/Redux';
 import Pill from '#components/Pill/Pill';
+import { defaultRestaurantLogo, defaultRestaurantPhoto } from '#utils/misc';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
 	restaurant: RestaurantSchema;
@@ -57,14 +58,14 @@ const RestaurantHeader: React.FC<Props> = ({ className, restaurant, ...rest }) =
 				objectPosition='center'
 				width={1440}
 				height={400}
-				src={photo}
+				src={photo && photo !== '' ? photo : defaultRestaurantPhoto}
 				alt='restaurant photo'
 			/>
 			<div className={styles['restaurant-header-content']}>
 				<Image
 					width={60}
 					height={60}
-					src={logo}
+					src={logo && logo !== '' ? logo : defaultRestaurantLogo}
 					objectFit='contain'
 					objectPosition='center'
 					alt='restaurant photo'

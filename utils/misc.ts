@@ -15,7 +15,6 @@ export {
 	reEmail,
 	rePhone,
 	URLS,
-	isClientSide,
 	defaultRestaurantPhoto,
 	defaultRestaurantLogo,
 	defaultItemPhoto,
@@ -23,15 +22,14 @@ export {
 
 const isProduction = process.env.NODE_ENV === 'production';
 const baseUrl = isProduction ? 'http://localhost:3000' : 'http://localhost:3000';
-const isClientSide = typeof window !== 'undefined';
 {
 	/* TODO change default restaurant photo */
 }
-// const defaultRestaurantPhoto = '/images/default-restaurant.jpg';
-// const defaultRestaurantLogo = '/images/restaurant-logo.webp';
-const defaultRestaurantPhoto = '/images/default-restaurant-white.png';
-const defaultItemPhoto = '/images/default-food-item.jpg';
-const defaultRestaurantLogo = '/images/pizza-hut-logo.png';
+// const defaultRestaurantPhoto = '/default-restaurant.jpg';
+// const defaultRestaurantLogo = '/restaurant-logo.webp';
+const defaultRestaurantPhoto = '/default-restaurant-white.png';
+const defaultItemPhoto = '/default-food-item.jpg';
+const defaultRestaurantLogo = '/pizza-hut-logo.png';
 
 // URLS
 const URLS = {
