@@ -21,7 +21,7 @@ export {
 };
 
 const isProduction = process.env.NODE_ENV === 'production';
-const baseUrl = isProduction ? 'http://localhost:3000' : 'http://localhost:3000';
+const baseUrl = isProduction ? 'foodie-55977.web.app' : 'http://localhost:3000';
 const isClientSide = typeof window !== 'undefined';
 {
 	/* TODO change default restaurant photo */

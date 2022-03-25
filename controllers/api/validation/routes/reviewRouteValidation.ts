@@ -2,14 +2,20 @@ import { REQUEST_METHODS } from '#declarations/enums/REST';
 import { MESSAGES } from '#firebase/declarations/enums';
 import { ReviewSchema } from '#firebase/declarations/schemas';
 import { ReviewsRequestBody } from '#firebase/declarations/types';
-import { NextApiRequest, NextApiResponse } from 'next';
+import {
+	NextApiRequest,
+	// NextApiResponse
+} from 'next';
 import { baseReview } from 'utils/baseForms';
 import { objectContainsSameKeys } from '../objectContainsSameKeys';
 import { verifyToken } from '../verifyToken';
 
 export { reviewRouteValidation };
 
-const reviewRouteValidation = async (req: NextApiRequest, res: NextApiResponse) => {
+const reviewRouteValidation = async (
+	req: NextApiRequest,
+	//  res: NextApiResponse
+) => {
 	// BYPASS FOR ROUTES THAT ARE NOT IMPLEMENTED
 	if (
 		req.method === REQUEST_METHODS.DELETE ||

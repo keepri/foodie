@@ -1,5 +1,8 @@
 import React, { useMemo, useRef } from 'react';
-import type { GetStaticPaths, GetStaticPathsContext, NextPage } from 'next';
+import type {
+	//  GetStaticPaths, GetStaticPathsContext,
+	NextPage,
+} from 'next';
 import { useRouter } from 'next/router';
 
 import styles from '#styles/pages/SettingsPage.module.scss';

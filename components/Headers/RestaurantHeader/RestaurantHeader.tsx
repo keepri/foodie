@@ -20,7 +20,16 @@ const RestaurantHeader: React.FC<Props> = ({ className, restaurant, ...rest }) =
 		app: { currency },
 	} = useSelector(({ app }: ReduxState) => ({ app }));
 
-	const { status, name, addresses, costs, hours, photo, logo, description } = restaurant;
+	const {
+		status,
+		name,
+		addresses,
+		costs,
+		// hours,
+		photo,
+		logo,
+		description,
+	} = restaurant;
 	const { county, city, street, number } = addresses[0];
 	const { packaging, delivery, minOrder } = costs;
 

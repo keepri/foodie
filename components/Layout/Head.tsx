@@ -3,6 +3,12 @@ import React from 'react';
 import { default as NextHead } from 'next/head';
 import { useRouter } from 'next/router';
 
+import { useSelector } from 'react-redux';
+import { useAppActions, useAuthActions } from '#redux/actions';
+import { ReduxState } from '#declarations/types/Redux';
+
+import { subscribeOnAuthChange } from '#controllers/subscribeOnAuthChange';
+
 import { DESCRIPTION, KEYWORDS, OG_DESCRIPTION, OG_TITLE, TITLE } from '#declarations/enums/Head';
 import { baseUrl, siteName } from 'utils/misc';
 
@@ -25,6 +31,16 @@ const Head: React.FC<Props> = ({
 }) => {
 	const { pathname, locale } = useRouter();
 	const url = `${baseUrl}${pathname}`;
+
+	const { loginUserAuth } = useAuthActions();
+	const { setOnAuthChangeSubApp } = useAppActions();
+	const unsubscribeOnAuthChange = useSelector(({ app }: ReduxState) => app.unsubscribeOnAuthChange);
+
+	React.useEffect(() => {
+		subscribeOnAuthChange({ loginUserAuth, setOnAuthChangeSubApp });
+
+		return unsubscribeOnAuthChange && unsubscribeOnAuthChange();
+	}, []);
 
 	return (
 		<NextHead>

@@ -15,7 +15,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<ReviewsReturnTyp
 	// INITIAL ROUTE VERIFICATIONS
 	try {
 		await useCors(req, res);
-		await reviewRouteValidation(req, res);
+		await reviewRouteValidation(req);
 	} catch (error) {
 		handleError(error, res);
 	}
