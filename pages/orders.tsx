@@ -1,19 +1,19 @@
 import React from 'react';
 import type { GetServerSideProps, GetServerSidePropsContext, GetServerSidePropsResult, NextPage } from 'next';
-import axios, { AxiosResponse } from 'axios';
 
 import { auth } from 'firebase-admin';
 import { OrderSchema } from '#firebase/declarations/schemas';
 import { COOKIE_NAMES } from '#firebase/declarations/enums';
-import { OrdersSuccess } from '#firebase/declarations/types';
 
 import styles from '#styles/pages/OrdersPage.module.scss';
-import { URLS } from '#utils/misc';
 
 import { parseTokenString } from '#controllers/api/validation/parseTokenString';
 
 import OrdersHeader from '#components/Headers/OrdersHeader/OrdersHeader';
 import Orders from '#modules/Orders/Orders';
+
+// import { firestore } from '#firebase/initServerApp';
+import { getOrdersByUidServerSide } from '#controllers/api/get/getOrdersByUidServerSide';
 
 interface Props {
 	orders: OrderSchema[];
@@ -37,17 +37,17 @@ export const getServerSideProps: GetServerSideProps = async ({
 
 		const checkRevoked = true;
 		const { tokenString } = parseTokenString(token);
-
 		const { uid } = await auth().verifyIdToken(tokenString, checkRevoked);
+		const { orders } = await getOrdersByUidServerSide(uid);
 
-		const { status, data }: AxiosResponse<OrdersSuccess> = await axios.get(`${URLS.API_GET_ORDERS}/${uid}`, {
-			withCredentials: true,
-		});
-
-		if (status !== 200) return { props: { orders: [] } };
-
-		const { orders } = data;
-		if (!orders) return { props: { orders: [] } };
+		// const ordersCol = firestore.collection(COLLECTIONS.ORDERS);
+		// const ordersQuery = await ordersCol.where('client', '==', uid as string).get();
+		// if (ordersQuery.empty) {
+		// 	return {
+		// 		notFound: true,
+		// 	};
+		// }
+		// const orders = ordersQuery.docs.map(doc => doc.data() as OrderSchema).sort((a, b) => b.date - a.date);
 
 		return {
 			props: { orders },

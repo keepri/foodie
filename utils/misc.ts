@@ -21,7 +21,7 @@ export {
 };
 
 const isProduction = process.env.NODE_ENV === 'production';
-const baseUrl = isProduction ? 'foodie-bah17pur4-ciprianpitul.vercel.app' : 'http://localhost:3000';
+const baseUrl = isProduction ? 'http://localhost:3000' : 'http://localhost:3000';
 const isClientSide = typeof window !== 'undefined';
 {
 	/* TODO change default restaurant photo */
@@ -35,20 +35,13 @@ const defaultRestaurantLogo = '/images/pizza-hut-logo.png';
 // URLS
 const URLS = {
 	// WEBSITE
-	// ${baseUrl}
-	// ${baseUrl}
-	// ${baseUrl}
-	// ${baseUrl}
-	// ${baseUrl}
-	// ${baseUrl}
-	// ${baseUrl}
-	HOME: `/`,
-	LOGIN: `/login`,
-	REGISTER: `/register`,
-	CART: `/cart`,
-	RESTAURANT: `/restaurant`,
-	ORDERS: `/orders`,
-	SETTINGS: `/settings`,
+	HOME: '/',
+	LOGIN: '/login',
+	REGISTER: '/register',
+	CART: '/cart',
+	RESTAURANT: '/restaurant',
+	ORDERS: '/orders',
+	SETTINGS: '/settings',
 	// SETTINGS_ACCOUNT: `${baseUrl}/settings/account`,
 
 	// API

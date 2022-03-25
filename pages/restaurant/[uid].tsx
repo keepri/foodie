@@ -8,9 +8,6 @@ import type {
 	GetStaticPropsResult,
 	NextPage,
 } from 'next';
-import axios, { AxiosResponse } from 'axios';
-import { URLS } from '#utils/misc';
-import { MenusSuccess, RestaurantsSuccess, RestaurantSuccess } from '#firebase/declarations/types';
 import { MenuSchema, RestaurantSchema } from '#firebase/declarations/schemas';
 import { useRouter } from 'next/router';
 import { useAppActions, useCartActions } from '#redux/actions';
@@ -19,6 +16,9 @@ import Menu from '#modules/Menu/Menu';
 import RestaurantHeader from '#components/Headers/RestaurantHeader/RestaurantHeader';
 import { useSelector } from 'react-redux';
 import { ReduxState } from '#declarations/types/Redux';
+import { getRestaurantByUidServerSide } from '#controllers/api/get/getRestaurantByUidServerSide';
+import { getMenuByUidServerSide } from '#controllers/api/get/getMenuByUidServerSide';
+import { getRestaurantsServerSide } from '#controllers/api/get/getRestaurantsServerSide';
 
 interface Params extends ParsedUrlQuery {
 	uid: string;
@@ -71,22 +71,21 @@ const RestaurantPage: NextPage<Props> = ({ restaurant, menu }) => {
 export const getStaticPaths: GetStaticPaths = async ({}: GetStaticPathsContext): Promise<
 	GetStaticPathsResult<Params>
 > => {
-	const { status, data }: AxiosResponse<RestaurantsSuccess> = await axios.get(URLS.API_GET_RESTAURANTS);
+	try {
+		const { restaurants } = await getRestaurantsServerSide();
+		const paths = restaurants.map(restaurant => ({ params: { uid: restaurant.uid } }));
 
-	if (status !== 200 || !data?.restaurants)
+		return {
+			paths,
+			fallback: true,
+		};
+	} catch ({ message }) {
+		console.error('getStaticPaths in restaurant page:', message);
 		return {
 			paths: [],
 			fallback: true,
 		};
-
-	const { restaurants } = data;
-
-	const paths = restaurants.map(restaurant => ({ params: { uid: restaurant.uid } }));
-
-	return {
-		paths,
-		fallback: true,
-	};
+	}
 };
 
 export const getStaticProps: GetStaticProps = async ({
@@ -100,20 +99,9 @@ export const getStaticProps: GetStaticProps = async ({
 		};
 
 	try {
-		const { status: statusRestaurant, data: dataRestaurant }: AxiosResponse<RestaurantSuccess> =
-			await axios.get(`${URLS.API_GET_RESTAURANTS}/${uid}`);
+		const { restaurant } = await getRestaurantByUidServerSide(uid);
+		let { menu } = await getMenuByUidServerSide('EJQpn8wM19qiqNoqaQhM'); // was uid - TODO
 
-		const { status: statusMenu, data: dataMenu }: AxiosResponse<MenusSuccess> = await axios.get(
-			`${URLS.API_GET_MENU}/${'EJQpn8wM19qiqNoqaQhM'}`, // TODO - was uid
-		);
-
-		if (statusRestaurant === 404 || statusMenu === 404)
-			return {
-				notFound: true,
-			};
-
-		const { restaurant } = dataRestaurant;
-		let { menu } = dataMenu;
 		menu = {
 			...menu,
 			categories: [
@@ -142,7 +130,8 @@ export const getStaticProps: GetStaticProps = async ({
 			props: { restaurant, menu },
 			revalidate: 60 * 5, // 5 minutes
 		};
-	} catch (error) {
+	} catch ({ message }) {
+		console.error('getStaticProps in restaurant page:', message);
 		return {
 			notFound: true,
 		};

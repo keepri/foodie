@@ -2,10 +2,8 @@ import React from 'react';
 import type { GetStaticProps, GetStaticPropsContext, NextPage } from 'next';
 import { RestaurantSchema } from '#firebase/declarations/schemas';
 import { useAppActions } from '#redux/actions';
-import axios, { AxiosResponse } from 'axios';
-import { URLS } from '#utils/misc';
 import Restaurants from '#modules/Restaurants/Restaurants';
-import { RestaurantsSuccess } from '#firebase/declarations/types';
+import { getRestaurantsServerSide } from '#controllers/api/get/getRestaurantsServerSide';
 
 interface Props {
 	restaurants: RestaurantSchema[];
@@ -26,28 +24,19 @@ const Index: NextPage<Props> = ({ restaurants }) => {
 };
 
 export const getStaticProps: GetStaticProps = async ({}: GetStaticPropsContext) => {
-	let restaurants: RestaurantSchema[] = [];
-
 	try {
-		const { status, data }: AxiosResponse<RestaurantsSuccess> = await axios.get(URLS.API_GET_RESTAURANTS, {
-			withCredentials: true,
-		});
+		const { restaurants } = await getRestaurantsServerSide();
 
-		if (status !== 200 || !data?.restaurants) {
-			return {
-				notFound: true,
-			};
-		}
-
-		restaurants = data.restaurants;
+		return {
+			props: { restaurants },
+			revalidate: 1440, // 24 hours
+		};
 	} catch (error) {
 		console.log('Get static props failed with:', error);
+		return {
+			notFound: true,
+		};
 	}
-
-	return {
-		props: { restaurants },
-		revalidate: 1440, // 24 hours
-	};
 };
 
 export default Index;

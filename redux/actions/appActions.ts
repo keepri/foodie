@@ -38,17 +38,22 @@ const toggleDarkModeApp = () => (dispatch: Dispatch<AppAction>) =>
 	dispatch({ type: AppActionType.TOGGLE_DARK_MODE });
 
 const loadRestaurants = () => async (dispatch: Dispatch<AppAction>) => {
-	let payload: RestaurantSchema[] = [];
+	try {
+		let payload: RestaurantSchema[] = [];
 
-	const { status, data }: AxiosResponse<RestaurantsSuccess> = await axios.get(URLS.API_GET_RESTAURANTS);
-	if (!data?.restaurants) {
+		const { data }: AxiosResponse<RestaurantsSuccess> = await axios.get(URLS.API_GET_RESTAURANTS);
+
+		if (!data?.restaurants) {
+			dispatch({ type: AppActionType.SET_RESTAURANTS, payload: [] });
+			return;
+		}
+
+		payload = data.restaurants;
+		dispatch({ type: AppActionType.SET_RESTAURANTS, payload });
+	} catch ({ message }) {
+		console.error('loadRestaurants:', message);
 		dispatch({ type: AppActionType.SET_RESTAURANTS, payload: [] });
-		return;
 	}
-
-	status === 200 && (payload = data.restaurants);
-
-	dispatch({ type: AppActionType.SET_RESTAURANTS, payload });
 };
 
 const resetStateApp = () => (dispatch: Dispatch<AppAction>) => dispatch({ type: AppActionType.RESET });

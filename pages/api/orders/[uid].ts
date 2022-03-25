@@ -3,12 +3,11 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { REQUEST_METHODS } from '#declarations/enums/REST';
 
 import { OrdersReturnType } from '#firebase/declarations/types';
-import { COLLECTIONS, MESSAGES } from '#firebase/declarations/enums';
-import { OrderSchema } from '#firebase/declarations/schemas';
-import { firestore } from '#firebase/initServerApp';
+import { MESSAGES } from '#firebase/declarations/enums';
 
 import { handleError } from '#controllers/api/handleError';
 import { useCors } from '#controllers/api/middleware/useCors';
+import { getOrdersByUidServerSide } from '#controllers/api/get/getOrdersByUidServerSide';
 
 // import { isSameUser } from '#controllers/api/validation/isSameUser';
 
@@ -30,12 +29,20 @@ export default async (req: NextApiRequest, res: NextApiResponse<OrdersReturnType
 			try {
 				const { uid } = req.query;
 
-				const ordersCol = firestore.collection(COLLECTIONS.ORDERS);
-				const ordersQuery = await ordersCol.where('client', '==', uid as string).get();
+				if (!uid) {
+					return res.status(401).json({ message: 'No "uid" field passed' });
+				}
 
-				if (ordersQuery.empty) return res.status(404).json({ message: MESSAGES.NOT_FOUND });
+				const { orders } = await getOrdersByUidServerSide(uid as string);
 
-				const orders = ordersQuery.docs.map(doc => doc.data() as OrderSchema).sort((a, b) => b.date - a.date);
+				if (!orders.length) {
+					return res.status(404).json({ message: MESSAGES.NOT_FOUND });
+				}
+
+				// const ordersCol = firestore.collection(COLLECTIONS.ORDERS);
+				// const ordersQuery = await ordersCol.where('client', '==', uid as string).get();
+				// if (ordersQuery.empty) return res.status(404).json({ message: MESSAGES.NOT_FOUND });
+				// const orders = ordersQuery.docs.map(doc => doc.data() as OrderSchema).sort((a, b) => b.date - a.date);
 
 				return res.status(200).json({ orders });
 			} catch (error) {

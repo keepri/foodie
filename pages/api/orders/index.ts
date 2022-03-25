@@ -10,6 +10,7 @@ import { firestore } from '#firebase/initServerApp';
 import { handleError } from '#controllers/api/handleError';
 import { useCors } from '#controllers/api/middleware/useCors';
 import { orderRouteValidation } from '#controllers/api/validation/routes/orderRouteValidation';
+import { getOrdersByUidServerSide } from '#controllers/api/get/getOrdersByUidServerSide';
 
 export default async (req: NextApiRequest, res: NextApiResponse<OrdersReturnType>) => {
 	// INITIAL ROUTE VERIFICATIONS
@@ -26,13 +27,12 @@ export default async (req: NextApiRequest, res: NextApiResponse<OrdersReturnType
 		case REQUEST_METHODS.GET: {
 			try {
 				const { tokenUid } = req.body as OrdersRequestBody;
+				const { orders } = await getOrdersByUidServerSide(tokenUid as string);
 
-				const ordersCol = firestore.collection(COLLECTIONS.ORDERS);
-				const ordersQuery = await ordersCol.where('client', '==', tokenUid as string).get();
-
-				if (ordersQuery.empty) return res.status(404).json({ message: MESSAGES.NOT_FOUND });
-
-				const orders = ordersQuery.docs.map(doc => doc.data() as OrderSchema);
+				// const ordersCol = firestore.collection(COLLECTIONS.ORDERS);
+				// const ordersQuery = await ordersCol.where('client', '==', tokenUid as string).get();
+				// if (ordersQuery.empty) return res.status(404).json({ message: MESSAGES.NOT_FOUND });
+				// const orders = ordersQuery.docs.map(doc => doc.data() as OrderSchema);
 
 				return res.status(200).json({ orders });
 			} catch (error) {
