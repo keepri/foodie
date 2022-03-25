@@ -1,5 +1,5 @@
-@use '#styles/colors.module.scss' as *;
-@use '#styles/variables.module.scss' as *;
+@use '#styles/colors.scss' as *;
+@use '#styles/variables.scss' as *;
 
 $button-text-color-light: $white;
 $button-text-color-dark: $dark-grey;

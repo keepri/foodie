@@ -1,4 +1,4 @@
-@use '#styles/variables.module.scss' as *;
+@use '#styles/variables.scss' as *;
 
 @media screen and (max-width: $container-xl) {
 	.container {

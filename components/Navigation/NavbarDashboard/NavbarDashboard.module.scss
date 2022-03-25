@@ -1,5 +1,5 @@
-@use '#styles/Colors.module.scss' as *;
-@use '#styles/Variables.module.scss' as *;
+@use '#styles/colors.scss' as *;
+@use '#styles/variables.scss' as *;
 
 .navbar-dashboard {
 	padding: 0 0.4rem;

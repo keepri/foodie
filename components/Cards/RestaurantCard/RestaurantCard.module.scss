@@ -1,5 +1,5 @@
-@use '#styles/variables.module.scss' as *;
-@use '#styles/colors.module.scss' as *;
+@use '#styles/variables.scss' as *;
+@use '#styles/colors.scss' as *;
 
 .double-card {
 	$border-radius: 1rem;
