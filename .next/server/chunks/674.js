@@ -34,7 +34,12 @@ const handleError = (error, res)=>{
 /* harmony export */   "HR": () => (/* binding */ COOKIE_NAMES),
 /* harmony export */   "X3": () => (/* binding */ MESSAGES)
 /* harmony export */ });
-/* unused harmony export ACCOUNT_TYPE */
+/* unused harmony exports STORAGE_FOLDERS, ACCOUNT_TYPE */
+var STORAGE_FOLDERS;
+(function(STORAGE_FOLDERS) {
+    STORAGE_FOLDERS["RESTAURANTS"] = 'restaurants';
+    STORAGE_FOLDERS["USERS"] = 'users';
+})(STORAGE_FOLDERS || (STORAGE_FOLDERS = {}));
 var COLLECTIONS;
 (function(COLLECTIONS) {
     COLLECTIONS["USERS"] = 'users';

@@ -13,7 +13,12 @@ exports.modules = {
 /* harmony export */   "DF": () => (/* binding */ ORDER_STATUS),
 /* harmony export */   "HR": () => (/* binding */ COOKIE_NAMES)
 /* harmony export */ });
-/* unused harmony exports ACCOUNT_TYPE, MESSAGES */
+/* unused harmony exports STORAGE_FOLDERS, ACCOUNT_TYPE, MESSAGES */
+var STORAGE_FOLDERS;
+(function(STORAGE_FOLDERS) {
+    STORAGE_FOLDERS["RESTAURANTS"] = 'restaurants';
+    STORAGE_FOLDERS["USERS"] = 'users';
+})(STORAGE_FOLDERS || (STORAGE_FOLDERS = {}));
 var COLLECTIONS;
 (function(COLLECTIONS) {
     COLLECTIONS["USERS"] = 'users';

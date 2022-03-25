@@ -485,7 +485,7 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Z": () => (/* binding */ getMenuItemStatus)
 /* harmony export */ });
-/* unused harmony export fireGetDoc */
+/* unused harmony export firebaseGetDocClientSide */
 /* harmony import */ var firebase_firestore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1492);
 /* harmony import */ var _firebase_initClientApp__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3645);
 /* harmony import */ var _firebase_declarations_enums__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5710);
@@ -495,7 +495,7 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([fire
 
 
 
-const fireGetDoc = async (collectionName, docId)=>{
+const firebaseGetDocClientSide = async (collectionName, docId)=>{
     const docRef = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_0__.doc)(_firebase_initClientApp__WEBPACK_IMPORTED_MODULE_1__/* .firestoreRef */ .Q6, `${collectionName}/${docId}`);
     try {
         const doc1 = await (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_0__.getDoc)(docRef);
@@ -510,7 +510,7 @@ const fireGetDoc = async (collectionName, docId)=>{
 const getMenuItemStatus = async (restaurantUid, menuItemUid)=>{
     if (!menuItemUid || !restaurantUid) return;
     try {
-        const menu = await fireGetDoc(_firebase_declarations_enums__WEBPACK_IMPORTED_MODULE_2__/* .COLLECTIONS.MENUS */ .Ul.MENUS, `${restaurantUid}`);
+        const menu = await firebaseGetDocClientSide(_firebase_declarations_enums__WEBPACK_IMPORTED_MODULE_2__/* .COLLECTIONS.MENUS */ .Ul.MENUS, `${restaurantUid}`);
         if (!menu) return false;
         const menuItem = menu.categories.reduce((item1, category)=>{
             const found = category.items.find((item)=>item.uid === menuItemUid
