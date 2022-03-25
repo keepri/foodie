@@ -21,27 +21,34 @@ export {
 };
 
 const isProduction = process.env.NODE_ENV === 'production';
-const baseUrl = isProduction ? 'foodie-55977.web.app' : 'http://localhost:3000';
+const baseUrl = isProduction ? 'foodie-bah17pur4-ciprianpitul.vercel.app' : 'http://localhost:3000';
 const isClientSide = typeof window !== 'undefined';
 {
 	/* TODO change default restaurant photo */
 }
 // const defaultRestaurantPhoto = '/images/default-restaurant.jpg';
+// const defaultRestaurantLogo = '/images/restaurant-logo.webp';
 const defaultRestaurantPhoto = '/images/default-restaurant-white.png';
 const defaultItemPhoto = '/images/default-food-item.jpg';
-// const defaultRestaurantLogo = '/images/restaurant-logo.webp';
 const defaultRestaurantLogo = '/images/pizza-hut-logo.png';
 
 // URLS
 const URLS = {
 	// WEBSITE
-	HOME: `${baseUrl}/`,
-	LOGIN: `${baseUrl}/login`,
-	REGISTER: `${baseUrl}/register`,
-	CART: `${baseUrl}/cart`,
-	RESTAURANT: `${baseUrl}/restaurant`,
-	ORDERS: `${baseUrl}/orders`,
-	SETTINGS: `${baseUrl}/settings`,
+	// ${baseUrl}
+	// ${baseUrl}
+	// ${baseUrl}
+	// ${baseUrl}
+	// ${baseUrl}
+	// ${baseUrl}
+	// ${baseUrl}
+	HOME: `/`,
+	LOGIN: `/login`,
+	REGISTER: `/register`,
+	CART: `/cart`,
+	RESTAURANT: `/restaurant`,
+	ORDERS: `/orders`,
+	SETTINGS: `/settings`,
 	// SETTINGS_ACCOUNT: `${baseUrl}/settings/account`,
 
 	// API
