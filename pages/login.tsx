@@ -4,7 +4,7 @@ import LoginForm from '#modules/Forms/LoginForm/LoginForm';
 import { privateRoute } from '#controllers/validation/privateRoute';
 import styles from '#styles/pages/LoginPage.module.scss';
 import { getLang } from '#controllers/getLang';
-import { URLS } from 'utils/misc';
+import { URLS } from '#utils/misc';
 import Link from '#components/Buttons/Link';
 
 interface Props {}

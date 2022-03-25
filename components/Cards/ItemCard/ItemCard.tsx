@@ -4,7 +4,7 @@ import Image from 'next/image';
 import styles from './ItemCard.module.scss';
 import { MenuItem } from '#firebase/declarations/interfaces';
 
-import { defaultItemPhoto } from 'utils/misc';
+import { defaultItemPhoto } from '#utils/misc';
 import { useSelector } from 'react-redux';
 import { ReduxState } from '#declarations/types/Redux';
 import { MENU_ITEM_STATUS, RESTAURANT_STATUS } from '#firebase/declarations/enums';

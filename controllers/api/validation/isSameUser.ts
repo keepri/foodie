@@ -1,7 +1,7 @@
 import { COOKIE_NAMES, MESSAGES } from '#firebase/declarations/enums';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { destroyCookie } from 'nookies';
-import { defaultCookieOptions } from 'utils/misc';
+import { defaultCookieOptions } from '#utils/misc';
 
 export { isSameUser };
 

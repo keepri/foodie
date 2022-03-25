@@ -13,7 +13,7 @@ import axios, { AxiosResponse } from 'axios';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { URLS } from 'utils/misc';
+import { URLS } from '#utils/misc';
 
 import styles from './Cart.module.scss';
 

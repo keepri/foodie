@@ -1,7 +1,7 @@
 import { AppActionType } from '#declarations/enums/Redux';
 import { AppState } from '#declarations/interfaces/Redux';
 import { AppAction } from '#declarations/types/Redux';
-import { initAppState } from 'utils/misc';
+import { initAppState } from '#utils/misc';
 
 export const appReducer = (state: AppState = initAppState, action: AppAction): AppState => {
 	switch (action.type) {

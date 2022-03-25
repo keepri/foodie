@@ -8,7 +8,7 @@ import { COOKIE_NAMES } from '#firebase/declarations/enums';
 import { OrdersSuccess } from '#firebase/declarations/types';
 
 import styles from '#styles/pages/OrdersPage.module.scss';
-import { URLS } from 'utils/misc';
+import { URLS } from '#utils/misc';
 
 import { parseTokenString } from '#controllers/api/validation/parseTokenString';
 

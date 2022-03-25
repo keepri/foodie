@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 import styles from './Logo.module.scss';
 import Link from '#components/Buttons/Link';
-import { URLS } from 'utils/misc';
+import { URLS } from '#utils/misc';
 
 interface Props extends React.HTMLAttributes<HTMLAnchorElement> {}
 

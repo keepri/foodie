@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import styles from './NavbarMain.module.scss';
 
 import { useAuthActions } from '#redux/actions';
-import { URLS } from 'utils/misc';
+import { URLS } from '#utils/misc';
 import { ReduxState } from '#declarations/types/Redux';
 
 import Button from '#components/Buttons/Button';

@@ -2,7 +2,7 @@ import Modal from '#components/Modal/Modal';
 import { getLang } from '#controllers/getLang';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { URLS } from 'utils/misc';
+import { URLS } from '#utils/misc';
 
 // import styles from './ModalOrderPlaceSuccess.module.scss';
 

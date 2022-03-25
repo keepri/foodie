@@ -9,7 +9,7 @@ import AccountCreateSuccess from '#modules/Modals/AccountCreateSuccess';
 
 import { privateRoute } from '#controllers/validation/privateRoute';
 import styles from '#styles/pages/RegisterPage.module.scss';
-import { URLS } from 'utils/misc';
+import { URLS } from '#utils/misc';
 
 interface Props {}
 

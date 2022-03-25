@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 
-import { URLS } from 'utils/misc';
+import { URLS } from '#utils/misc';
 import { ClientRegisterFields } from '#firebase/declarations/interfaces';
 import {
 	RegisterReturnType,

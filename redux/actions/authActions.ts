@@ -13,7 +13,7 @@ import {
 	AuthSetLoadingPayload,
 	AuthUpdateUserPayload,
 } from '#declarations/interfaces/Redux';
-import { URLS } from 'utils/misc';
+import { URLS } from '#utils/misc';
 
 export { authActions };
 

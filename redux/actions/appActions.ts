@@ -13,7 +13,7 @@ import {
 } from '#declarations/interfaces/Redux';
 import { RestaurantSchema } from '#firebase/declarations/schemas';
 import axios, { AxiosResponse } from 'axios';
-import { URLS } from 'utils/misc';
+import { URLS } from '#utils/misc';
 import { RestaurantsSuccess } from '#firebase/declarations/types';
 
 export { appActions };

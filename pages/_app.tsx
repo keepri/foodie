@@ -11,7 +11,7 @@ import type { AppProps } from 'next/app';
 import { store } from '#redux/store';
 import axios from 'axios';
 
-import { URLS } from 'utils/misc';
+import { URLS } from '#utils/misc';
 
 import Layout from '#modules/Layout/Layout';
 import Head from '#components/Layout/Head';

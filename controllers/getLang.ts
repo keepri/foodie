@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { ReduxState } from '#declarations/types/Redux';
 import { useSelector } from 'react-redux';
-import { Lang } from 'utils/languages';
+import { Lang } from '#utils/languages';
 
 export { getLang };
 

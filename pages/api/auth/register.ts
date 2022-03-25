@@ -7,7 +7,7 @@ import { REQUEST_METHODS } from '#declarations/enums/REST';
 import { ClientSchema } from '#firebase/declarations/schemas';
 import { RegisterReturnType } from '#firebase/declarations/types';
 import { handleError } from '#controllers/api/handleError';
-import { URLS } from 'utils/misc';
+import { URLS } from '#utils/misc';
 
 // import nodemailer from 'nodemailer';
 

@@ -6,7 +6,7 @@ import { authRef } from '#firebase/initClientApp';
 import axios, { AxiosResponse } from 'axios';
 import { sendEmailVerification } from 'firebase/auth';
 import { Dispatch, Unsubscribe } from 'redux';
-import { isProduction, URLS } from 'utils/misc';
+import { isProduction, URLS } from '#utils/misc';
 
 type LoginUserAuth = (payload: AuthLoginPayload) => (dispatch: Dispatch<AuthAction>) => {
 	type: AuthActionType.LOGIN;

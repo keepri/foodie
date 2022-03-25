@@ -7,7 +7,7 @@ import { REQUEST_METHODS } from '#declarations/enums/REST';
 import { ClientSchema } from '#firebase/declarations/schemas';
 import { LoginReturnType } from '#firebase/declarations/types';
 import { handleError } from '#controllers/api/handleError';
-import { defaultCookieOptions } from 'utils/misc';
+import { defaultCookieOptions } from '#utils/misc';
 import { destroyCookie, setCookie } from 'nookies';
 
 // import nodemailer from 'nodemailer';

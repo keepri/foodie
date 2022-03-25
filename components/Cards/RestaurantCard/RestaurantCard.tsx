@@ -3,7 +3,7 @@ import { RESTAURANT_STATUS } from '#firebase/declarations/enums';
 import { RestaurantSchema } from '#firebase/declarations/schemas';
 import Image from 'next/image';
 import React from 'react';
-import { defaultRestaurantLogo, defaultRestaurantPhoto, URLS } from 'utils/misc';
+import { defaultRestaurantLogo, defaultRestaurantPhoto, URLS } from '#utils/misc';
 
 import styles from './RestaurantCard.module.scss';
 import { getLang } from '#controllers/getLang';

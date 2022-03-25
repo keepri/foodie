@@ -3,7 +3,7 @@ import { CartActionType } from '#declarations/enums/Redux';
 import { CartState } from '#declarations/interfaces/Redux';
 import { CartAction } from '#declarations/types/Redux';
 
-import { initCartState, isClientSide } from 'utils/misc';
+import { initCartState, isClientSide } from '#utils/misc';
 
 const localSavedCart = isClientSide && localStorage.getItem(LS.CART);
 

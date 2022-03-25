@@ -3,7 +3,7 @@ import type { GetStaticProps, GetStaticPropsContext, NextPage } from 'next';
 import { RestaurantSchema } from '#firebase/declarations/schemas';
 import { useAppActions } from '#redux/actions';
 import axios, { AxiosResponse } from 'axios';
-import { URLS } from 'utils/misc';
+import { URLS } from '#utils/misc';
 import Restaurants from '#modules/Restaurants/Restaurants';
 import { RestaurantsSuccess } from '#firebase/declarations/types';
 

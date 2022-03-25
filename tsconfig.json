@@ -34,7 +34,8 @@
 			"#pages/*": ["pages/*"],
 			"#public/*": ["public/*"],
 			"#styles/*": ["styles/*"],
-			"#redux/*": ["redux/*"]
+			"#redux/*": ["redux/*"],
+			"#utils/*": ["utils/*"]
 		}
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

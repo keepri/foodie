@@ -8,7 +8,7 @@ import styles from './RegisterForm.module.scss';
 import Input from '#components/Input/Input';
 import { getLang } from '#controllers/getLang';
 import { registerUser } from '#controllers/registerUser';
-import { reEmail, rePhone } from 'utils/misc';
+import { reEmail, rePhone } from '#utils/misc';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { authRef } from '#firebase/initClientApp';
 import Checkbox from '#components/Checkbox/Checkbox';

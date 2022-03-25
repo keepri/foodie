@@ -2,7 +2,7 @@ import React from 'react';
 
 import { AuthErrorCodes, signInWithEmailAndPassword } from 'firebase/auth';
 import { authRef } from '#firebase/initClientApp';
-import { reEmail } from 'utils/misc';
+import { reEmail } from '#utils/misc';
 
 import Input from '#components/Input/Input';
 import Button from '#components/Buttons/Button';

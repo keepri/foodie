@@ -10,7 +10,7 @@ import { ReduxState } from '#declarations/types/Redux';
 import { subscribeOnAuthChange } from '#controllers/subscribeOnAuthChange';
 
 import { DESCRIPTION, KEYWORDS, OG_DESCRIPTION, OG_TITLE, TITLE } from '#declarations/enums/Head';
-import { baseUrl, siteName } from 'utils/misc';
+import { baseUrl, siteName } from '#utils/misc';
 
 interface Props {
 	keywords?: KEYWORDS;

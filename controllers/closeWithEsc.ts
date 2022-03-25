@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 
 import React from 'react';
-import { isClientSide } from 'utils/misc';
+import { isClientSide } from '#utils/misc';
 
 export { closeWithEsc };
 

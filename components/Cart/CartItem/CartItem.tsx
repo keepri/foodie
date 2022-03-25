@@ -8,7 +8,7 @@ import styles from './CartItem.module.scss';
 
 import { useCartActions } from '#redux/actions';
 import Image from 'next/image';
-import { defaultItemPhoto } from 'utils/misc';
+import { defaultItemPhoto } from '#utils/misc';
 import { useSelector } from 'react-redux';
 import { ReduxState } from '#declarations/types/Redux';
 import { getLang } from '#controllers/getLang';

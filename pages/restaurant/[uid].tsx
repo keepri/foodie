@@ -9,7 +9,7 @@ import type {
 	NextPage,
 } from 'next';
 import axios, { AxiosResponse } from 'axios';
-import { URLS } from 'utils/misc';
+import { URLS } from '#utils/misc';
 import { MenusSuccess, RestaurantsSuccess, RestaurantSuccess } from '#firebase/declarations/types';
 import { MenuSchema, RestaurantSchema } from '#firebase/declarations/schemas';
 import { useRouter } from 'next/router';

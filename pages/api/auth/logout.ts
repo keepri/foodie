@@ -6,7 +6,7 @@ import { LogoutReturnType } from '#firebase/declarations/types';
 import { handleError } from '#controllers/api/handleError';
 import { verifyToken } from '#controllers/api/validation/verifyToken';
 import { destroyCookie } from 'nookies';
-import { defaultCookieOptions } from 'utils/misc';
+import { defaultCookieOptions } from '#utils/misc';
 
 // import nodemailer from 'nodemailer';
 

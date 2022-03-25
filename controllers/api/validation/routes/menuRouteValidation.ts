@@ -3,7 +3,7 @@ import { MESSAGES } from '#firebase/declarations/enums';
 import { MenuSchema } from '#firebase/declarations/schemas';
 import { MenusRequestBody } from '#firebase/declarations/types';
 import { NextApiRequest } from 'next';
-import { baseMenu } from 'utils/baseForms';
+import { baseMenu } from '#utils/baseForms';
 import { objectContainsSameKeys } from '../objectContainsSameKeys';
 import { verifyToken } from '../verifyToken';
 
