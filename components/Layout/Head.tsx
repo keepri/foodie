@@ -55,7 +55,7 @@ const Head: React.FC<Props> = ({
 			{/* OG METADATA */}
 			<meta property='og:title' content={ogTitle} key='ogtitle' />
 			<meta property='og:type' content='website' key='ogtype' />
-			<meta property='og:image' content={previewImage ?? '/preview.jpeg'} key='ogimage' />
+			<meta property='og:image' content={previewImage ?? '/preview-jpeg.jpeg'} key='ogimage' />
 			{url && <meta property='og:url' content={url} key='ogurl' />}
 			<meta property='og:locale' content={locale ?? 'ro_RO'} key='oglocale' />
 			<meta property='og:description' content={ogDesc} key='ogdesc' />

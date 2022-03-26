@@ -24,7 +24,7 @@ const RatingIndicator: React.FC<Props> = ({ rating, type, compact, className, ..
 				<>
 					<p className={styles['rating-indicator-number']}>{rating}</p>
 					<Image
-						src={'/star-filled.png'}
+						src={'/images/star-filled-png.png'}
 						width={indicatorSizeCompact}
 						height={indicatorSizeCompact}
 						objectFit='contain'
@@ -36,7 +36,7 @@ const RatingIndicator: React.FC<Props> = ({ rating, type, compact, className, ..
 				noOfIndicators.map((_, index) =>
 					index < rating ? (
 						<Image
-							src={'/star-filled.png'}
+							src={'/images/star-filled-png.png'}
 							width={indicatorSize}
 							height={indicatorSize}
 							objectFit='contain'
@@ -45,7 +45,7 @@ const RatingIndicator: React.FC<Props> = ({ rating, type, compact, className, ..
 						/>
 					) : (
 						<Image
-							src={'/star-empty.png'}
+							src={'/images/star-empty-png.png'}
 							width={indicatorSize}
 							height={indicatorSize}
 							objectFit='contain'

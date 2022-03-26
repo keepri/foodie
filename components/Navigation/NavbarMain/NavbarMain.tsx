@@ -40,7 +40,7 @@ const Navbar: React.FC<Props> = ({ className, ...rest }) => {
 				{/* CART */}
 				<li>
 					<Link href={URLS.CART} tooltip={lang.cartTooltip} badge={cartItemCount}>
-						<Icon icon={'/icons/cloche.svg'} size='medium' />
+						<Icon icon={'/images/icons/cloche-svg.svg'} size='medium' />
 					</Link>
 				</li>
 
@@ -49,7 +49,7 @@ const Navbar: React.FC<Props> = ({ className, ...rest }) => {
 				{isLogged && (
 					<li>
 						<Link href={URLS.ORDERS} tooltip={lang.ordersTooltip}>
-							<Icon icon={'/icons/orders.svg'} size='medium' />
+							<Icon icon={'/images/icons/orders-svg.svg'} size='medium' />
 						</Link>
 					</li>
 				)}
@@ -58,7 +58,7 @@ const Navbar: React.FC<Props> = ({ className, ...rest }) => {
 				{isLogged && (
 					<li>
 						<Link href={URLS.SETTINGS} tooltip={lang.settingsTooltip}>
-							<Icon icon={'/icons/settings.svg'} size='medium' />
+							<Icon icon={'/images/icons/settings-svg.svg'} size='medium' />
 						</Link>
 					</li>
 				)}
@@ -67,7 +67,7 @@ const Navbar: React.FC<Props> = ({ className, ...rest }) => {
 				{isLogged && (
 					<li>
 						<Button simple onMouseUp={() => logoutUserAuth()} tooltip={lang.signOutTooltip}>
-							<Icon icon={'/icons/sign-out.svg'} size='medium' />
+							<Icon icon={'/images/icons/sign-out-svg.svg'} size='medium' />
 						</Button>
 					</li>
 				)}
@@ -78,7 +78,7 @@ const Navbar: React.FC<Props> = ({ className, ...rest }) => {
 					<>
 						<li className={styles['navbar-sign-in']}>
 							<Link href={URLS.LOGIN}>
-								<Icon icon={'/icons/profile.svg'} size='medium' />
+								<Icon icon={'/images/icons/profile-svg.svg'} size='medium' />
 								{lang.signIn}
 							</Link>
 						</li>

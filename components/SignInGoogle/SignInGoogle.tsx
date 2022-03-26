@@ -26,7 +26,7 @@ const SignInGoogle: React.FC<Props> = ({ className, fullWidth, text, onMouseUp, 
 			onMouseUp={handleGoogleSignIn}
 			{...rest}
 		>
-			<Image src={'/icons/google.svg'} width={20} height={20} alt='google-icon' />
+			<Image src={'/images/icons/google-svg.svg'} width={20} height={20} alt='google-icon' />
 			{text ?? lang.signInWithGoogle}
 		</button>
 	);

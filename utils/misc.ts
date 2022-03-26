@@ -25,11 +25,9 @@ const baseUrl = isProduction ? 'http://localhost:3000' : 'http://localhost:3000'
 {
 	/* TODO change default restaurant photo */
 }
-// const defaultRestaurantPhoto = '/default-restaurant.jpg';
-// const defaultRestaurantLogo = '/restaurant-logo.webp';
-const defaultRestaurantPhoto = '/default-restaurant-white.png';
-const defaultItemPhoto = '/default-food-item.jpg';
-const defaultRestaurantLogo = '/pizza-hut-logo.png';
+const defaultRestaurantPhoto = '/images/default-restaurant-jpg.jpg';
+const defaultItemPhoto = '/images/default-food-item-jpg.jpg';
+const defaultRestaurantLogo = '/images/default-logo-png.png';
 
 // URLS
 const URLS = {
@@ -56,7 +54,7 @@ const URLS = {
 
 // MISC
 // TODO update to correct domain
-const domain = isProduction ? 'localhost' : 'localhost';
+const domain = isProduction ? (typeof location !== 'undefined' ? location.host : undefined) : 'localhost';
 const siteName = 'Foodie';
 const reEmail =
 	/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

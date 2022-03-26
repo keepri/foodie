@@ -105,7 +105,7 @@ const ItemCard: React.FC<Props> = ({ className, item, index, onItemNotAv, ...res
 					{itemIsInCart && (
 						<>
 							{' '}
-							<Image src={'/icons/checked.svg'} alt='added' width={15} height={15} />
+							<Image src={'/images/icons/checked-svg.svg'} alt='added' width={15} height={15} />
 						</>
 					)}
 				</h3>
@@ -120,7 +120,13 @@ const ItemCard: React.FC<Props> = ({ className, item, index, onItemNotAv, ...res
 						{price} {currency}
 					</p>
 					{!itemIsInCart && restaurantIsOpen && !itemIsUnavailable && (
-						<Image width={15} height={15} src={'/icons/plus.svg'} alt='add' onMouseUp={e => handleAddToCart(e)} />
+						<Image
+							width={15}
+							height={15}
+							src={'/images/icons/plus-svg.svg'}
+							alt='add'
+							onMouseUp={e => handleAddToCart(e)}
+						/>
 					)}
 				</div>
 			</div>

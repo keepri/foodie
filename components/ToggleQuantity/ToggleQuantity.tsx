@@ -23,14 +23,14 @@ const ToggleQuantity: React.FC<Props> = ({ className, quantity, horizontal, onTo
 			{...rest}
 		>
 			<div className={styles['toggle-image']}>
-				<Image src={'/icons/arrow.svg'} alt='arrow-up' layout='fill' onClick={() => onToggle(1)} />
+				<Image src={'/images/icons/arrow-svg.svg'} alt='arrow-up' layout='fill' onClick={() => onToggle(1)} />
 			</div>
 
 			<p className={styles['toggle-quantity']}>{quantity}</p>
 
 			<div className={[styles['toggle-image'], quantity === 1 && styles['toggle-image-one']].join(' ')}>
 				<Image
-					src={quantity === 1 ? '/icons/trash.svg' : '/icons/arrow.svg'}
+					src={quantity === 1 ? '/images/icons/trash-svg.svg' : '/images/icons/arrow-svg.svg'}
 					alt='arrow-down'
 					layout='fill'
 					onClick={() => onToggle(-1)}
