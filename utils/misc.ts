@@ -18,6 +18,10 @@ export {
 	defaultRestaurantPhoto,
 	defaultRestaurantLogo,
 	defaultItemPhoto,
+	foodieLogo,
+	ratingStarFilled,
+	ratingStarEmpty,
+	closeX,
 };
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -25,9 +29,13 @@ const baseUrl = isProduction ? 'http://localhost:3000' : 'http://localhost:3000'
 {
 	/* TODO change default restaurant photo */
 }
-const defaultRestaurantPhoto = '/images/default-restaurant-jpg.jpg';
-const defaultItemPhoto = '/images/default-food-item-jpg.jpg';
-const defaultRestaurantLogo = '/images/default-logo-png.png';
+const defaultRestaurantPhoto = require('#images/default-restaurant-jpg.jpg');
+const defaultItemPhoto = require('#images/default-food-item-jpg.jpg');
+const defaultRestaurantLogo = require('#images/default-logo-png.png');
+const foodieLogo = require('#images/f-png.png');
+const ratingStarFilled = require('#images/star-filled-png.png');
+const ratingStarEmpty = require('#images/star-empty-png.png');
+const closeX = require('#images/close-png.png');
 
 // URLS
 const URLS = {

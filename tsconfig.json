@@ -35,7 +35,8 @@
 			"#public/*": ["public/*"],
 			"#styles/*": ["styles/*"],
 			"#redux/*": ["redux/*"],
-			"#utils/*": ["utils/*"]
+			"#utils/*": ["utils/*"],
+			"#images/*": ["public/images/*"]
 		}
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "next.config.js"],

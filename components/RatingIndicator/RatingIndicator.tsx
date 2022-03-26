@@ -1,3 +1,4 @@
+import { ratingStarEmpty, ratingStarFilled } from '#utils/misc';
 import Image from 'next/image';
 import React from 'react';
 
@@ -24,7 +25,7 @@ const RatingIndicator: React.FC<Props> = ({ rating, type, compact, className, ..
 				<>
 					<p className={styles['rating-indicator-number']}>{rating}</p>
 					<Image
-						src={'/images/star-filled-png.png'}
+						src={ratingStarFilled}
 						width={indicatorSizeCompact}
 						height={indicatorSizeCompact}
 						objectFit='contain'
@@ -36,7 +37,7 @@ const RatingIndicator: React.FC<Props> = ({ rating, type, compact, className, ..
 				noOfIndicators.map((_, index) =>
 					index < rating ? (
 						<Image
-							src={'/images/star-filled-png.png'}
+							src={ratingStarFilled}
 							width={indicatorSize}
 							height={indicatorSize}
 							objectFit='contain'
@@ -45,7 +46,7 @@ const RatingIndicator: React.FC<Props> = ({ rating, type, compact, className, ..
 						/>
 					) : (
 						<Image
-							src={'/images/star-empty-png.png'}
+							src={ratingStarEmpty}
 							width={indicatorSize}
 							height={indicatorSize}
 							objectFit='contain'

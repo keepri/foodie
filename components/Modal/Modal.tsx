@@ -1,4 +1,5 @@
 import { closeWithEsc } from '#controllers/closeWithEsc';
+import { closeX } from '#utils/misc';
 import Image from 'next/image';
 import React from 'react';
 
@@ -46,7 +47,7 @@ const Modal: React.FC<Props> = ({
 						</div>
 					)}
 					<Image
-						src={'/images/close-png.png'}
+						src={closeX}
 						width={20}
 						height={20}
 						objectFit='contain'
