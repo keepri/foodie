@@ -11,12 +11,12 @@ import type { AppProps } from 'next/app';
 import { store } from '#redux/store';
 import axios from 'axios';
 
-import { baseUrl } from '#utils/misc';
+// import { baseUrl } from '#utils/misc';
 
 import Layout from '#modules/Layout/Layout';
 import Head from '#components/Layout/Head';
 
-axios.defaults.baseURL = baseUrl;
+// axios.defaults.baseURL = baseUrl;
 axios.defaults.withCredentials = true;
 
 const Foodie = ({ Component, pageProps }: AppProps) => {
