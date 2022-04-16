@@ -18,6 +18,6 @@ const privateRoute = ({ whenIsLoggedIs, disabled }: Props) => {
 	const { replace } = useRouter();
 
 	React.useEffect(() => {
-		isLogged === whenIsLoggedIs && !disabled && replace(URLS.HOME);
+		isLogged === whenIsLoggedIs && !disabled && replace(URLS.LOGIN);
 	}, [isLogged, disabled, whenIsLoggedIs]);
 };

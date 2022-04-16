@@ -9,10 +9,13 @@ import styles from '#styles/pages/SettingsPage.module.scss';
 import { SETTINGS_ROUTES } from '#declarations/enums/SettingsRoutes';
 
 import NavbarDashboard from '#components/Navigation/NavbarDashboard/NavbarDashboard';
+import { privateRoute } from '#controllers/validation/privateRoute';
 
 interface Props {}
 
 const SettingsPage: NextPage<Props> = ({}) => {
+	privateRoute({ whenIsLoggedIs: false });
+
 	const possibleRoutes: string[] = useRef([SETTINGS_ROUTES.ACCOUNT]).current;
 
 	const {
