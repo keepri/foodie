@@ -15,6 +15,7 @@ export {
 	reEmail,
 	rePhone,
 	URLS,
+	defaultLanguage,
 	defaultRestaurantPhoto,
 	defaultRestaurantLogo,
 	defaultItemPhoto,
@@ -40,6 +41,7 @@ const foodieLogo = require('#images/f-png.png');
 const ratingStarFilled = require('#images/star-filled-png.png');
 const ratingStarEmpty = require('#images/star-empty-png.png');
 const closeX = require('#images/close-png.png');
+const defaultLanguage = Langs.en;
 
 // URLS
 const URLS = {
