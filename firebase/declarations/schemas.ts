@@ -5,6 +5,7 @@ export interface ClientSchema {
 	name: string;
 	phone: string;
 	addresses?: Address[];
+	primaryAddressIndex?: number;
 	orders: string[];
 }
 
@@ -14,6 +15,7 @@ export interface RestaurantSchema {
 	name: string;
 	phone: string;
 	addresses: Address[];
+	primaryAddressIndex?: number;
 	costs: RestaurantCosts;
 	rating: number;
 	hours: OpenHours;
@@ -22,6 +24,8 @@ export interface RestaurantSchema {
 	description?: string;
 	orders: string[];
 }
+
+export type UserType = ClientSchema | RestaurantSchema;
 
 export interface OrderSchema {
 	uid: string;

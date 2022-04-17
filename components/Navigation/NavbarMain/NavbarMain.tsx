@@ -60,7 +60,7 @@ const Navbar: React.FC<Props> = ({ className, ...rest }) => {
 						</li>
 						{/* SETTINGS */}
 						<li>
-							<Link href={URLS.SETTINGS} tooltip={lang.settingsTooltip}>
+							<Link href={URLS.SETTINGS_ACCOUNT} tooltip={lang.settingsTooltip}>
 								<Icon icon={'/images/icons/settings-svg.svg'} size='medium' />
 							</Link>
 						</li>

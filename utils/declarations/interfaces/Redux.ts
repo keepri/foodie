@@ -3,12 +3,13 @@ import { Langs } from '#declarations/enums/Langs';
 import { CartActionType, AuthActionType, AppActionType } from '#declarations/enums/Redux';
 import { SETTINGS_ROUTES } from '#declarations/enums/SettingsRoutes';
 import { MenuItem } from '#firebase/declarations/interfaces';
-import { ClientSchema, OrderSchema, RestaurantSchema } from '#firebase/declarations/schemas';
+import { ClientSchema, OrderSchema, RestaurantSchema, UserType } from '#firebase/declarations/schemas';
 import { Unsubscribe } from 'firebase/auth';
 
 // --- STATE ---
 export interface SettingsPageAppState {
-	routeSelected: SETTINGS_ROUTES;
+	user?: UserType;
+	onRoute?: SETTINGS_ROUTES;
 }
 export interface AppState {
 	currency: CURRENCY;

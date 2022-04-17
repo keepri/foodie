@@ -54,8 +54,7 @@ const URLS = {
 	CART: '/cart',
 	RESTAURANT: '/restaurant',
 	ORDERS: '/orders',
-	SETTINGS: '/settings',
-	// SETTINGS_ACCOUNT: `${baseUrl}/settings/account`,
+	SETTINGS_ACCOUNT: '/settings',
 
 	// API
 	API_REGISTER: '/api/auth/register',
@@ -103,14 +102,9 @@ const defaultCookieOptions: CookieSerializeOptions = {
 const cors = Cors({
 	methods: ['GET', 'HEAD'],
 });
-// export interface SettingsPageState {
-// 		routeSelected: SETTINGS_ROUTES.ACCOUNT,
-// 	}
 
 // REDUX INIT STATES
-export const settingsPageInitState: SettingsPageAppState = {
-	routeSelected: SETTINGS_ROUTES.ACCOUNT,
-};
+export const settingsPageInitState: SettingsPageAppState = {};
 export const initAppState: AppState = {
 	currency: CURRENCY.RON,
 	loading: false,

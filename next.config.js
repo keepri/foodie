@@ -1,5 +1,4 @@
 /** @type {import('next').NextConfig} */
-const { URLS } = require('#utils/misc');
 const { relative, join } = require('path');
 
 module.exports = {
@@ -8,8 +7,8 @@ module.exports = {
 	async redirects() {
 		return [
 			{
-				source: '[[...settingsRoute]]',
-				destination: URLS.LOGIN,
+				source: '/settings/[[...settingsRoute]]',
+				destination: '/login',
 				permanent: true,
 			},
 		];

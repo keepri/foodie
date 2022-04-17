@@ -1,26 +1,26 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 
 import styles from './SettingsHeader.module.scss';
-import { ReduxState } from '#declarations/types/Redux';
 import { firstToUpper } from '#controllers/text/firstToUpper';
-import { SETTINGS_ROUTES } from '#declarations/enums/SettingsRoutes';
 import { getLang } from '#controllers/getLang';
+import { SETTINGS_ROUTES } from '#declarations/enums/SettingsRoutes';
+import { ReduxState } from '#declarations/types/Redux';
+import { useSelector } from 'react-redux';
 
 interface Props {}
 
 const SettingsHeader: React.FC<Props> = ({}) => {
 	const lang = getLang();
 
-	const settingsHeaderTitles = React.useRef({ [SETTINGS_ROUTES.ACCOUNT]: lang.accountTitle }).current;
-
 	const {
 		app: {
-			settingsPage: { routeSelected },
+			settingsPage: { onRoute },
 		},
 	} = useSelector(({ app }: ReduxState) => ({ app }));
 
-	const title = React.useMemo(() => firstToUpper(settingsHeaderTitles[routeSelected]), [routeSelected]);
+	const settingsHeaderTitles = React.useRef({ [SETTINGS_ROUTES.ACCOUNT]: lang.accountTitle }).current;
+
+	const title = React.useMemo(() => (onRoute ? firstToUpper(settingsHeaderTitles[onRoute]) : ''), [onRoute]);
 
 	return (
 		<section className={styles['settings-header-container']}>
