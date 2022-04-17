@@ -25,6 +25,11 @@ export const appReducer = (state: AppState = initAppState, action: AppAction): A
 			return { ...state, restaurants: action.payload };
 		}
 
+		// SET_SETTINGS_PAGE_ROUTE
+		case AppActionType.SET_SETTINGS_PAGE: {
+			return { ...state, settingsPage: { ...state.settingsPage, ...action.payload } };
+		}
+
 		// SET_SELECTED_RESTAURANT
 		case AppActionType.SET_SELECTED_RESTAURANT: {
 			return { ...state, selectedRestaurant: action.payload };

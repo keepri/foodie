@@ -1,17 +1,22 @@
 import { CURRENCY } from '#declarations/enums/Currency';
 import { Langs } from '#declarations/enums/Langs';
 import { CartActionType, AuthActionType, AppActionType } from '#declarations/enums/Redux';
+import { SETTINGS_ROUTES } from '#declarations/enums/SettingsRoutes';
 import { MenuItem } from '#firebase/declarations/interfaces';
 import { ClientSchema, OrderSchema, RestaurantSchema } from '#firebase/declarations/schemas';
 import { Unsubscribe } from 'firebase/auth';
 
 // --- STATE ---
+export interface SettingsPageAppState {
+	routeSelected: SETTINGS_ROUTES;
+}
 export interface AppState {
 	currency: CURRENCY;
 	loading: boolean;
 	appLang: Langs;
 	restaurants?: RestaurantSchema[];
 	selectedRestaurant: RestaurantSchema | null;
+	settingsPage: SettingsPageAppState;
 	unsubscribeOnAuthChange?: Unsubscribe;
 }
 
@@ -32,6 +37,7 @@ export type AppSetOnAuthChangeSubPayload = Unsubscribe;
 export type AppSetLangPayload = Langs;
 export type AppSetSelectedRestaurantPayload = RestaurantSchema | null;
 export type AppSetRestaurantsPayload = RestaurantSchema[];
+export type AppSetSettingsPagePayload = Partial<SettingsPageAppState>;
 export type AuthSetLoadingPayload = boolean;
 export type AuthSetIsLoggedPayload = boolean;
 export type AuthUpdateUserPayload = Partial<ClientSchema>;
@@ -63,6 +69,11 @@ export interface AppSetLangAction {
 export interface AppSetRestaurantsAction {
 	type: AppActionType.SET_RESTAURANTS;
 	payload: AppSetRestaurantsPayload;
+}
+
+export interface AppSetSettingsPageAction {
+	type: AppActionType.SET_SETTINGS_PAGE;
+	payload: AppSetSettingsPagePayload;
 }
 
 export interface AppSetSelectedRestaurantAction {

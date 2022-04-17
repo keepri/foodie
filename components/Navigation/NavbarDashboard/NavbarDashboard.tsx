@@ -5,16 +5,23 @@ import styles from './NavbarDashboard.module.scss';
 import Link from '#components/Buttons/Link';
 import { SETTINGS_ROUTES } from '#declarations/enums/SettingsRoutes';
 import { getLang } from '#controllers/getLang';
+import { useSelector } from 'react-redux';
+import { ReduxState } from '#declarations/types/Redux';
 
 interface Props extends React.HTMLAttributes<HTMLElement> {
 	compact?: boolean;
-	routeSelected: SETTINGS_ROUTES;
 }
 
-const NavbarDashboard: React.FC<Props> = ({ className, compact, routeSelected }) => {
+const NavbarDashboard: React.FC<Props> = ({ className, compact }) => {
 	const lang = getLang();
 
-	const listItems = useRef([{ label: lang.account, href: SETTINGS_ROUTES.ACCOUNT }]).current;
+	const listItems = useRef([{ label: lang.account, href: `/settings/${SETTINGS_ROUTES.ACCOUNT}` }]).current;
+
+	const {
+		app: {
+			settingsPage: { routeSelected },
+		},
+	} = useSelector(({ app }: ReduxState) => ({ app }));
 
 	return (
 		<aside className={[styles['navbar-dashboard'], className].join(' ')}>
@@ -25,7 +32,7 @@ const NavbarDashboard: React.FC<Props> = ({ className, compact, routeSelected })
 							key={`settings-dashboard-nav-item-${index + 1}`}
 							className={[styles.listItem, routeSelected === href && styles.listItemSelected].join(' ')}
 						>
-							<Link className={[styles.listItemLink].join(' ')} underline={routeSelected === href} href={href}>
+							<Link className={[styles.listItemLink].join(' ')} underline={href.includes(routeSelected)} href={href}>
 								{!compact && label}
 							</Link>
 						</li>

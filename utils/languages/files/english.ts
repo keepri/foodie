@@ -72,4 +72,7 @@ export const english = {
 	alreadyHaveAccount: 'Already have an account?',
 	signUpNow: 'Sign up now',
 	or: 'or',
+
+	// SETTINGS HEADER TITLES
+	accountTitle: 'Account',
 };

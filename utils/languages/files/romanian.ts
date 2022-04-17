@@ -72,4 +72,7 @@ export const romanian = {
 	alreadyHaveAccount: 'Already have an account?',
 	signUpNow: 'Sign up now',
 	or: 'or',
+
+	// SETTINGS HEADER TITLES
+	accountTitle: 'Contul meu',
 };

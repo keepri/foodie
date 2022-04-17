@@ -25,6 +25,7 @@ import {
 	AuthLogoutAction,
 	AuthLoginAction,
 	AuthUpdateUserAction,
+	AppSetSettingsPageAction,
 } from '#declarations/interfaces/Redux';
 
 export type { ReduxState, CartAction, AuthAction, AppAction };
@@ -37,7 +38,8 @@ type AppAction =
 	| AppResetAction
 	| AppSetOnAuthChangeSubAction
 	| AppSetRestaurantsAction
-	| AppSetSelectedRestaurantAction;
+	| AppSetSelectedRestaurantAction
+	| AppSetSettingsPageAction;
 type CartAction =
 	| CartSetLoadingAction
 	| CartAddItemAction

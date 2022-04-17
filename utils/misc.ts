@@ -1,6 +1,7 @@
 import { CURRENCY } from '#declarations/enums/Currency';
 import { Langs } from '#declarations/enums/Langs';
-import { AppState, AuthState, CartState } from '#declarations/interfaces/Redux';
+import { SETTINGS_ROUTES } from '#declarations/enums/SettingsRoutes';
+import { AppState, AuthState, CartState, SettingsPageAppState } from '#declarations/interfaces/Redux';
 import { CookieSerializeOptions } from 'cookie';
 import Cors from 'cors';
 import { baseClient, baseOrder } from './baseForms';
@@ -15,6 +16,7 @@ export {
 	reEmail,
 	rePhone,
 	URLS,
+	settingsPagePossibleRoutes,
 	defaultLanguage,
 	defaultRestaurantPhoto,
 	defaultRestaurantLogo,
@@ -74,6 +76,7 @@ const reEmail =
 	/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const rePhone =
 	/^(\+4|)?(07[0-8]{1}[0-9]{1}|02[0-9]{2}|03[0-9]{2}){1}?(\s|\.|\-)?([0-9]{3}(\s|\.|\-|)){2}$/gim;
+const settingsPagePossibleRoutes: SETTINGS_ROUTES[] = [SETTINGS_ROUTES.ACCOUNT];
 
 // FIREBASE
 const firebaseConfig = {
@@ -100,13 +103,20 @@ const defaultCookieOptions: CookieSerializeOptions = {
 const cors = Cors({
 	methods: ['GET', 'HEAD'],
 });
+// export interface SettingsPageState {
+// 		routeSelected: SETTINGS_ROUTES.ACCOUNT,
+// 	}
 
 // REDUX INIT STATES
+export const settingsPageInitState: SettingsPageAppState = {
+	routeSelected: SETTINGS_ROUTES.ACCOUNT,
+};
 export const initAppState: AppState = {
 	currency: CURRENCY.RON,
 	loading: false,
 	appLang: Langs.en,
 	selectedRestaurant: null,
+	settingsPage: settingsPageInitState,
 };
 
 export const initAuthState: AuthState = {

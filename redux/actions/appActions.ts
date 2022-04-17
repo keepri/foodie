@@ -10,6 +10,7 @@ import {
 	AppSetOnAuthChangeSubPayload,
 	AppSetRestaurantsPayload,
 	AppSetSelectedRestaurantPayload,
+	AppSetSettingsPagePayload,
 } from '#declarations/interfaces/Redux';
 import { RestaurantSchema } from '#firebase/declarations/schemas';
 import axios, { AxiosResponse } from 'axios';
@@ -33,6 +34,9 @@ const setSelectedRestaurantApp =
 
 const setRestaurantsApp = (payload: AppSetRestaurantsPayload) => (dispatch: Dispatch<AppAction>) =>
 	dispatch({ type: AppActionType.SET_RESTAURANTS, payload });
+
+const setSettingsPageApp = (payload: AppSetSettingsPagePayload) => (dispatch: Dispatch<AppAction>) =>
+	dispatch({ type: AppActionType.SET_SETTINGS_PAGE, payload });
 
 const toggleDarkModeApp = () => (dispatch: Dispatch<AppAction>) =>
 	dispatch({ type: AppActionType.TOGGLE_DARK_MODE });
@@ -67,6 +71,7 @@ const appActions = () =>
 			resetStateApp,
 			setOnAuthChangeSubApp,
 			setSelectedRestaurantApp,
+			setSettingsPageApp,
 			setRestaurantsApp,
 			loadRestaurants,
 		},

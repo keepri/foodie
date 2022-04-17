@@ -1,11 +1,18 @@
 /** @type {import('next').NextConfig} */
+const { URLS } = require('#utils/misc');
 const { relative, join } = require('path');
 
 module.exports = {
 	distDir: `${relative(process.cwd(), __dirname)}.next`,
 	cssModules: true,
 	async redirects() {
-		return [];
+		return [
+			{
+				source: '[[...settingsRoute]]',
+				destination: URLS.LOGIN,
+				permanent: true,
+			},
+		];
 	},
 	images: {
 		domains: ['firebasestorage.googleapis.com'],

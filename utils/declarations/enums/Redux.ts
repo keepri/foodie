@@ -2,6 +2,7 @@ export { AppActionType, CartActionType, AuthActionType };
 
 enum AppActionType {
 	SET_LOADING = 'app_set_loading',
+	SET_SETTINGS_PAGE = 'app_set_settings_page',
 	SET_ON_AUTH_CHANGE_SUB = 'app_set_on_auth_change_sub',
 	SET_LANG = 'app_set_lang',
 	SET_SELECTED_RESTAURANT = 'app_set_selected_restaurant',
