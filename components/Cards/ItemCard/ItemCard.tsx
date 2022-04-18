@@ -50,7 +50,9 @@ const ItemCard: React.FC<Props> = ({ className, item, index, onItemNotAv, ...res
 				return;
 			}
 
-			const itemStatusDb = await getMenuItemStatus(selectedRestaurant?.uid ?? '', item.uid);
+			// TODO - uncomment this
+			// const itemStatusDb = await getMenuItemStatus(selectedRestaurant?.uid ?? '', item.uid);
+			const itemStatusDb = true;
 
 			if (!itemStatusDb) {
 				item.status = MENU_ITEM_STATUS.UNAVAILABLE;

@@ -4,7 +4,7 @@ import NavbarDashboard from '#components/Navigation/NavbarDashboard/NavbarDashbo
 
 import styles from '#styles/pages/SettingsPage.module.scss';
 import SettingsAccount from '#modules/Settings/SettingsAccount/SettingsAccount';
-import SettingsHeader from '#components/SettingsHeader/SettingsHeader';
+// import SettingsHeader from '#components/SettingsHeader/SettingsHeader';
 import { SETTINGS_ROUTES } from '#declarations/enums/SettingsRoutes';
 import { UserType } from '#firebase/declarations/schemas';
 import { validateUserServerSide } from '#controllers/validation/validateUserServerSide';
@@ -18,14 +18,16 @@ const SettingsPageAccount: NextPage<Props> = ({ user }) => {
 	const { setSettingsPageApp } = useAppActions();
 
 	React.useEffect(() => {
-		setSettingsPageApp({ user, onRoute: SETTINGS_ROUTES.ACCOUNT });
-	}, []);
+		if (user) {
+			setSettingsPageApp({ user, onRoute: SETTINGS_ROUTES.ACCOUNT });
+		}
+	}, [user]);
 
 	return (
 		<main className={styles.settingsPage}>
 			<NavbarDashboard />
 			<section className={styles['settingsPage-body']}>
-				<SettingsHeader />
+				{/* <SettingsHeader /> */}
 				<SettingsAccount />
 			</section>
 		</main>

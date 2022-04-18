@@ -1,0 +1,26 @@
+@use '#styles/variables.scss' as *;
+@use '#styles/colors.scss' as *;
+
+.account-info-container {
+  .personal-information {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: $radius;
+    border: 1px solid darken($light-grey, 7);
+    background-color: $light-grey;
+
+    span {
+      border-radius: 50% !important;
+    }
+
+    &-text {
+      margin: auto 0;
+
+      h4 {
+        font-size: 1.3rem;
+        font-weight: bold;
+      }
+    }
+  }
+}

@@ -25,6 +25,7 @@ export const english = {
 	forgotPass: 'Forgot password',
 	clear: 'Clear',
 	account: 'Account',
+	addAddress: 'Add address',
 
 	// ALERTS
 	alertEmail: 'Invalid email address',
@@ -75,4 +76,5 @@ export const english = {
 
 	// SETTINGS HEADER TITLES
 	accountTitle: 'Account',
+	addressesTitle: 'Addresses',
 };

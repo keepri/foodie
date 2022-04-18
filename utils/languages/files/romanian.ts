@@ -25,6 +25,7 @@ export const romanian = {
 	forgotPass: 'Am uitat parola',
 	clear: 'Goleste',
 	account: 'Contul meu',
+	addAddress: 'Adauga adresa',
 
 	// ALERTS
 	alertEmail: 'Invalid email address',

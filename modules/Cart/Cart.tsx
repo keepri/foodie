@@ -130,10 +130,13 @@ const Cart: React.FC<Props> = ({ className, page, onNoItems, onOrderSuccess, onO
 							<Button simple className={styles['cart-body-items-clear']} onMouseUp={handleClearItems}>
 								{lang.clear}
 							</Button>
-
-							{items.map((cartItem, index) => (
-								<CartItem className={styles['cart-item']} key={'cart-item-' + index} index={index} item={cartItem} />
-							))}
+							<ul className={styles['cart-body-items-list']}>
+								{items.map((cartItem, index) => (
+									<li key={'cart-item-' + index}>
+										<CartItem className={styles['cart-item']} index={index} item={cartItem} />
+									</li>
+								))}
+							</ul>
 						</>
 					)}
 				</div>

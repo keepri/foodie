@@ -16,13 +16,19 @@
 .cart-page {
 	display: grid;
 	grid-template-columns: 1fr 20rem;
+	
 
 	.cart-body {
 		padding: 0.5rem;
-
+		
 		&-items {
-			.cart-item + .cart-item {
-				margin-top: 1.75rem;
+
+			&-list {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+				column-gap: 1rem;
+				row-gap: 2rem;
+				list-style: none;
 			}
 
 			&-clear {

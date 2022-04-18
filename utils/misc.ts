@@ -18,6 +18,7 @@ export {
 	URLS,
 	settingsPagePossibleRoutes,
 	defaultLanguage,
+	defaultAvatar,
 	defaultRestaurantPhoto,
 	defaultRestaurantLogo,
 	defaultItemPhoto,
@@ -36,6 +37,7 @@ const baseUrl = isProduction
 {
 	/* TODO change default restaurant photo */
 }
+const defaultAvatar = require('#images/default-logo-png.png');
 const defaultRestaurantPhoto = require('#images/default-restaurant-jpg.jpg');
 const defaultItemPhoto = require('#images/default-food-item-jpg.jpg');
 const defaultRestaurantLogo = require('#images/default-logo-png.png');
