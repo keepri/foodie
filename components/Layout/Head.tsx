@@ -4,6 +4,8 @@ import { useRouter } from 'next/router';
 
 import { DESCRIPTION, KEYWORDS, OG_DESCRIPTION, OG_TITLE, TITLE } from '#declarations/enums/Head';
 import { siteName } from '#utils/misc';
+import { Langs } from '#declarations/enums/Langs';
+import { useAppActions } from '#redux/actions';
 
 interface Props {
 	keywords?: KEYWORDS;
@@ -22,8 +24,23 @@ const Head: React.FC<Props> = ({
 	ogDesc = OG_DESCRIPTION.HOME,
 	previewImage,
 }) => {
-	const { locale } = useRouter();
 	const url = typeof location !== 'undefined' && location.href;
+	const { locale } = useRouter();
+	const { setLangApp } = useAppActions();
+
+	React.useEffect(() => {
+		if (locale !== Langs.en) {
+			switch (locale) {
+				case Langs.ro: {
+					setLangApp(Langs.ro);
+					break;
+				}
+				default: {
+					break;
+				}
+			}
+		}
+	}, []);
 
 	return (
 		<NextHead>
