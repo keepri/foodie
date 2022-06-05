@@ -1,6 +1,6 @@
 import React from 'react';
 import { getLang } from '#controllers/getLang';
-import { firstToUpper } from '#controllers/text/firstToUpper';
+import { firstToUpper } from 'react-code-snippets';
 import { ReduxState } from '#declarations/types/Redux';
 import { OrderSchema } from '#firebase/declarations/schemas';
 import { useSelector } from 'react-redux';
@@ -23,10 +23,7 @@ const OrderCard: React.FC<Props> = ({ order, index, className, ...rest }) => {
 	const { uid, status, items, total, date, restaurant: restaurantUid } = order;
 	const orderDate = new Date(date);
 
-	const totalItems = React.useMemo(
-		() => items.reduce((curr, acc) => (curr += acc.quantity), 0),
-		[items.length],
-	);
+	const totalItems = React.useMemo(() => items.reduce((curr, acc) => (curr += acc.quantity), 0), [items.length]);
 	const restaurantName = React.useMemo(
 		() => restaurants?.filter(location => location.uid === restaurantUid)?.[0]?.name,
 		[restaurants?.length, restaurantUid],

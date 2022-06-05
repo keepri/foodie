@@ -8,7 +8,7 @@ import {
 } from 'next';
 import { baseClient } from '#utils/baseForms';
 // import { isSameUser } from '../isSameUser';
-import { objectContainsSameKeys } from '../objectContainsSameKeys';
+import { matchObjKeys } from 'react-code-snippets';
 import { verifyToken } from '../verifyToken';
 
 export { clientRouteValidation };
@@ -44,7 +44,7 @@ const clientRouteValidation = async (
 			throw Error(MESSAGES.CLIENTS_MANDATORY_FIELDS_DATA);
 		}
 
-		const { isValid, errorFields } = objectContainsSameKeys<ClientSchema>(data, baseClient);
+		const { isValid, errorFields } = matchObjKeys<ClientSchema>(data, baseClient);
 		if (!isValid) {
 			// res.status(400).json({ message: MESSAGES.ERROR, errorFields });
 			throw Error(MESSAGES.ERROR + errorFields);

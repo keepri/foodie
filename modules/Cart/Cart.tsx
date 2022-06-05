@@ -1,19 +1,24 @@
+import React from 'react';
+import { useRouter } from 'next/router';
+
+import { useSelector } from 'react-redux';
+import axios, { AxiosResponse } from 'axios';
+import { isObjPopulated } from 'react-code-snippets';
+
+import { useAuthActions, useCartActions } from '#redux/actions';
+import { URLS } from '#utils/misc';
+import { getLang } from '#controllers/getLang';
+
+import { ReduxState } from '#declarations/types/Redux';
+
 import Button from '#components/Buttons/Button';
 import Link from '#components/Buttons/Link';
 import CartItem from '#components/Cart/CartItem/CartItem';
-import { getLang } from '#controllers/getLang';
-import { isObjPopulated } from '#controllers/validation/isObjPopulated';
-import { ReduxState } from '#declarations/types/Redux';
+
 import { ORDER_STATUS } from '#firebase/declarations/enums';
 import { OrderSchema } from '#firebase/declarations/schemas';
 import { OrdersSuccess } from '#firebase/declarations/types';
 import { authRef } from '#firebase/initClientApp';
-import { useAuthActions, useCartActions } from '#redux/actions';
-import axios, { AxiosResponse } from 'axios';
-import { useRouter } from 'next/router';
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { URLS } from '#utils/misc';
 
 import styles from './Cart.module.scss';
 

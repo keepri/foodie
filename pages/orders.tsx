@@ -7,7 +7,7 @@ import { COOKIE_NAMES } from '#firebase/declarations/enums';
 
 import styles from '#styles/pages/OrdersPage.module.scss';
 
-import { parseTokenString } from '#controllers/api/validation/parseTokenString';
+import { parseToken } from 'react-code-snippets';
 
 import OrdersHeader from '#components/Headers/OrdersHeader/OrdersHeader';
 import Orders from '#modules/Orders/Orders';
@@ -36,7 +36,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 		if (!token) return { redirect: { destination: '/', statusCode: 301 } };
 
 		const checkRevoked = true;
-		const { tokenString } = parseTokenString(token);
+		const { tokenString } = parseToken(token);
 		const { uid } = await auth().verifyIdToken(tokenString, checkRevoked);
 		const { orders } = await getOrdersByUidServerSide(uid);
 

@@ -4,7 +4,7 @@ import { MenuSchema } from '#firebase/declarations/schemas';
 import { MenusRequestBody } from '#firebase/declarations/types';
 import { NextApiRequest } from 'next';
 import { baseMenu } from '#utils/baseForms';
-import { objectContainsSameKeys } from '../objectContainsSameKeys';
+import { matchObjKeys } from 'react-code-snippets';
 import { verifyToken } from '../verifyToken';
 
 export { menuRouteValidation };
@@ -28,7 +28,7 @@ const menuRouteValidation = async (req: NextApiRequest) => {
 				throw Error(MESSAGES.MENUS_MDANDATORY_FIELDS_DATA);
 			}
 
-			const { isValid, errorFields } = objectContainsSameKeys<MenuSchema>(data, baseMenu);
+			const { isValid, errorFields } = matchObjKeys<MenuSchema>(data, baseMenu);
 			if (!isValid) {
 				// res.status(400).json({ message: MESSAGES.ERROR, errorFields });
 				throw Error(MESSAGES.ERROR + errorFields);

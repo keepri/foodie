@@ -76,4 +76,5 @@ export const romanian = {
 
 	// SETTINGS HEADER TITLES
 	accountTitle: 'Contul meu',
+	addressesTitle: 'Adresele mele',
 };

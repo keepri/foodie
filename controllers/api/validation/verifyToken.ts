@@ -2,7 +2,7 @@ import { NextApiRequest } from 'next';
 
 import { COOKIE_NAMES, MESSAGES } from '#firebase/declarations/enums';
 import { auth } from '#firebase/initServerApp';
-import { parseTokenString } from './parseTokenString';
+import { parseToken } from 'react-code-snippets';
 
 export { verifyToken };
 
@@ -16,7 +16,7 @@ const verifyToken = async (req: NextApiRequest) => {
 		}
 
 		const checkRevoked = true;
-		const { pre, tokenString } = parseTokenString(token);
+		const { pre, tokenString } = parseToken(token);
 
 		if (pre !== 'Bearer' || !tokenString) {
 			// res.status(401).json({ message: MESSAGES.UNAUTHORIZED_TOKEN });

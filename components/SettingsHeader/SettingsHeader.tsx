@@ -1,7 +1,7 @@
 import React from 'react';
 
 import styles from './SettingsHeader.module.scss';
-import { firstToUpper } from '#controllers/text/firstToUpper';
+import { firstToUpper } from 'react-code-snippets';
 import { getLang } from '#controllers/getLang';
 import { SETTINGS_ROUTES } from '#declarations/enums/SettingsRoutes';
 import { ReduxState } from '#declarations/types/Redux';

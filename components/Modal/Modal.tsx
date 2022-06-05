@@ -1,7 +1,8 @@
-import { closeWithEsc } from '#controllers/closeWithEsc';
-import { closeX } from '#utils/misc';
-import Image from 'next/image';
 import React from 'react';
+import Image from 'next/image';
+
+import { closeWithEsc } from 'react-code-snippets';
+import { closeX } from '#utils/misc';
 
 import styles from './Modal.module.scss';
 
@@ -46,14 +47,7 @@ const Modal: React.FC<Props> = ({
 							<h1>{title}</h1>
 						</div>
 					)}
-					<Image
-						src={closeX}
-						width={20}
-						height={20}
-						objectFit='contain'
-						alt='close'
-						onMouseUp={() => handleClose()}
-					/>
+					<Image src={closeX} width={20} height={20} objectFit='contain' alt='close' onMouseUp={() => handleClose()} />
 				</header>
 				{(children || body) && (
 					<section className={styles['modal-body']}>

@@ -7,7 +7,7 @@ import {
 	// NextApiResponse
 } from 'next';
 import { baseReview } from '#utils/baseForms';
-import { objectContainsSameKeys } from '../objectContainsSameKeys';
+import { matchObjKeys } from 'react-code-snippets';
 import { verifyToken } from '../verifyToken';
 
 export { reviewRouteValidation };
@@ -44,7 +44,7 @@ const reviewRouteValidation = async (
 				throw Error(MESSAGES.REVIEWS_MDANDATORY_FIELDS_DATA);
 			}
 
-			const { isValid, errorFields } = objectContainsSameKeys<ReviewSchema>(data, baseReview);
+			const { isValid, errorFields } = matchObjKeys<ReviewSchema>(data, baseReview);
 			if (!isValid) {
 				// res.status(400).json({ message: MESSAGES.ERROR, errorFields });
 				throw Error(MESSAGES.ERROR + errorFields);

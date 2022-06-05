@@ -13,7 +13,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { authRef } from '#firebase/initClientApp';
 import Checkbox from '#components/Checkbox/Checkbox';
 import { InputChangeEvent } from '#declarations/types/Misc';
-// import { checkPasswordsMatch } from '#controllers/validation/checkPasswordsMatch';
+// import { matchStrings } from 'react-code-snippets';
 
 type FormErrors = {
 	emailErr: boolean;
@@ -35,13 +35,7 @@ interface Props extends React.FormHTMLAttributes<HTMLFormElement> {
 	onRegisterFail?: () => void;
 }
 
-const RegisterForm: React.FC<Props> = ({
-	className,
-	modalSuccess,
-	onRegisterSuccess,
-	onRegisterFail,
-	...rest
-}) => {
+const RegisterForm: React.FC<Props> = ({ className, modalSuccess, onRegisterSuccess, onRegisterFail, ...rest }) => {
 	const lang = getLang();
 
 	const { current: initForm } = React.useRef({
@@ -86,8 +80,7 @@ const RegisterForm: React.FC<Props> = ({
 	} = errors;
 
 	const handleChange = React.useCallback(
-		(e: React.ChangeEvent<HTMLInputElement>) =>
-			setForm(prevForm => ({ ...prevForm, [e.target.name]: e.target.value })),
+		(e: React.ChangeEvent<HTMLInputElement>) => setForm(prevForm => ({ ...prevForm, [e.target.name]: e.target.value })),
 		[],
 	);
 
@@ -149,7 +142,7 @@ const RegisterForm: React.FC<Props> = ({
 		const nameError = false;
 		const phoneError =
 			phone.length > 0 ? (phone.length >= 10 && phone.length <= 13 ? !rePhone.test(phone) : true) : false;
-		// const passwordsNoMatch = checkPasswordsMatch(password, confPassword);
+		// const passwordsNoMatch = matchStrings(password, confPassword);
 
 		setErrors({
 			emailErr: emailError,
@@ -251,12 +244,7 @@ const RegisterForm: React.FC<Props> = ({
 				onChange={handleChange}
 			/> */}
 			{/* SHOW PASS TOGGLE */}
-			<Checkbox
-				text={lang.showPass}
-				checked={showPass}
-				onCheck={handleShowPass}
-				className={styles.formShowPassCheckbox}
-			/>
+			<Checkbox text={lang.showPass} checked={showPass} onCheck={handleShowPass} className={styles.formShowPassCheckbox} />
 			<Button primary fullWidth type='submit' className={styles.formSubmit}>
 				{lang.signUp}
 			</Button>

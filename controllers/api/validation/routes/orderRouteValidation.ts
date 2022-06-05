@@ -4,7 +4,7 @@ import { OrderSchema } from '#firebase/declarations/schemas';
 import { OrdersRequestBody } from '#firebase/declarations/types';
 import { NextApiRequest } from 'next';
 import { baseOrder } from '#utils/baseForms';
-import { objectContainsSameKeys } from '../objectContainsSameKeys';
+import { matchObjKeys } from 'react-code-snippets';
 import { verifyToken } from '../verifyToken';
 
 export { orderRouteValidation };
@@ -28,7 +28,7 @@ const orderRouteValidation = async (req: NextApiRequest) => {
 			throw Error(MESSAGES.ORDERS_MANDATORY_FIELDS_UID_DATA);
 		}
 
-		const { isValid, errorFields } = objectContainsSameKeys<OrderSchema>(data, baseOrder);
+		const { isValid, errorFields } = matchObjKeys<OrderSchema>(data, baseOrder);
 		if (!isValid) {
 			// res.status(400).json({ message: MESSAGES.ERROR, errorFields });
 			throw Error(MESSAGES.ERROR + errorFields);
@@ -43,7 +43,7 @@ const orderRouteValidation = async (req: NextApiRequest) => {
 			throw Error(MESSAGES.ORDERS_MANDATORY_FIELDS_DATA);
 		}
 
-		const { isValid, errorFields } = objectContainsSameKeys<OrderSchema>(data, baseOrder, ['info']);
+		const { isValid, errorFields } = matchObjKeys<OrderSchema>(data, baseOrder, ['info']);
 		if (!isValid) {
 			// res.status(400).send({ message: MESSAGES.ERROR, errorFields });
 			throw Error(MESSAGES.ERROR + errorFields);
