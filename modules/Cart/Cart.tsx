@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 
-import { useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 import axios, { AxiosResponse } from 'axios';
 import { isObjPopulated } from 'react-code-snippets';
 
@@ -42,6 +42,7 @@ const Cart: React.FC<Props> = ({ className, page, onNoItems, onOrderSuccess, onO
 			},
 			app: { currency },
 		}: ReduxState) => ({ items, total, info, restaurant, isLogged, orders, currency }),
+		shallowEqual,
 	);
 
 	const { updateCart, resetCart } = useCartActions();

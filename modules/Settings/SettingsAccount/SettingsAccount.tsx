@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 
 import styles from './SettingsAccount.module.scss';
 import { ReduxState } from '#declarations/types/Redux';
@@ -15,6 +15,7 @@ const SettingsAccount: React.FC<Props> = ({}) => {
 				settingsPage: { user },
 			},
 		}: ReduxState) => ({ user }),
+		shallowEqual,
 	);
 
 	return (

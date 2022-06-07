@@ -14,7 +14,7 @@ import { useAppActions, useCartActions } from '#redux/actions';
 import { ParsedUrlQuery } from 'querystring';
 import Menu from '#modules/Menu/Menu';
 import RestaurantHeader from '#components/Headers/RestaurantHeader/RestaurantHeader';
-import { useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 import { ReduxState } from '#declarations/types/Redux';
 import { getRestaurantByUidServerSide } from '#controllers/api/get/getRestaurantByUidServerSide';
 import { getMenuByUidServerSide } from '#controllers/api/get/getMenuByUidServerSide';
@@ -32,10 +32,13 @@ interface Props {
 const RestaurantPage: NextPage<Props> = ({ restaurant, menu }) => {
 	const { isFallback } = useRouter();
 
-	const { items, cartRestaurantUid } = useSelector(({ cart: { items, restaurant: cartRestaurantUid } }: ReduxState) => ({
-		items,
-		cartRestaurantUid,
-	}));
+	const { items, cartRestaurantUid } = useSelector(
+		({ cart: { items, restaurant: cartRestaurantUid } }: ReduxState) => ({
+			items,
+			cartRestaurantUid,
+		}),
+		shallowEqual,
+	);
 
 	const { setRestaurantUidCart } = useCartActions();
 	const { setSelectedRestaurantApp } = useAppActions();

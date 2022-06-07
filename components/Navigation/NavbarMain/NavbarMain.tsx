@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 
 import styles from './NavbarMain.module.scss';
 
@@ -22,10 +22,13 @@ interface Props extends React.HTMLAttributes<HTMLElement> {}
 const Navbar: React.FC<Props> = ({ className, ...rest }) => {
 	const lang = getLang();
 
-	const { isLogged, items } = useSelector(({ auth: { isLogged }, cart: { items } }: ReduxState) => ({
-		isLogged,
-		items,
-	}));
+	const { isLogged, items } = useSelector(
+		({ auth: { isLogged }, cart: { items } }: ReduxState) => ({
+			isLogged,
+			items,
+		}),
+		shallowEqual,
+	);
 	const { logoutUserAuth } = useAuthActions();
 	// const { setLangApp } = useAppActions();
 

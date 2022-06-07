@@ -5,11 +5,11 @@ import styles from './ItemCard.module.scss';
 import { MenuItem } from '#firebase/declarations/interfaces';
 
 import { defaultItemPhoto } from '#utils/misc';
-import { useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 import { ReduxState } from '#declarations/types/Redux';
 import { MENU_ITEM_STATUS, RESTAURANT_STATUS } from '#firebase/declarations/enums';
 import { useCartActions } from '#redux/actions';
-import { getMenuItemStatus } from '#firebase/client-functions/get';
+// import { getMenuItemStatus } from '#firebase/client-functions/get';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
 	item: MenuItem;
@@ -25,6 +25,7 @@ const ItemCard: React.FC<Props> = ({ className, item, index, onItemNotAv, ...res
 			items,
 			restaurantUid,
 		}),
+		shallowEqual,
 	);
 
 	const { addItemCart, resetCart, setRestaurantUidCart } = useCartActions();

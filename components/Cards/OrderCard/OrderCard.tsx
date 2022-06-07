@@ -3,7 +3,7 @@ import { getLang } from '#controllers/getLang';
 import { firstToUpper } from 'react-code-snippets';
 import { ReduxState } from '#declarations/types/Redux';
 import { OrderSchema } from '#firebase/declarations/schemas';
-import { useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 
 import styles from './OrderCard.module.scss';
 import { ORDER_STATUS } from '#firebase/declarations/enums';
@@ -16,10 +16,13 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 const OrderCard: React.FC<Props> = ({ order, index, className, ...rest }) => {
 	const lang = getLang();
 
-	const { currency, restaurants } = useSelector(({ app: { currency, restaurants } }: ReduxState) => ({
-		currency,
-		restaurants,
-	}));
+	const { currency, restaurants } = useSelector(
+		({ app: { currency, restaurants } }: ReduxState) => ({
+			currency,
+			restaurants,
+		}),
+		shallowEqual,
+	);
 
 	const { uid, status, items, total, date, restaurant: restaurantUid } = order;
 	const orderDate = new Date(date);
