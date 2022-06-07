@@ -14,7 +14,9 @@ interface Props {}
 const Layout: React.FC<Props> = ({ children }) => {
 	const { loginUserAuth } = useAuthActions();
 	const { setOnAuthChangeSubApp } = useAppActions();
-	const unsubscribeOnAuthChange = useSelector(({ app }: ReduxState) => app.unsubscribeOnAuthChange);
+	const { unsubscribeOnAuthChange } = useSelector(({ app: { unsubscribeOnAuthChange } }: ReduxState) => ({
+		unsubscribeOnAuthChange,
+	}));
 
 	React.useEffect(() => {
 		subscribeOnAuthChange({ loginUserAuth, setOnAuthChangeSubApp });

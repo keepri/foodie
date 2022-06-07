@@ -25,9 +25,7 @@ const CartItem: React.FC<Props> = ({ className, index, item, compact, ...rest })
 	const { name, description, quantity, price, photo, info } = item;
 	const photoSize = 70;
 
-	const {
-		app: { currency },
-	} = useSelector(({ app }: ReduxState) => ({ app }));
+	const { currency } = useSelector(({ app: { currency } }: ReduxState) => ({ currency }));
 
 	const { updateItemCart, removeItemCart } = useCartActions();
 
@@ -51,10 +49,7 @@ const CartItem: React.FC<Props> = ({ className, index, item, compact, ...rest })
 	};
 
 	return (
-		<div
-			className={[styles['cart-item'], compact && styles['cart-item-compact'], className].join(' ')}
-			{...rest}
-		>
+		<div className={[styles['cart-item'], compact && styles['cart-item-compact'], className].join(' ')} {...rest}>
 			<Image
 				src={photo && photo !== '' ? photo : defaultItemPhoto}
 				width={photoSize}

@@ -32,9 +32,10 @@ interface Props {
 const RestaurantPage: NextPage<Props> = ({ restaurant, menu }) => {
 	const { isFallback } = useRouter();
 
-	const {
-		cart: { items, restaurant: cartRestaurantUid },
-	} = useSelector(({ cart }: ReduxState) => ({ cart }));
+	const { items, cartRestaurantUid } = useSelector(({ cart: { items, restaurant: cartRestaurantUid } }: ReduxState) => ({
+		items,
+		cartRestaurantUid,
+	}));
 
 	const { setRestaurantUidCart } = useCartActions();
 	const { setSelectedRestaurantApp } = useAppActions();

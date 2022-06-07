@@ -16,9 +16,10 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 const OrderCard: React.FC<Props> = ({ order, index, className, ...rest }) => {
 	const lang = getLang();
 
-	const {
-		app: { currency, restaurants },
-	} = useSelector(({ app }: ReduxState) => ({ app }));
+	const { currency, restaurants } = useSelector(({ app: { currency, restaurants } }: ReduxState) => ({
+		currency,
+		restaurants,
+	}));
 
 	const { uid, status, items, total, date, restaurant: restaurantUid } = order;
 	const orderDate = new Date(date);

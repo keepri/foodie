@@ -12,11 +12,13 @@ interface Props {}
 const SettingsHeader: React.FC<Props> = ({}) => {
 	const lang = getLang();
 
-	const {
-		app: {
-			settingsPage: { onRoute },
-		},
-	} = useSelector(({ app }: ReduxState) => ({ app }));
+	const { onRoute } = useSelector(
+		({
+			app: {
+				settingsPage: { onRoute },
+			},
+		}: ReduxState) => ({ onRoute }),
+	);
 
 	const settingsHeaderTitles = React.useRef({ [SETTINGS_ROUTES.ACCOUNT]: lang.accountTitle }).current;
 

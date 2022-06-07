@@ -9,11 +9,13 @@ import AccountInfo from '#components/AccountInfo/AccountInfo';
 interface Props {}
 
 const SettingsAccount: React.FC<Props> = ({}) => {
-	const {
-		app: {
-			settingsPage: { user },
-		},
-	} = useSelector(({ app }: ReduxState) => ({ app }));
+	const { user } = useSelector(
+		({
+			app: {
+				settingsPage: { user },
+			},
+		}: ReduxState) => ({ user }),
+	);
 
 	return (
 		<section className={styles['settings-account-container']}>

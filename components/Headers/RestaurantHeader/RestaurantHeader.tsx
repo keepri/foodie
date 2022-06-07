@@ -17,9 +17,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 const RestaurantHeader: React.FC<Props> = ({ className, restaurant, ...rest }) => {
 	const lang = getLang();
 
-	const {
-		app: { currency },
-	} = useSelector(({ app }: ReduxState) => ({ app }));
+	const { currency } = useSelector(({ app: { currency } }: ReduxState) => ({ currency }));
 
 	const {
 		status,
@@ -40,17 +38,13 @@ const RestaurantHeader: React.FC<Props> = ({ className, restaurant, ...rest }) =
 
 	return (
 		<div
-			className={[
-				styles['restaurant-header'],
-				!restaurantIsOpen && styles['restaurant-header-closed'],
-				className,
-			].join(' ')}
+			className={[styles['restaurant-header'], !restaurantIsOpen && styles['restaurant-header-closed'], className].join(
+				' ',
+			)}
 			{...rest}
 		>
 			{!restaurantIsOpen && (
-				<p className={styles['restaurant-header-closed-text']}>
-					{restaurantIsClosed ? lang.closed : lang.unavailable}
-				</p>
+				<p className={styles['restaurant-header-closed-text']}>{restaurantIsClosed ? lang.closed : lang.unavailable}</p>
 			)}
 
 			<Image

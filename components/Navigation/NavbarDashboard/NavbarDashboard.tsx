@@ -16,11 +16,13 @@ interface Props extends React.HTMLAttributes<HTMLElement> {
 const NavbarDashboard: React.FC<Props> = ({ className, compact }) => {
 	const lang = getLang();
 
-	const {
-		app: {
-			settingsPage: { onRoute },
-		},
-	} = useSelector(({ app }: ReduxState) => ({ app }));
+	const { onRoute } = useSelector(
+		({
+			app: {
+				settingsPage: { onRoute },
+			},
+		}: ReduxState) => ({ onRoute }),
+	);
 
 	const listItems = useRef([{ label: lang.account, href: URLS.SETTINGS_ACCOUNT }]).current;
 
@@ -30,8 +32,7 @@ const NavbarDashboard: React.FC<Props> = ({ className, compact }) => {
 				<ul className={styles.list}>
 					{listItems.map(({ label, href }, index) => {
 						const isActive =
-							(onRoute === SETTINGS_ROUTES.ACCOUNT && href === URLS.SETTINGS_ACCOUNT) ||
-							(onRoute && href.includes(onRoute));
+							(onRoute === SETTINGS_ROUTES.ACCOUNT && href === URLS.SETTINGS_ACCOUNT) || (onRoute && href.includes(onRoute));
 
 						if (isActive) {
 							return (

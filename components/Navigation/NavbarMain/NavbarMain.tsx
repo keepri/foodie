@@ -22,10 +22,10 @@ interface Props extends React.HTMLAttributes<HTMLElement> {}
 const Navbar: React.FC<Props> = ({ className, ...rest }) => {
 	const lang = getLang();
 
-	const {
-		auth: { isLogged },
-		cart: { items },
-	} = useSelector(({ auth, cart }: ReduxState) => ({ auth, cart }));
+	const { isLogged, items } = useSelector(({ auth: { isLogged }, cart: { items } }: ReduxState) => ({
+		isLogged,
+		items,
+	}));
 	const { logoutUserAuth } = useAuthActions();
 	// const { setLangApp } = useAppActions();
 

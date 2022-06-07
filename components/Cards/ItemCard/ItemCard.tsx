@@ -18,10 +18,14 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const ItemCard: React.FC<Props> = ({ className, item, index, onItemNotAv, ...rest }) => {
-	const {
-		app: { currency, selectedRestaurant },
-		cart: { items, restaurant: restaurantUid },
-	} = useSelector(({ app, cart }: ReduxState) => ({ app, cart }));
+	const { currency, selectedRestaurant, items, restaurantUid } = useSelector(
+		({ app: { currency, selectedRestaurant }, cart: { items, restaurant: restaurantUid } }: ReduxState) => ({
+			currency,
+			selectedRestaurant,
+			items,
+			restaurantUid,
+		}),
+	);
 
 	const { addItemCart, resetCart, setRestaurantUidCart } = useCartActions();
 
@@ -72,15 +76,7 @@ const ItemCard: React.FC<Props> = ({ className, item, index, onItemNotAv, ...res
 
 			addItemCart(item, 1);
 		},
-		[
-			item,
-			itemIsInCart,
-			itemIsUnavailable,
-			restaurantIsOpen,
-			restaurantUid,
-			selectedRestaurant?.uid,
-			onItemNotAv,
-		],
+		[item, itemIsInCart, itemIsUnavailable, restaurantIsOpen, restaurantUid, selectedRestaurant?.uid, onItemNotAv],
 	);
 
 	return (
@@ -122,13 +118,7 @@ const ItemCard: React.FC<Props> = ({ className, item, index, onItemNotAv, ...res
 						{price} {currency}
 					</p>
 					{!itemIsInCart && restaurantIsOpen && !itemIsUnavailable && (
-						<Image
-							width={15}
-							height={15}
-							src={'/images/icons/plus-svg.svg'}
-							alt='add'
-							onMouseUp={e => handleAddToCart(e)}
-						/>
+						<Image width={15} height={15} src={'/images/icons/plus-svg.svg'} alt='add' onMouseUp={e => handleAddToCart(e)} />
 					)}
 				</div>
 			</div>

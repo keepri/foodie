@@ -33,14 +33,16 @@ const Cart: React.FC<Props> = ({ className, page, onNoItems, onOrderSuccess, onO
 	const lang = getLang();
 	const { push } = useRouter();
 
-	const {
-		cart: { items, total, info, restaurant },
-		auth: {
-			isLogged,
-			user: { orders },
-		},
-		app: { currency },
-	} = useSelector(({ cart, auth, app }: ReduxState) => ({ cart, auth, app }));
+	const { items, total, info, restaurant, isLogged, orders, currency } = useSelector(
+		({
+			cart: { items, total, info, restaurant },
+			auth: {
+				isLogged,
+				user: { orders },
+			},
+			app: { currency },
+		}: ReduxState) => ({ items, total, info, restaurant, isLogged, orders, currency }),
+	);
 
 	const { updateCart, resetCart } = useCartActions();
 	const { updateUserAuth } = useAuthActions();

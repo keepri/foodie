@@ -6,7 +6,7 @@ import { Lang } from '#utils/languages';
 export { getLang };
 
 const getLang = () => {
-	const appLang = useSelector(({ app: { appLang } }: ReduxState) => appLang);
+	const { appLang } = useSelector(({ app: { appLang } }: ReduxState) => ({ appLang }));
 	const { lang } = new Lang(appLang);
 
 	return lang;
