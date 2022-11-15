@@ -1,9 +1,8 @@
 import '#firebase/initClientApp';
-import '#styles/reset.scss';
 import '#styles/globals.scss';
 import '#styles/mediaQueries.scss';
+import '#styles/reset.scss';
 
-import React from 'react';
 import { Provider } from 'react-redux';
 
 import type { AppProps } from 'next/app';
@@ -13,8 +12,8 @@ import axios from 'axios';
 
 // import { baseUrl } from '#utils/misc';
 
-import Layout from '#modules/Layout/Layout';
 import Head from '#components/Layout/Head';
+import Layout from '#modules/Layout/Layout';
 
 // axios.defaults.baseURL = baseUrl;
 axios.defaults.withCredentials = true;

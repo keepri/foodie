@@ -2,7 +2,6 @@ import { LS } from '#declarations/enums/LocalStorage';
 import { CartActionType } from '#declarations/enums/Redux';
 import { CartState } from '#declarations/interfaces/Redux';
 import { CartAction } from '#declarations/types/Redux';
-
 import { initCartState } from '#utils/misc';
 
 const localSavedCart =
@@ -53,12 +52,7 @@ export const cartReducer = (
 				const itemQuantity = items[index].quantity;
 
 				// set new cart total
-				state.total =
-					'quantity' in update && update.quantity
-						? update.quantity < itemQuantity
-							? state.total - items[index].price
-							: state.total + items[index].price
-						: state.total;
+				state.total = update.quantity < itemQuantity ? state.total - items[index].price : state.total + items[index].price;
 			}
 
 			// update the item
@@ -84,9 +78,7 @@ export const cartReducer = (
 			const cartState = { ...state, items, total };
 
 			typeof localStorage !== 'undefined' &&
-				(items.length
-					? localStorage.setItem(LS.CART, JSON.stringify(cartState))
-					: localStorage.removeItem(LS.CART));
+				(items.length ? localStorage.setItem(LS.CART, JSON.stringify(cartState)) : localStorage.removeItem(LS.CART));
 
 			return cartState;
 		}
