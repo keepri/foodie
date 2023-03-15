@@ -6,12 +6,12 @@ import { defaultCookieOptions } from '#utils/misc';
 export { isSameUser };
 
 const isSameUser = async (req: NextApiRequest, res: NextApiResponse, tokenUid: string) => {
-	const uid = req.body?.uid;
+    const uid = req.body?.uid;
 
-	if (uid !== tokenUid) {
-		destroyCookie({ res }, COOKIE_NAMES.TOKEN, defaultCookieOptions);
-		// res.status(401).json({ message: MESSAGES.UNAUTHORIZED_TOKEN });
+    if (uid !== tokenUid) {
+        destroyCookie({ res }, COOKIE_NAMES.TOKEN, defaultCookieOptions);
+        // res.status(401).json({ message: MESSAGES.UNAUTHORIZED_TOKEN });
 
-		throw Error(MESSAGES.UNAUTHORIZED_TOKEN);
-	}
+        throw Error(MESSAGES.UNAUTHORIZED_TOKEN);
+    }
 };
